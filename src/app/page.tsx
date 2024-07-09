@@ -9,7 +9,7 @@ import 'swiper/css/scrollbar';
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="">
       <Swiper
         scrollbar={{
           hide: true,
@@ -17,19 +17,21 @@ export default function Home() {
         modules={[Scrollbar]}
         className="mySwiper"
       >
-        <SwiperSlide>
+        <SwiperSlide className="flex justify-center items-center">
           <Image
             src="/images/Legend-BLACK.png"
-            width={100}
-            height={100}
+            width={1000}
+            height={1000}
+            className='h-[400px] w-[400px]'
             alt=""
           />
         </SwiperSlide>
         <SwiperSlide>
           <Image
             src="/images/Legend-BLACK.png"
-            width={100}
-            height={100}
+            width={1000}
+            height={1000}
+            className='h-[400px] w-[400px]'
             alt=""
           />
         </SwiperSlide>
