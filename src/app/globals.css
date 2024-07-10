@@ -95,6 +95,6 @@
 .swiper-slide img {
   display: block;
   max-width: 100%;
-  height: auto;
+  /* height: auto; */
   /* object-fit: cover; */
 }
