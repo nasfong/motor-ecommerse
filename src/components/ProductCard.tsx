@@ -96,7 +96,7 @@ const ProductCard = ({ item }: Props) => {
           src={item.image}
           width={1000}
           height={1000}
-          className='h-auto w-auto object-cover transition-all hover:scale-105 aspect-square'
+          className='h-auto min-w-[200px] object-cover transition-all hover:scale-105 aspect-square'
           // fill
           alt=''
         />

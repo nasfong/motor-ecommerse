@@ -102,34 +102,18 @@ const groupeList = list.reduce<GroupedItems>((acc, item) => {
 }, {});
 
 const AllProductPage = () => {
+
   return (
     <div className='flex flex-col gap-5'>
-      <Carousel className="w-full max-w-xs">
-        <CarouselContent>
-          {Array.from({ length: 5 }).map((_, index) => (
-            <CarouselItem key={index}>
-              <div className="p-1">
-                <Card>
-                  <CardContent className="flex aspect-square items-center justify-center p-6">
-                    <span className="text-4xl font-semibold">{index + 1}</span>
-                  </CardContent>
-                </Card>
-              </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
-      </Carousel>
       {Object.entries(groupeList).map(([key, value]) => {
-        const [carouselRef, api] = useEmblaCarousel()
+        const [carouselRef, api] = useEmblaCarousel({ loop: false })
         return (
           <div key={key} className='flex flex-col gap-2'>
             <h2 className="scroll-m-20 text-2xl font-semibold tracking-tight transition-colors border-b">
               {key}
             </h2>
-            <div ref={carouselRef}>
-              <div className='flex'>
+            <div ref={carouselRef} className="overflow-hidden">
+              <div className='flex gap-3'>
                 {value.map((item, index) => index < 10 ? (
                   <ProductCard item={item} key={index} />
                 ) : null)}
