@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import React from 'react'
-import useEmblaCarousel from 'embla-carousel-react';
 
 type Props = {
   item: { image: string; name: string }
@@ -90,9 +89,8 @@ const list = [
 ]
 
 const ProductCard = ({ item }: Props) => {
-  const [carouselRef, api] = useEmblaCarousel()
   return (
-    <div ref={carouselRef}>
+    <div>
       <div className="overflow-hidden rounded-md">
         <Image
           src={item.image}
