@@ -10,7 +10,7 @@ const Tabs = () => {
   const search = searchParams.get('type')
 
   const onTab = (name: string) => {
-    replace(`?type=${name}`);
+    replace(`?type=${name}`, { scroll: false });
   }
   return (
     <div className="flex gap-1">

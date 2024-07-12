@@ -53,7 +53,7 @@ export default function Home() {
     <main className="flex flex-col gap-5">
       <Slider />
       <Tabs />
-      <div className='grid grid-cols-5 gap-3'>
+      <div className='grid grid-flow-row gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'>
         {list.map((item, index) => (
           <ProductCard item={item} key={index} />
         ))}
