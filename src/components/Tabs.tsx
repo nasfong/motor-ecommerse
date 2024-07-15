@@ -4,7 +4,11 @@ import { useRouter, useSearchParams } from "next/navigation"
 
 const motorType = ['All', 'Suzuki', 'Honda', 'Toyota', 'Dream']
 
-const Tabs = () => {
+type Props = {
+  data: { name: string }[]
+}
+
+const Tabs = ({ data }: Props) => {
   const { replace } = useRouter();
   const searchParams = useSearchParams()
   const search = searchParams.get('type')
@@ -14,7 +18,16 @@ const Tabs = () => {
   }
   return (
     <div className="flex gap-1">
-      {motorType.map((name, index) => (
+      <button
+        className={cn(
+          `flex h-7 items-center justify-center rounded-full px-4 text-center text-sm transition-colors hover:text-primary text-muted-foreground`,
+          { 'bg-muted font-medium text-primary': search === '' || search === null }
+        )}
+        onClick={() => onTab('')}
+      >
+        All
+      </button>
+      {data.map(({ name }, index) => (
         <button
           key={index}
           className={cn(

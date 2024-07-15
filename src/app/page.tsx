@@ -5,56 +5,30 @@ import Slider from "@/components/Slider";
 import ProductCard from "@/components/ProductCard";
 import Link from "next/link";
 
+async function getData(): Promise<{ products: Products; types: Type[] }> {
+  const [productRes, typeRes] = await Promise.all([
+    fetch('http://localhost:5000/api/product'),
+    fetch('http://localhost:5000/api/type'),
+  ]);
 
-export default function Home() {
-  const list = [
-    {
-      image: '/images/placeholder.svg',
-      name: 'Dream 2024',
-      type: 'Honda',
-    },
-    {
-      image: '/images/placeholder.svg',
-      name: 'Scoopy 2024',
-      type: 'Honda',
-    },
-    {
-      image: '/images/placeholder.svg',
-      name: 'MSX 2020',
-      type: 'Honda',
-    },
-    {
-      image: '/images/placeholder.svg',
-      name: 'Wave 2015',
-      type: 'Honda',
-    },
-    {
-      image: '/images/placeholder.svg',
-      name: 'Dream 2024',
-      type: 'Honda',
-    },
-    {
-      image: '/images/placeholder.svg',
-      name: 'Scoopy 2024',
-      type: 'Honda',
-    },
-    {
-      image: '/images/placeholder.svg',
-      name: 'MSX 2020',
-      type: 'Honda',
-    },
-    {
-      image: '/images/placeholder.svg',
-      name: 'Wave 2015',
-      type: 'Honda',
-    },
-  ]
+  if (!productRes.ok || !typeRes.ok) {
+    throw new Error('Failed to fetch data');
+  }
+
+  const products = await productRes.json();
+  const types = await typeRes.json();
+
+  return { products, types };
+}
+export default async function HomePage() {
+  const { products, types } = await getData()
+
   return (
     <main className="flex flex-col gap-5">
       <Slider />
-      <Tabs />
+      <Tabs data={types} />
       <div className='grid grid-flow-row gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'>
-        {list.map((item, index) => (
+        {products?.data.map((item, index) => (
           <ProductCard item={item} key={index} />
         ))}
       </div>

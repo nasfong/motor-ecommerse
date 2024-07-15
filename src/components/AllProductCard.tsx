@@ -115,11 +115,12 @@ const AllProductCard = memo(({ parent, child }: Props) => {
     if (!listenForScrollRef.current) return
     const lastSlide = emblaApi.slideNodes().length - 1
     const lastSlideInView = emblaApi.slidesInView().includes(lastSlide)
-    console.log(lastSlideInView)
-    if (lastSlideInView) {
-      setTimeout(() => {
 
-      }, 1000);
+    const loadMore = !loadingMore && lastSlideInView
+    // console.log(loadMore)
+    if (loadMore) {
+      listenForScrollRef.current = false
+
       mockApiCall(1000, 2000, () => {
         setSlides((currentSlides) => {
           if (currentSlides.length === 20) {
@@ -132,43 +133,30 @@ const AllProductCard = memo(({ parent, child }: Props) => {
       })
     }
 
-    // setLoadingMore((loadingMore) => {
-    //   const loadMore = !loadingMore && lastSlideInView
-    //   if (loadMore) {
-    //     listenForScrollRef.current = false
+    setLoadingMore((loadingMore) => {
 
-    //     mockApiCall(1000, 2000, () => {
-    //       setSlides((currentSlides) => {
-    //         if (currentSlides.length === 20) {
-    //           setHasMoreToLoad(false)
-    //           emblaApi.off('scroll', scrollListenerRef.current)
-    //           return currentSlides
-    //         }
-    //         const newSlideCount = currentSlides.length + 5
-    //         return [...currentSlides, ...moreData]
-    //       })
-    //     })
-    //   }
-
-    //   return loadingMore || lastSlideInView
-    // })
+      return !loadingMore && lastSlideInView
+    })
   }, [])
-  console.log(slides)
+  // console.log(slides)
+
   const addScrollListener = useCallback(
     (emblaApi: EmblaCarouselType) => {
-      scrollListenerRef.current = () => onScroll(emblaApi)
+      scrollListenerRef.current = () => {
+        if (!loadingMore) onScroll(emblaApi)
+      }
       emblaApi.on('scroll', scrollListenerRef.current)
     },
-    [onScroll]
+    [onScroll, loadingMore]
   )
 
   useEffect(() => {
     if (!emblaApi) return
     addScrollListener(emblaApi)
 
-    const onResize = () => emblaApi.reInit()
-    window.addEventListener('resize', onResize)
-    emblaApi.on('destroy', () => window.removeEventListener('resize', onResize))
+    // const onResize = () => emblaApi.reInit()
+    // window.addEventListener('resize', onResize)
+    // emblaApi.on('destroy', () => window.removeEventListener('resize', onResize))
   }, [emblaApi, addScrollListener])
 
   useEffect(() => {
@@ -182,13 +170,13 @@ const AllProductCard = memo(({ parent, child }: Props) => {
       </h2>
       <div ref={emblaRef} className="overflow-hidden">
         <div className='flex gap-3'>
-          {slides.map((item, index) => index < 10 ? (
+          {slides.map((item, index) => (
             <ProductCard
               item={item}
-              className='min-w-[200px]'
+              className='h-[300px] w-[300px]'
               key={index}
             />
-          ) : null)}
+          ))}
           {hasMoreToLoad && loadingMore && (
             <div
               className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"

@@ -18,11 +18,11 @@ const navbar = [
   },
   {
     name: 'Contact',
-    path: 'contact',
+    path: '/contact',
   },
   {
     name: 'About',
-    path: 'about',
+    path: '/about',
   },
 ]
 
