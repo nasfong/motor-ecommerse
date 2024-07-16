@@ -2,10 +2,8 @@
 import { cn } from "@/lib/utils"
 import { useRouter, useSearchParams } from "next/navigation"
 
-const motorType = ['All', 'Suzuki', 'Honda', 'Toyota', 'Dream']
-
 type Props = {
-  data: { name: string }[]
+  data: Type[]
 }
 
 const Tabs = ({ data }: Props) => {
@@ -27,14 +25,14 @@ const Tabs = ({ data }: Props) => {
       >
         All
       </button>
-      {data.map(({ name }, index) => (
+      {data.map(({ _id, name }, index) => (
         <button
           key={index}
           className={cn(
             `flex h-7 items-center justify-center rounded-full px-4 text-center text-sm transition-colors hover:text-primary text-muted-foreground`,
-            { 'bg-muted font-medium text-primary': search ? name === search : name === 'All' }
+            { 'bg-muted font-medium text-primary': search ? _id === search : _id === 'All' }
           )}
-          onClick={() => onTab(name)}
+          onClick={() => onTab(_id)}
         >
           {name}
         </button>

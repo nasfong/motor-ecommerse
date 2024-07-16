@@ -1,138 +1,63 @@
 'use client'
-import { memo, MutableRefObject, useCallback, useEffect, useRef, useState } from 'react'
-import useEmblaCarousel from 'embla-carousel-react';
-import { EmblaCarouselType, EmblaOptionsType, EngineType } from 'embla-carousel';
+import { memo, MutableRefObject, useCallback, useRef, useState } from 'react'
 import ProductCard from './ProductCard';
+import ScrollProduct from './ScrollProduct';
+import { mutate } from 'swr';
 import { Skeleton } from './ui/skeleton';
-import { Loader2 } from 'lucide-react';
-
-const options: EmblaOptionsType = {
-  dragFree: true,
-  containScroll: 'keepSnaps',
-  watchSlides: false,
-  watchResize: false,
-  loop: false
-}
 
 type Props = {
   parent: string
-  child: {
-    image: string;
-    name: string;
-    type: string;
-  }[]
+  child: Product[]
 }
 
-const moreData = [
-  {
-    image: '/images/placeholder.svg',
-    name: 'Wave 2050',
-    type: 'Honda',
-  },
-  {
-    image: '/images/placeholder.svg',
-    name: 'Dream 20241',
-    type: 'Honda',
-  },
-  {
-    image: '/images/placeholder.svg',
-    name: 'Scoopy 20242',
-    type: 'Honda',
-  },
-  {
-    image: '/images/placeholder.svg',
-    name: 'MSX 2025',
-    type: 'Honda',
-  },
-  {
-    image: '/images/placeholder.svg',
-    name: 'Wave 2012',
-    type: 'Honda',
-  },
-]
+const fetcher = (...args: Parameters<typeof fetch>) => fetch(...args).then((res) => res.json())
 
 const AllProductCard = memo(({ parent, child }: Props) => {
+
   const observer = useRef(null) as MutableRefObject<IntersectionObserver | null>
   const [loading, setLoading] = useState(false)
+  const [page, setPage] = useState(2)
+  const [stopPage, setStopPage] = useState(false)
   const [slides, setSlides] = useState(child)
 
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    ...options,
-    watchSlides: (emblaApi) => {
-      const reloadEmbla = (): void => {
-        const oldEngine = emblaApi.internalEngine()
-
-        emblaApi.reInit()
-        const newEngine = emblaApi.internalEngine()
-        const copyEngineModules: (keyof EngineType)[] = [
-          'location',
-          'target',
-          'scrollBody'
-        ]
-        copyEngineModules.forEach((engineModule) => {
-          Object.assign(newEngine[engineModule], oldEngine[engineModule])
-        })
-
-        newEngine.translate.to(oldEngine.location.get())
-        const { index } = newEngine.scrollTarget.byDistance(0, false)
-        newEngine.index.set(index)
-        newEngine.animation.start()
-      }
-
-      const reloadAfterPointerUp = (): void => {
-        emblaApi.off('pointerUp', reloadAfterPointerUp)
-        reloadEmbla()
-      }
-
-      const engine = emblaApi.internalEngine()
-
-      if (engine.dragHandler.pointerDown()) {
-        const boundsActive = engine.limit.reachedMax(engine.target.get())
-        engine.scrollBounds.toggleActive(boundsActive)
-        emblaApi.on('pointerUp', reloadAfterPointerUp)
-      } else {
-        reloadEmbla()
-      }
-    }
-  })
-
   const pageRef = useCallback((node: HTMLElement) => {
-    if (loading) return
+    if (loading || stopPage) return
     if (observer.current) observer.current.disconnect()
     observer.current = new IntersectionObserver(async (entries) => {
       if (entries[0].isIntersecting) {
         setLoading(true)
-        setTimeout(() => {
+        mutate('select-data', fetcher(`http://localhost:5000/api/product?limit=5&type=6694eaa97b8fec1d8a2883f3&page=${page}`)).then(res => {
           setLoading(false)
-          // setSlides(prev => [...prev, ...moreData])
-        }, 3000)
+          setPage(prev => prev + 1)
+          setStopPage(res.data?.length < 5)
+          setSlides(prev => [...prev, ...res.data])
+        })
       }
     })
     if (node) observer.current?.observe(node)
-  }, [loading])
-  // console.log(slides)
+  }, [loading, stopPage])
+
   return (
-    <div className='flex flex-col gap-2'>
+    <div className='flex flex-col gap-5'>
       <h2 className="scroll-m-20 text-2xl font-semibold tracking-tight transition-colors border-b">
         {parent}
       </h2>
-      <div className="overflow-hidden" ref={emblaRef}>
-        <div className='flex gap-3'>
-          {slides.map((item, index) => (
-            <ProductCard
-              item={item}
-              className='h-[200px] w-[300px]'
-              key={index}
-              pageRef={slides.length > 5 && slides.length === index + 1 ? pageRef : null}
-            />
-          ))}
-          {loading && (
-            <div className='flex items-center'>
-              <Loader2 className="h-10 w-10 animate-spin" color="#000" />
-            </div>
-          )}
-        </div>
-      </div>
+      <ScrollProduct>
+        {slides.map((item, index) => (
+          <ProductCard
+            item={item}
+            className='h-[200px] w-[300px]'
+            key={index}
+            pageRef={slides.length >= 5 && slides.length === index + 1 ? pageRef : null}
+            delay={slides.length <= 5 ? index / 4 : 0}
+          />
+        ))}
+        {loading && (
+          <div className='flex items-center'>
+            <Skeleton className='h-[200px] w-[300px] rounded-lg' />
+          </div>
+        )}
+      </ScrollProduct>
     </div>
   )
 })
