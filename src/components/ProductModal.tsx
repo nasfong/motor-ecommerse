@@ -1,4 +1,4 @@
-import { PlusCircle } from "lucide-react"
+import { PlusCircle, Trash2 } from "lucide-react"
 import { Button } from "./ui/button"
 import { useForm } from "react-hook-form"
 import { z } from 'zod'
@@ -8,15 +8,13 @@ import { toast } from "sonner"
 import { Form } from "./ui/form"
 import { InputForm } from "./form/InputForm"
 import { SelectForm } from "./form/SelectForm"
-import { memo } from "react"
+import { memo, useState } from "react"
 
 const formSchema = z.object({
-  model: z.string().nonempty({ message: 'Model is required!' }),
+  name: z.string().nonempty({ message: 'Model is required!' }),
   price: z.string().nonempty({ message: 'Price is required!' }),
   type: z.string().nonempty({ message: 'Type is required!' }),
-  color: z.string().nonempty({ message: 'Color is required!' }),
-  motorNumber: z.string().optional(),
-  machineNumber: z.string().optional(),
+  status: z.number().optional(),
 })
 
 type Props = {
@@ -27,8 +25,9 @@ type Props = {
 }
 
 const ProductModal = memo(({ open, setOpen, formValue, setFormValue }: Props) => {
+  const [imagePreview, setImagePreview] = useState<any>(null)
   const defaultValues = {
-    model: "",
+    name: "",
     price: "",
     type: "",
     color: "",
@@ -49,6 +48,19 @@ const ProductModal = memo(({ open, setOpen, formValue, setFormValue }: Props) =>
     }
   }
 
+  const handleChangeImage = (e: any) => {
+    let files = e.target.files || e.dataTransfer.files
+    if (!files.length) return
+
+    const file = files[0]
+
+    const reader = new FileReader()
+    reader.onloadend = function (e) {
+      setImagePreview(e.target?.result)
+    }
+    reader.readAsDataURL(file)
+  }
+
   const onSubmit = (data: z.infer<typeof formSchema>) => {
     console.log(data)
     toast("Event has been created", {
@@ -61,35 +73,33 @@ const ProductModal = memo(({ open, setOpen, formValue, setFormValue }: Props) =>
 
   }
   return (
-    <div>
-      <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogTrigger asChild>
-          <Button size="sm" className="h-8 gap-1" onClick={() => onOpenChange(true)}>
-            <PlusCircle className="h-3.5 w-3.5" />
-            <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-              Add Product
-            </span>
-          </Button>
-        </DialogTrigger>
-        <DialogContent className="min-w-[60%]">
-          <DialogHeader>
-            <DialogTitle>{!formValue?.id ? 'Create' : 'Edit'} Product</DialogTitle>
-            <DialogDescription>
-              product information form.
-            </DialogDescription>
-          </DialogHeader>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-3">
-              <div
-                className="relative flex flex-col text-gray-400 border border-gray-200 border-dashed rounded cursor-pointer"
-              >
-                <input
-                  accept="*"
-                  type="file"
-                  multiple
-                  className="absolute inset-0 z-50 w-full h-full p-0 m-0 outline-none opacity-0 cursor-pointer"
-                  // onChange={addFiles}
-                />
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogTrigger asChild>
+        <Button size="sm" className="h-8 gap-1" onClick={() => onOpenChange(true)}>
+          <PlusCircle className="h-3.5 w-3.5" />
+          <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+            Add Product
+          </span>
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="min-w-[60%]">
+        <DialogHeader>
+          <DialogTitle>{!formValue?.id ? 'Create' : 'Edit'} Product</DialogTitle>
+          <DialogDescription>
+            product information form.
+          </DialogDescription>
+        </DialogHeader>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-3">
+            <div className="relative flex flex-col text-gray-400 border border-gray-200 border-dashed rounded cursor-pointer">
+              <input
+                accept="*"
+                type="file"
+                multiple={false}
+                className="absolute inset-0 z-50 w-full h-full p-0 m-0 outline-none opacity-0 cursor-pointer"
+                onChange={handleChangeImage}
+              />
+              {!imagePreview ? (
                 <div className="flex flex-col items-center justify-center py-10 text-center">
                   <svg
                     className="w-6 h-6 mr-1 text-current-50"
@@ -107,41 +117,51 @@ const ProductModal = memo(({ open, setOpen, formValue, setFormValue }: Props) =>
                   </svg>
                   <p className="m-0">Drag your files here or click in this area.</p>
                 </div>
-              </div>
+              ) : (
+                <div className="flex flex-col items-center justify-center py-36 text-center">
+                  <img className="absolute inset-0 z-0 object-cover w-full h-full border-4 border-white preview" src={imagePreview} alt="Preview" />
+                  <div className="absolute -top-4 -right-4">
+                    <Button size='icon' variant='outline' className="rounded-full" onChange={() => setImagePreview(null)} type="button">
+                      <Trash2 />
+                    </Button>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <InputForm
+              form={form}
+              name="name"
+              placeholder="name"
+              label="Model"
+            />
+            <div className="grid grid-cols-2 gap-3">
               <InputForm
                 form={form}
-                name="model"
-                placeholder="model"
-                label="Model"
+                name="price"
+                placeholder="price"
+                label="Price"
               />
-              <div className="grid grid-cols-3 gap-3">
-                <InputForm
-                  form={form}
-                  name="price"
-                  placeholder="price"
-                  label="Price"
-                />
-                <SelectForm
-                  form={form}
-                  name="type"
-                  placeholder="Select a type"
-                  label="Type"
-                  options={[
-                    { id: "1", name: "Dream" },
-                    { id: "2", name: "Scoopy" },
-                    { id: "3", name: "Suzuki" },
-                  ]}
-                  loading={true}
-                />
-              </div>
-              <DialogFooter className="mt-3">
-                <Button type="submit">Save changes</Button>
-              </DialogFooter>
-            </form>
-          </Form>
-        </DialogContent>
-      </Dialog>
-    </div>
+              <SelectForm
+                form={form}
+                name="type"
+                placeholder="Select a type"
+                label="Type"
+                options={[
+                  { id: "1", name: "Dream" },
+                  { id: "2", name: "Scoopy" },
+                  { id: "3", name: "Suzuki" },
+                ]}
+                loading={true}
+              />
+            </div>
+            <DialogFooter className="mt-3">
+              <Button type="submit">Save changes</Button>
+            </DialogFooter>
+          </form>
+        </Form>
+      </DialogContent>
+    </Dialog>
   )
 })
 
