@@ -4,6 +4,9 @@ import ProductCard from './ProductCard';
 import ScrollProduct from './ScrollProduct';
 import { mutate } from 'swr';
 import { Skeleton } from './ui/skeleton';
+import { CirclePlus } from 'lucide-react';
+import { Button } from './ui/button';
+import ProductModal from './ProductModal';
 
 type Props = {
   parent: string
@@ -20,18 +23,21 @@ const AllProductCard = memo(({ parent, child }: Props) => {
   const [stopPage, setStopPage] = useState(false)
   const [slides, setSlides] = useState(child)
 
+  const [open, setOpen] = useState(false)
+  const [formValue, setFormValue] = useState(null)
+
   const pageRef = useCallback((node: HTMLElement) => {
     if (loading || stopPage) return
     if (observer.current) observer.current.disconnect()
     observer.current = new IntersectionObserver(async (entries) => {
       if (entries[0].isIntersecting) {
         setLoading(true)
-        mutate('select-data', fetcher(`http://localhost:5000/api/product?limit=5&type=6694eaa97b8fec1d8a2883f3&page=${page}`)).then(res => {
-          setLoading(false)
-          setPage(prev => prev + 1)
-          setStopPage(res.data?.length < 5)
-          setSlides(prev => [...prev, ...res.data])
-        })
+        // mutate('select-data', fetcher(`http://localhost:5000/api/product?limit=5&type=6694eaa97b8fec1d8a2883f3&page=${page}`)).then(res => {
+        //   setLoading(false)
+        //   setPage(prev => prev + 1)
+        //   setStopPage(res.data?.length < 5)
+        //   setSlides(prev => [...prev, ...res.data])
+        // })
       }
     })
     if (node) observer.current?.observe(node)
@@ -39,9 +45,17 @@ const AllProductCard = memo(({ parent, child }: Props) => {
 
   return (
     <div className='flex flex-col gap-5'>
-      <h2 className="scroll-m-20 text-2xl font-semibold tracking-tight transition-colors border-b">
-        {parent}
-      </h2>
+      <div className='flex justify-between border-b'>
+        <h2 className="scroll-m-20 text-2xl font-semibold tracking-tight transition-colors">
+          {parent}
+        </h2>
+        <ProductModal
+          open={open}
+          setOpen={setOpen}
+          formValue={formValue}
+          setFormValue={setFormValue}
+        />
+      </div>
       <ScrollProduct>
         {slides.map((item, index) => (
           <ProductCard

@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import Tabs from "@/components/Tabs";
 import Slider from "@/components/Slider";
-import ProductCard from "@/components/ProductCard";
 import Link from "next/link";
 import ProductList from "@/components/ProductList";
 
