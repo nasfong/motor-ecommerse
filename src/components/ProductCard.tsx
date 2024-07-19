@@ -15,19 +15,19 @@ type Props = {
 const ProductCard = ({ item, className, pageRef, delay }: Props) => {
   return (
     <FramerWrapper y={0} scale={0.8} delay={delay} duration={0.15}>
-      <Link className='relative inline-block h-full w-full' ref={pageRef} href={`/all-product/${item._id}`} onClick={() =>console.log('click')}>
+      <Link className='relative inline-block h-full w-full' ref={pageRef} href={`/all-product/${item._id}`} onClick={() => console.log('click')}>
         <div className={cn("group flex h-full w-full items-center justify-center overflow-hidden rounded-lg border bg-white hover:border-blue-600 dark:bg-black relative border-neutral-200 dark:border-neutral-800", className)}>
           <Image
-            src={item.image}
+            src={item.image[0]}
             width={1000}
             height={1000}
             className='relative h-full w-full object-contain transition duration-300 ease-in-out group-hover:scale-105'
-            alt={item.image}
+            alt={item.image[0]}
             priority
           />
         </div>
         <div className='absolute top-2 right-2'>
-          {item.status === 1 ? (
+          {item.isSold === 1 ? (
             <Badge variant="secondary">New</Badge>
           ) : (
             <Badge variant="secondary">Secondary</Badge>

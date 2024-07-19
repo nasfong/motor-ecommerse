@@ -19,11 +19,11 @@ export default async function Page({ params }: { params: { id: string } }) {
       <div className='flex flex-col rounded-lg border border-neutral-200 bg-white p-8 md:p-12 lg:flex-row lg:gap-8 dark:border-neutral-800 dark:bg-black'>
         <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden">
           <Image
-            src={data.image}
+            src={data.image[0]}
             width={1000}
             height={1000}
             className='h-full w-full object-contain'
-            alt={data.image}
+            alt={data.image[0]}
             sizes="(min-width: 1024px) 66vw, 100vw"
             priority
           />
@@ -36,12 +36,12 @@ export default async function Page({ params }: { params: { id: string } }) {
             </div>
           </div>
           <div className='flex flex-col gap-2 mb-5'>
-            {data.status === 1 ? (
+            {data.isSold === 1 ? (
               <Badge variant="outline">New</Badge>
             ) : (
               <Badge variant="outline">Secondary</Badge>
             )}
-            {data.status === 1 ? (
+            {data.isSold === 1 ? (
               <Badge variant="outline" className='bg-green-50'>In Stock</Badge>
             ) : (
               <Badge variant="outline" className='bg-red-50'>Sold Out</Badge>

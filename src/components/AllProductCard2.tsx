@@ -24,7 +24,7 @@ const AllProductCard = memo(({ parent, child }: Props) => {
   const [slides, setSlides] = useState(child)
 
   const [open, setOpen] = useState(false)
-  const [formValue, setFormValue] = useState(null)
+  const [formValue, setFormValue] = useState<Product | null>(null)
 
   const pageRef = useCallback((node: HTMLElement) => {
     if (loading || stopPage) return

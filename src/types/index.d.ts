@@ -1,10 +1,15 @@
+
+
 type Product = {
-  _id: string
+  _id?: string
+  image: string[]
   name: string
-  image: string
   price: string
-  status: 1 | 2
+  description: string
   type: Type
+  isNews: boolean;
+  isSold: 1 | 2;
+  recommend: boolean;
 }
 
 type Products = {
