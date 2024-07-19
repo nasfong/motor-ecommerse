@@ -1,4 +1,4 @@
-import { PlusCircle } from "lucide-react"
+import { PlusCircle, Trash2 } from "lucide-react"
 import { Button } from "./ui/button"
 import { useForm } from "react-hook-form"
 import { z } from 'zod'
@@ -34,7 +34,7 @@ type Props = {
 
 const ProductModal = memo(({ open, setOpen, formValue, setFormValue }: Props) => {
 
-  const mutation = useMutation
+  // const mutation = useMutation
 
   const defaultValues = {
     image: [],
@@ -58,6 +58,20 @@ const ProductModal = memo(({ open, setOpen, formValue, setFormValue }: Props) =>
       setFormValue(defaultValues)
     }
   }
+
+  const handleChangeImage = (e: any) => {
+    let files = e.target.files || e.dataTransfer.files
+    if (!files.length) return
+
+    const file = files[0]
+
+    const reader = new FileReader()
+    reader.onloadend = function (e) {
+      setImagePreview(e.target?.result)
+    }
+    reader.readAsDataURL(file)
+  }
+
   const onSubmit = (data: z.infer<typeof formSchema>) => {
     const formData = new FormData();
     if (data.image && data.image.length > 0) {
@@ -119,34 +133,26 @@ const ProductModal = memo(({ open, setOpen, formValue, setFormValue }: Props) =>
                 placeholder="name"
                 label="Model"
               />
-              <div className="grid grid-cols-3 gap-3">
-                <InputForm
-                  form={form}
-                  name="price"
-                  placeholder="price"
-                  label="Price"
-                />
-                <SelectForm
-                  form={form}
-                  name="type"
-                  placeholder="Select a type"
-                  label="Type"
-                  options={[
-                    { id: "1", name: "Dream" },
-                    { id: "2", name: "Scoopy" },
-                    { id: "3", name: "Suzuki" },
-                  ]}
-                  loading={true}
-                />
-              </div>
-              <DialogFooter className="mt-3">
-                <Button type="submit">Save changes</Button>
-              </DialogFooter>
-            </form>
-          </Form>
-        </DialogContent>
-      </Dialog>
-    </div>
+              <SelectForm
+                form={form}
+                name="type"
+                placeholder="Select a type"
+                label="Type"
+                options={[
+                  { id: "1", name: "Dream" },
+                  { id: "2", name: "Scoopy" },
+                  { id: "3", name: "Suzuki" },
+                ]}
+                loading={true}
+              />
+            </div>
+            <DialogFooter className="mt-3">
+              <Button type="submit">Save changes</Button>
+            </DialogFooter>
+          </form>
+        </Form>
+      </DialogContent>
+    </Dialog>
   )
 })
 
