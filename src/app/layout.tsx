@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import NextTopLoader from 'nextjs-toploader'
 import Navbar from "@/components/Navbar";
+import Provider from "./_provider";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -46,7 +47,9 @@ export default function RootLayout({
             speed={200}
             shadow="0 0 10px #2299DD,0 0 5px #2299DD"
           />
-          {children}
+          <Provider>
+            {children}
+          </Provider>
         </main>
       </body>
     </html>

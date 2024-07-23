@@ -15,7 +15,7 @@ type Props = {
 
 const fetcher = (...args: Parameters<typeof fetch>) => fetch(...args).then((res) => res.json())
 
-const AllProductCard = memo(({ parent, child }: Props) => {
+const AllProductCard = ({ parent, child }: Props) => {
 
   const observer = useRef(null) as MutableRefObject<IntersectionObserver | null>
   const [loading, setLoading] = useState(false)
@@ -43,6 +43,12 @@ const AllProductCard = memo(({ parent, child }: Props) => {
     if (node) observer.current?.observe(node)
   }, [loading, stopPage])
 
+  const handleEdit = (item: Product) => {
+    setFormValue(item)
+    setOpen(true)
+  }
+
+
   return (
     <div className='flex flex-col gap-5'>
       <div className='flex justify-between border-b'>
@@ -64,6 +70,7 @@ const AllProductCard = memo(({ parent, child }: Props) => {
             key={index}
             pageRef={slides.length >= 5 && slides.length === index + 1 ? pageRef : null}
             delay={slides.length <= 5 ? index / 4 : 0}
+            handleEdit={handleEdit}
           />
         ))}
         {loading && (
@@ -74,7 +81,7 @@ const AllProductCard = memo(({ parent, child }: Props) => {
       </ScrollProduct>
     </div>
   )
-})
+}
 
 export default AllProductCard
 
