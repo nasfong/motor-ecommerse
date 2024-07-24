@@ -60,13 +60,7 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue, refetch }: Props
           }).then(() => {
             onChangeModal(false)
             refetch()
-            toast("Product has been updated", {
-              description: JSON.stringify(data, null, 2),
-              action: {
-                label: "Undo",
-                onClick: () => console.log("Undo"),
-              },
-            })
+            toast.success("Product has been updated")
           })
       } else {
         // create
@@ -74,6 +68,10 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue, refetch }: Props
           headers: {
             'Content-Type': 'multipart/form-data',
           }
+        }).then(() => {
+          onChangeModal(false)
+          refetch()
+          toast.success("Product has been created")
         })
       }
     }

@@ -19,7 +19,7 @@ const fetcher = (...args: Parameters<typeof fetch>) => fetch(...args).then((res)
 
 const AllProductPage = () => {
 
-  const { data, error, refetch } = useQuery<Products>({
+  const { data, isLoading, isFetching, error, refetch } = useQuery<Products>({
     queryKey: ['/product'],
     queryFn: () =>
       axios.get('http://localhost:5000/api/product').then((res) =>
@@ -30,12 +30,12 @@ const AllProductPage = () => {
 
   return (
     <div className='flex flex-col gap-5 w-full'>
-      {data?.data ?
-        // list
-        Object.entries(groupList(data.data)).map(([key, value]) => <AllProductCard2 parent={key} child={value} key={key} refetch={refetch} />)
-        :
+      {isLoading || isFetching ?
         // loading
         Array.from({ length: 2 }).map((_, index) => <AllProductLoading key={index} />)
+        :
+        // list
+        data?.data && Object.entries(groupList(data.data)).map(([key, value]) => <AllProductCard2 parent={key} child={value} key={key} refetch={refetch} />)
       }
     </div>
   )

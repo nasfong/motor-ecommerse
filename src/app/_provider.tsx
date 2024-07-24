@@ -7,7 +7,7 @@ export default function Provider({ children }: { children: ReactNode }) {
   const queryClient = new QueryClient()
   return (
     <QueryClientProvider client={queryClient}>
-      <Toaster />
+      <Toaster richColors />
       {children}
     </QueryClientProvider>
   )
