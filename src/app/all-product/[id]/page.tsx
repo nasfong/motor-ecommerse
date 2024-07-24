@@ -52,7 +52,7 @@ export default async function Page({ params }: { params: { id: string } }) {
       </div>
       <div className="py-8">
         <h2 className="mb-4 text-2xl font-bold">Related Products</h2>
-        <RelationProduct typeId={data.type._id} />
+        <RelationProduct typeId={data.type.id} />
       </div>
     </div>
   )

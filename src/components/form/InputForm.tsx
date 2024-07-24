@@ -18,7 +18,7 @@ export const InputForm = forwardRef<HTMLDivElement, any>(({ form, name, label, d
         <FormItem>
           <FormLabel>{label}</FormLabel>
           <FormControl>
-            <Input {...field} {...props} ref={ref} />
+            <Input {...field} {...props} ref={ref} onChange={event => field.onChange(props.type === 'number' ? parseFloat(event.target.value) : event.target.value)} />
           </FormControl>
           {!!description && (
             <FormDescription>

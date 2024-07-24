@@ -11,11 +11,12 @@ import ProductModal from './ProductModal';
 type Props = {
   parent: string
   child: Product[]
+  refetch: any
 }
 
 const fetcher = (...args: Parameters<typeof fetch>) => fetch(...args).then((res) => res.json())
 
-const AllProductCard = ({ parent, child }: Props) => {
+const AllProductCard = ({ parent, child,refetch }: Props) => {
 
   const observer = useRef(null) as MutableRefObject<IntersectionObserver | null>
   const [loading, setLoading] = useState(false)
@@ -60,9 +61,10 @@ const AllProductCard = ({ parent, child }: Props) => {
           setOpen={setOpen}
           formValue={formValue}
           setFormValue={setFormValue}
+          refetch={refetch}
         />
       </div>
-      <ScrollProduct>
+      {/* <ScrollProduct> */}
         {slides.map((item, index) => (
           <ProductCard
             item={item}
@@ -78,7 +80,7 @@ const AllProductCard = ({ parent, child }: Props) => {
             <Skeleton className='h-[200px] w-[300px] rounded-lg' />
           </div>
         )}
-      </ScrollProduct>
+      {/* </ScrollProduct> */}
     </div>
   )
 }

@@ -19,7 +19,7 @@ const ProductCard = ({ item, className, pageRef, delay, handleEdit }: Props) => 
   return (
     <FramerWrapper y={0} scale={0.8} delay={delay} duration={0.15}>
       <div className='relative inline-block h-full w-full'>
-        <Link ref={pageRef} href={`/all-product/${item._id}`} onClick={() => console.log('click')}>
+        <Link ref={pageRef} href={`/all-product/${item.id}`} onClick={() => console.log('click')}>
           <div className={cn("group flex h-full w-full items-center justify-center overflow-hidden rounded-lg border bg-white hover:border-blue-600 dark:bg-black relative border-neutral-200 dark:border-neutral-800", className)}>
             <Image
               src={item.image[0]}

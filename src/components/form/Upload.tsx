@@ -11,15 +11,14 @@ interface FileDnDProps {
 interface UploadProps {
   form: any;
   name: string;
-  images: any
-  setImages: any
 }
 
-const Upload: React.FC<UploadProps> = ({ form, name, images, setImages }) => {
+const Upload: React.FC<UploadProps> = ({ form, name }) => {
   const [files, setFiles] = useState<File[]>([]);
   const [fileDragging, setFileDragging] = useState<number | null>(null);
   const [fileDropping, setFileDropping] = useState<number | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [images, setImages] = useState<string[]>(form.getValues('image'))
 
   const humanFileSize = (size: number): string => {
     const i = Math.floor(Math.log(size) / Math.log(1024));
@@ -36,12 +35,16 @@ const Upload: React.FC<UploadProps> = ({ form, name, images, setImages }) => {
     setFiles(newFiles);
     form.setValue(name, newFiles);
   };
+  const removePreviewImage = (index: number) => {
+    const updatedImages = [...images];
 
-  const removePreviewImage = useCallback((index: number) => {
-    const image = [...images]
-    image.splice(index, 1)
-    setImages(image)
-  }, [images, setImages])
+    const removedImage = updatedImages.splice(index, 1);
+
+    setImages(updatedImages);
+
+    const currentRemovedImages = form.getValues('removeImages') || [];
+    form.setValue('removeImages', [...currentRemovedImages, ...removedImage]);
+  }
 
   const handleDrop = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();

@@ -32,10 +32,11 @@ export default function RootLayout({
         )}
       >
         {/* <header className="sticky top-0 flex h-16 items-center gap-4 border-b px-4 md:px-6 z-50 border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"> */}
+
         <header className="flex h-16 items-center gap-4 px-4 md:px-6">
           <Navbar />
         </header>
-        <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
+        <Provider>
           <NextTopLoader
             color="#2299DD"
             initialPosition={0.08}
@@ -47,10 +48,10 @@ export default function RootLayout({
             speed={200}
             shadow="0 0 10px #2299DD,0 0 5px #2299DD"
           />
-          <Provider>
+          <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
             {children}
-          </Provider>
-        </main>
+          </main>
+        </Provider>
       </body>
     </html>
   );

@@ -1,10 +1,10 @@
 
 
 type Product = {
-  _id?: string
+  id?: string
   image: string[]
   name: string
-  price: string
+  price: number
   description: string
   type: Type
   isNews: boolean;
@@ -19,6 +19,6 @@ type Products = {
 }
 
 type Type = {
-  _id: string
+  id: string
   name: string
 }
