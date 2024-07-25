@@ -9,17 +9,17 @@ import { toast } from "sonner"
 import { Form } from "./ui/form"
 import { InputForm } from "./form/InputForm"
 import { SelectForm } from "./form/SelectForm"
-import { memo, useEffect, useState } from "react"
+import { useEffect } from "react"
 import Upload from "./form/Upload"
-import { InputFileForm } from "./form/InputFileForm"
-import { useMutation } from "@tanstack/react-query"
+import { useQueryClient } from "@tanstack/react-query"
 import axios from 'axios'
 import { CheckboxForm } from "./form/CheckboxForm"
+import { useSubmitProduct } from "@/hook"
 
 const formSchema = z.object({
   image: z.any().optional(),
   name: z.string({ message: "required!" }),
-  price: z.number().optional(),
+  price: z.number({ message: "required!" }),
   description: z.string().optional(),
   type: z.string().nonempty("required!"),
   isNews: z.boolean().default(false),
@@ -34,11 +34,9 @@ type Props = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
   formValue: Product | null
   setFormValue: any
-  refetch: any
 }
 
-const ProductModal = ({ open, setOpen, formValue, setFormValue, refetch }: Props) => {
-
+const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
   const onChangeModal = (isOpen: boolean) => {
     setOpen(isOpen)
     if (!isOpen) {
@@ -48,35 +46,9 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue, refetch }: Props
     }
   }
 
-  const mutation = useMutation({
-    mutationFn: (data: any): Promise<any> => {
-      if (formValue?.id) {
-        // update
-        return axios
-          .put(`http://localhost:5000/api/product/${formValue.id}`, data, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            }
-          }).then(() => {
-            onChangeModal(false)
-            refetch()
-            toast.success("Product has been updated")
-          })
-      } else {
-        // create
-        return axios.post(`http://localhost:5000/api/product`, data, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          }
-        }).then(() => {
-          onChangeModal(false)
-          refetch()
-          toast.success("Product has been created")
-        })
-      }
-    }
-  })
+  const productMutation = useSubmitProduct(formValue?.id)
 
+  // default value
   const defaultValues = {
     image: [],
     name: "",
@@ -89,12 +61,13 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue, refetch }: Props
     removeImages: [],
     star: 0,
   }
+  // hook form
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: defaultValues
   })
 
-
+  // handle submit
   const onSubmit = (data: z.infer<typeof formSchema>) => {
     const formData = new FormData();
     if (data.image && data.image.length > 0) {
@@ -103,7 +76,7 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue, refetch }: Props
       }
     }
     formData.append('name', data.name);
-    if (data?.price) formData.append('price', data.price.toString());
+    formData.append('price', data.price.toString());
     formData.append('description', data.description || '');
     formData.append('type', data.type);
     formData.append('isNews', data.isNews.toString());
@@ -111,9 +84,13 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue, refetch }: Props
     formData.append('recommend', data.recommend.toString());
     formData.append('removeImages', JSON.stringify(data.removeImages));
 
-    mutation.mutate(formData)
+    productMutation.mutateAsync(formData)
+      .finally(() => {
+        onChangeModal(false)
+      })
   }
 
+  // get edit
   useEffect(() => {
     if (formValue) {
       form.reset({

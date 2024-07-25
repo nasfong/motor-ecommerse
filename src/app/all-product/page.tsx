@@ -7,25 +7,25 @@ import useSWR from 'swr'
 
 const groupList = (list: any[]) => {
   return list.reduce<{ [key: string]: typeof list }>((acc, item) => {
-    if (!acc[item.type.name]) {
-      acc[item.type.name] = [];
+    if (!acc[item.type?.name]) {
+      acc[item.type?.name] = [];
     }
-    acc[item.type.name].push(item);
+    acc[item.type?.name].push(item);
     return acc;
   }, {})
 }
 
-const fetcher = (...args: Parameters<typeof fetch>) => fetch(...args).then((res) => res.json())
+const useProducts = () => {
+  return useQuery<Products>({
+    queryKey: ['product'],
+    queryFn: () =>
+      axios.get('http://localhost:5000/api/product').then((res) => res.data),
+  });
+};
 
 const AllProductPage = () => {
 
-  const { data, isLoading, isFetching, error, refetch } = useQuery<Products>({
-    queryKey: ['/product'],
-    queryFn: () =>
-      axios.get('http://localhost:5000/api/product').then((res) =>
-        res.data,
-      ),
-  })
+  const { data, isLoading, isFetching, error } = useProducts()
   if (error) return <div>Failed to load</div>
 
   return (
@@ -35,7 +35,7 @@ const AllProductPage = () => {
         Array.from({ length: 2 }).map((_, index) => <AllProductLoading key={index} />)
         :
         // list
-        data?.data && Object.entries(groupList(data.data)).map(([key, value]) => <AllProductCard2 parent={key} child={value} key={key} refetch={refetch} />)
+        data?.data && Object.entries(groupList(data.data)).map(([key, value]) => <AllProductCard2 parent={key} child={value} key={key} />)
       }
     </div>
   )

@@ -16,7 +16,7 @@ export default async function HomePage() {
 
   return (
     <main className="flex flex-col gap-5">
-      <Slider />
+      {/* <Slider /> */}
       <Tabs data={data} />
       <ProductList />
       <div className='text-center'>

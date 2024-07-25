@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils';
+import { cn, formatMoney } from '@/lib/utils';
 import Image from 'next/image'
 import React from 'react'
 import { Badge } from './ui/badge';
@@ -6,6 +6,7 @@ import FramerWrapper from './FramerWrapper';
 import Link from 'next/link';
 import { Button } from './ui/button';
 import { Pencil, Trash2 } from 'lucide-react';
+import { DeleteButton } from './DeleteButton';
 
 type Props = {
   item: Product,
@@ -13,9 +14,10 @@ type Props = {
   pageRef?: any
   delay?: number
   handleEdit?: any
+  handleDelete?: any
 }
 
-const ProductCard = ({ item, className, pageRef, delay, handleEdit }: Props) => {
+const ProductCard = ({ item, className, pageRef, delay, handleEdit, handleDelete }: Props) => {
   return (
     <FramerWrapper y={0} scale={0.8} delay={delay} duration={0.15}>
       <div className='relative inline-block h-full w-full'>
@@ -31,7 +33,7 @@ const ProductCard = ({ item, className, pageRef, delay, handleEdit }: Props) => 
             />
           </div>
           <div className='absolute top-2 right-2'>
-            {item.isSold === 1 ? (
+            {item.isNews ? (
               <Badge variant="secondary">New</Badge>
             ) : (
               <Badge variant="secondary">Secondary</Badge>
@@ -43,7 +45,7 @@ const ProductCard = ({ item, className, pageRef, delay, handleEdit }: Props) => 
                 {item.name}
               </h3>
               <p className="flex-none rounded-full bg-blue-600 p-2 text-white">
-                $150.00
+                {formatMoney(item.price)}
                 <span className="ml-1 inline @[275px]/label:inline">USD</span>
               </p>
             </div>
@@ -55,9 +57,9 @@ const ProductCard = ({ item, className, pageRef, delay, handleEdit }: Props) => 
               <Pencil className="h-4 w-4" />
             </Button>
           )}
-          <Button size='sm' variant='outline'>
-            <Trash2 className="h-4 w-4" />
-          </Button>
+          {handleDelete && (
+            <DeleteButton handleConfirm={() => handleDelete(item.id)} />
+          )}
         </div>
       </div>
     </FramerWrapper>

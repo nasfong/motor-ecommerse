@@ -1,3 +1,5 @@
+import ProductImageGallery from "@/components/ProductImageGallery"
+import { Ratings } from "@/components/Rating"
 import RelationProduct from "@/components/RelationProduct"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -13,27 +15,17 @@ async function getData(id: string): Promise<Product> {
 
 export default async function Page({ params }: { params: { id: string } }) {
   const data = await getData(params.id)
-
   return (
     <div>
       <div className='flex flex-col rounded-lg border border-neutral-200 bg-white p-8 md:p-12 lg:flex-row lg:gap-8 dark:border-neutral-800 dark:bg-black'>
-        <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden">
-          <Image
-            src={data.image[0]}
-            width={1000}
-            height={1000}
-            className='h-full w-full object-contain'
-            alt={data.image[0]}
-            sizes="(min-width: 1024px) 66vw, 100vw"
-            priority
-          />
+        <div className="relative  h-full w-full overflow-hidden">
+          <ProductImageGallery images={data.image} />
         </div>
         <div className="basis-full lg:basis-2/6">
           <div className="mb-6 flex flex-col border-b pb-6 dark:border-neutral-700">
             <h1 className="mb-2 text-5xl font-medium text-nowrap">{data.name}</h1>
-            <div className="mr-auto w-auto rounded-full bg-blue-600 p-2 text-sm text-white">
-              <p>$20.00<span className="ml-1 inline">USD</span></p>
-            </div>
+            <Ratings rating={4} variant="yellow" />
+            <p>$20.00<span className="ml-1 inline">USD</span></p>
           </div>
           <div className='flex flex-col gap-2 mb-5'>
             {data.isSold === 1 ? (
@@ -47,7 +39,7 @@ export default async function Page({ params }: { params: { id: string } }) {
               <Badge variant="outline" className='bg-red-50'>Sold Out</Badge>
             )}
           </div>
-          <Button className="rounded-full w-full">Contact</Button>
+          <Button className="w-full">Add to cart</Button>
         </div>
       </div>
       <div className="py-8">
