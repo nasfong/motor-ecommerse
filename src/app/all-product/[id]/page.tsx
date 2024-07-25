@@ -3,6 +3,7 @@ import { Ratings } from "@/components/Rating"
 import RelationProduct from "@/components/RelationProduct"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import Container from "@/components/ui/Container"
 import Image from "next/image"
 
 async function getData(id: string): Promise<Product> {
@@ -16,7 +17,7 @@ async function getData(id: string): Promise<Product> {
 export default async function Page({ params }: { params: { id: string } }) {
   const data = await getData(params.id)
   return (
-    <div>
+    <Container className="">
       <div className='flex flex-col rounded-lg border border-neutral-200 bg-white p-8 md:p-12 lg:flex-row lg:gap-8 dark:border-neutral-800 dark:bg-black'>
         <div className="relative  h-full w-full overflow-hidden">
           <ProductImageGallery images={data.image} />
@@ -46,6 +47,6 @@ export default async function Page({ params }: { params: { id: string } }) {
         <h2 className="mb-4 text-2xl font-bold">Related Products</h2>
         <RelationProduct typeId={data.type.id} />
       </div>
-    </div>
+    </Container>
   )
 }
