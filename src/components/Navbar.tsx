@@ -1,11 +1,14 @@
 "use client"
 import Link from 'next/link'
-import { Menu, Package2, Search } from 'lucide-react'
+import { Menu, Package2, Search, ShoppingCart } from 'lucide-react'
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import dynamic from 'next/dynamic';
+import { useGlobalContext } from '@/lib/context';
+const CartCount = dynamic(() => import('./CartCount'), { ssr: false })
 
 const navbar = [
   {
@@ -28,6 +31,8 @@ const navbar = [
 
 const Navbar = () => {
   const pathname = usePathname()
+  const { dispatch } = useGlobalContext()
+  const onOpenSidebar = () => dispatch({ type: 'OPEN_SIDEBAR' })
   return (
     <>
       <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
@@ -42,12 +47,12 @@ const Navbar = () => {
           const active = item.path === pathname
           return (
             <Link
+              key={index}
               href={item.path}
               className={cn(
                 `text-muted-foreground transition-colors hover:text-foreground whitespace-nowrap`,
                 { 'text-foreground': active }
               )}
-              key={index}
             >
               {item.name}
             </Link>
@@ -68,43 +73,31 @@ const Navbar = () => {
         <SheetContent side="left">
           <nav className="grid gap-6 text-lg font-medium">
             <Link
-              href="#"
+              href="/"
               className="flex items-center gap-2 text-lg font-semibold"
             >
               <Package2 className="h-6 w-6" />
               <span className="sr-only">Acme Inc</span>
             </Link>
-            <Link href="#" className="hover:text-foreground">
-              Dashboard
-            </Link>
-            <Link
-              href="#"
-              className="text-muted-foreground hover:text-foreground"
-            >
-              Orders
-            </Link>
-            <Link
-              href="#"
-              className="text-muted-foreground hover:text-foreground"
-            >
-              Products
-            </Link>
-            <Link
-              href="#"
-              className="text-muted-foreground hover:text-foreground"
-            >
-              Customers
-            </Link>
-            <Link
-              href="#"
-              className="text-muted-foreground hover:text-foreground"
-            >
-              Analytics
-            </Link>
+            {navbar.map((item, index) => {
+              const active = item.path === pathname
+              return (
+                <Link
+                  key={index}
+                  href={item.path}
+                  className={cn(
+                    `text-muted-foreground transition-colors hover:text-foreground whitespace-nowrap`,
+                    { 'text-foreground': active }
+                  )}
+                >
+                  {item.name}
+                </Link>
+              )
+            })}
           </nav>
         </SheetContent>
       </Sheet>
-      <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
+      {/* <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
         <form className="ml-auto flex-1 sm:flex-initial">
           <div className="relative">
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
@@ -115,7 +108,11 @@ const Navbar = () => {
             />
           </div>
         </form>
-      </div>
+      </div> */}
+      <Button size="icon" variant="outline" className='relative ml-auto' onClick={onOpenSidebar}>
+        <ShoppingCart />
+        <CartCount />
+      </Button>
     </>
   )
 }

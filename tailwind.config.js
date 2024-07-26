@@ -40,6 +40,10 @@ module.exports = {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
         },
+        'light-destructive': {
+          DEFAULT: "hsl(#FFCDD2)",
+          foreground: "hsl(#FFCDD2)",
+        },
         muted: {
           DEFAULT: "hsl(var(--muted))",
           foreground: "hsl(var(--muted-foreground))",

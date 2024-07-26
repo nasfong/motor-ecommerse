@@ -36,7 +36,10 @@ export function DeleteButton({ handleConfirm }: any) {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel onClick={() => setOpen(false)}>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={handleConfirm}>Continue</AlertDialogAction>
+          <AlertDialogAction onClick={handleConfirm}>
+            Delete
+            <Trash2 className="ml-2 h-4 w-4" />
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

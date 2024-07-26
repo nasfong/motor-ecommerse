@@ -1,12 +1,35 @@
 'use client'
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { toast } from "sonner";
+
+export const useQueryType = () => {
+  return useQuery<Type>({
+    queryKey: ['type'],
+    queryFn: () =>
+      axios.get('http://localhost:5000/api/type')
+        .then((res) => res.data)
+        .catch(
+          (error) => {
+            const errorMessage = error.response?.data?.message || error.message || "An error occurred";
+            toast.error(`Error deleting product: ${errorMessage}`);
+          }
+        ),
+  });
+}
+
+export const useQueryProduct = (id: string) => {
+  return useQuery<Product>({
+    queryKey: ['product', id],
+    queryFn: () =>
+      axios.get(`http://localhost:5000/api/product/${id}`).then((res) => res.data),
+  });
+}
 
 export const useDeleteProduct = () => {
   const queryClient = useQueryClient();
 
-  return useMutation<void, unknown, string>({
+  return useMutation<string>({
     mutationFn: (id) => {
       return axios.delete(`http://localhost:5000/api/product/${id}`);
     },

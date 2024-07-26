@@ -9,10 +9,11 @@ export default function Provider({ children }: { children: ReactNode }) {
       queries: {
         refetchOnWindowFocus: false,
         refetchOnMount: false,
+        // staleTime: 6 * 1000,
+        // refetchInterval: 6 * 1000,
       },
     },
   })
-  
   return (
     <QueryClientProvider client={queryClient}>
       <Toaster richColors closeButton />

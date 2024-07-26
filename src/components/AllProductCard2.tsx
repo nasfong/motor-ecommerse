@@ -8,6 +8,8 @@ import ProductCard from './ProductCard';
 // import { Button } from './ui/button';
 import ProductModal from './ProductModal';
 import { useDeleteProduct } from '@/hook';
+import { PlusCircle } from 'lucide-react';
+import { Button } from './ui/button';
 
 type Props = {
   parent: string
@@ -59,12 +61,20 @@ const AllProductCard = ({ parent, child }: Props) => {
         <h2 className="scroll-m-20 text-2xl font-semibold tracking-tight transition-colors">
           {parent}
         </h2>
-        <ProductModal
-          open={open}
-          setOpen={setOpen}
-          formValue={formValue}
-          setFormValue={setFormValue}
-        />
+        <Button size="sm" className="h-8 gap-1" onClick={() => setOpen(true)}>
+          <PlusCircle className="h-3.5 w-3.5" />
+          <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+            Add Product
+          </span>
+        </Button>
+        {open && (
+          <ProductModal
+            open={open}
+            setOpen={setOpen}
+            formValue={formValue}
+            setFormValue={setFormValue}
+          />
+        )}
       </div>
       {/* <ScrollProduct> */}
       <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4" >

@@ -18,8 +18,8 @@ const Tabs = ({ data }: Props) => {
     <div className="flex gap-1">
       <button
         className={cn(
-          `flex h-7 items-center justify-center rounded-full px-4 text-center text-sm transition-colors hover:text-primary text-muted-foreground`,
-          { 'bg-muted font-medium text-primary': search === '' || search === null }
+          `flex h-7 items-center justify-center rounded-full px-4 text-center text-sm transition-colors hover:text-destructive text-muted-foreground`,
+          { 'font-medium text-destructive': search === '' || search === null }
         )}
         onClick={() => onTab('')}
       >
@@ -29,8 +29,8 @@ const Tabs = ({ data }: Props) => {
         <button
           key={index}
           className={cn(
-            `flex h-7 items-center justify-center rounded-full px-4 text-center text-sm transition-colors hover:text-primary text-muted-foreground`,
-            { 'bg-muted font-medium text-primary': search ? id === search : id === 'All' }
+            `flex h-7 items-center justify-center rounded-full px-4 text-center text-sm transition-colors hover:text-destructive text-muted-foreground`,
+            { 'font-medium text-destructive': search ? id === search : id === 'All' }
           )}
           onClick={() => onTab(id)}
         >

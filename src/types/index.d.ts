@@ -1,7 +1,7 @@
 
 
 type Product = {
-  id?: string
+  id: string
   image: string[]
   name: string
   price: number

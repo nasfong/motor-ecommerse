@@ -5,16 +5,14 @@ import { useForm } from "react-hook-form"
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog"
-import { toast } from "sonner"
 import { Form } from "./ui/form"
 import { InputForm } from "./form/InputForm"
 import { SelectForm } from "./form/SelectForm"
 import { useEffect } from "react"
 import Upload from "./form/Upload"
-import { useQueryClient } from "@tanstack/react-query"
-import axios from 'axios'
 import { CheckboxForm } from "./form/CheckboxForm"
-import { useSubmitProduct } from "@/hook"
+import { useQueryType, useSubmitProduct } from "@/hook"
+import { Constant } from "@/lib/constant"
 
 const formSchema = z.object({
   image: z.any().optional(),
@@ -46,6 +44,7 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
     }
   }
 
+  const { data: typeData, isLoading: typeLoading } = useQueryType()
   const productMutation = useSubmitProduct(formValue?.id)
 
   // default value
@@ -54,7 +53,7 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
     name: "",
     price: 0,
     description: "",
-    type: "6694ea40c237f7d96d391824",
+    type: "",
     isNews: true,
     isSold: 1,
     recommend: false,
@@ -107,15 +106,11 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
     }
   }, [formValue])
 
+
   return (
     <Dialog open={open} onOpenChange={onChangeModal}>
       <DialogTrigger asChild>
-        <Button size="sm" className="h-8 gap-1" onClick={() => onChangeModal(true)}>
-          <PlusCircle className="h-3.5 w-3.5" />
-          <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-            Add Product
-          </span>
-        </Button>
+        
       </DialogTrigger>
       <DialogContent className="min-w-[60%]">
         <DialogHeader>
@@ -157,23 +152,15 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
                 name="type"
                 placeholder="Select a type"
                 label="Model"
-                options={[
-                  { id: "6694ea40c237f7d96d391824", name: "Dream" },
-                  { id: "2", name: "Scoopy" },
-                  { id: "3", name: "Suzuki" },
-                ]}
-                loading={true}
+                options={typeData}
+                loading={typeLoading}
               />
               <SelectForm
                 form={form}
                 name="isSold"
                 placeholder="Select a Stock"
                 label="Stock"
-                options={[
-                  { id: 1, name: "In Stock" },
-                  { id: 2, name: "Out Stock" },
-                ]}
-                loading={true}
+                options={Constant.stocks}
               />
             </div>
             <CheckboxForm

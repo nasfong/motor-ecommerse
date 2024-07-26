@@ -133,10 +133,6 @@ const Upload: React.FC<UploadProps> = ({ form, name }) => {
                 </svg>
               </button>
               <img className="absolute inset-0 z-0 object-cover w-full h-full border-4 border-white preview" src={image} alt={image + 'edit'} />
-              <div className="absolute bottom-0 left-0 right-0 flex flex-col p-2 text-xs bg-white bg-opacity-50">
-                {/* <span className="w-full font-bold text-gray-900 truncate">{file.name}</span>
-                  <span className="text-xs text-gray-900">{humanFileSize(file.size)}</span> */}
-              </div>
               <div className={`absolute inset-0 z-40 transition-colors duration-300 ${fileDropping === index && fileDragging !== index ? 'bg-blue-200 bg-opacity-80' : ''}`} />
             </div>
           ))}
