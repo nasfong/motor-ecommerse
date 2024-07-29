@@ -1,4 +1,5 @@
 'use client'
+import { useGlobalContext } from "@/lib/context";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { toast } from "sonner";
@@ -29,7 +30,7 @@ export const useQueryProduct = (id: string) => {
 export const useDeleteProduct = () => {
   const queryClient = useQueryClient();
 
-  return useMutation<string>({
+  return useMutation<string, void, unknown>({
     mutationFn: (id) => {
       return axios.delete(`http://localhost:5000/api/product/${id}`);
     },
@@ -76,7 +77,19 @@ export const useSubmitProduct = (id?: string) => {
 }
 
 export const useMutationLogin = () => {
+  const { dispatch } = useGlobalContext()
   return useMutation({
-    mutationFn: async (formData: LoginMutation) => axios.post('/login', formData)
+    mutationFn: (data: Login): Promise<string> => {
+      return axios.post('http://localhost:5000/api/login', data).then(resp => resp.data.token)
+    },
+    onSuccess: (token) => {
+      dispatch({ type: 'LOGIN', payload: token })
+      toast.success("Login Successfully!")
+      // router.push('/')
+    },
+    onError: (error: any) => {
+      const errorMessage = error.response?.data?.message || error.message || "An error occurred";
+      toast.error(`Error Login: ${errorMessage}`);
+    },
   })
 }

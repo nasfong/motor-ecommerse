@@ -9,6 +9,7 @@ import { SheetCard } from '@/components/SheetCard';
 interface MyContextState {
   carts: Product[];
   sidebar: boolean
+  token: string | null
 }
 
 // Define the shape of your actions
@@ -17,6 +18,8 @@ type Action =
   | { type: 'REMOVE_CART', payload: string }
   | { type: 'OPEN_SIDEBAR' }
   | { type: 'CLOSE_SIDEBAR' }
+  | { type: 'LOGIN', payload: string }
+  | { type: 'LOGOUT' }
 
 // Create the context with an undefined default state
 const GlobalContext = createContext<
@@ -26,7 +29,8 @@ const GlobalContext = createContext<
 // Define the initial state
 const initialState: MyContextState = {
   carts: Cookies.get('carts') ? JSON.parse(Cookies.get('carts')!) : [],
-  sidebar: false
+  sidebar: false,
+  token: localStorage.getItem('token'),
 };
 
 // Define the reducer function
@@ -44,6 +48,13 @@ const reducer = (state: MyContextState, action: Action): MyContextState => {
       return { ...state, sidebar: true };
     case 'CLOSE_SIDEBAR':
       return { ...state, sidebar: false };
+    case 'LOGIN':
+      const token = action.payload
+      localStorage.setItem('token', token)
+      return { ...state, token: token };
+    case 'LOGOUT':
+      localStorage.removeItem('token')
+      return { ...state, token: null };
     default:
       const exhaustiveCheck = action as Action;
       throw new Error(`Unhandled action type: ${exhaustiveCheck.type}`);

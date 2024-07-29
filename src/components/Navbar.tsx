@@ -32,19 +32,24 @@ const navbar = [
 
 const Navbar = () => {
   const pathname = usePathname()
-  const { dispatch } = useGlobalContext()
+  const { dispatch, state: { token: isAuth } } = useGlobalContext()
   const onOpenSidebar = () => dispatch({ type: 'OPEN_SIDEBAR' })
+
+  const onLogout = () => {
+    dispatch({ type: 'LOGOUT' })
+  }
+  
   return (
     <>
       <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
         <RightClickLogin>
-          <Link
-            href="#"
-            className="flex items-center gap-2 text-lg font-semibold md:text-base"
-          >
-            <Package2 className="h-6 w-6" />
-            <span className="sr-only">Acme Inc</span>
-          </Link>
+          {isAuth ? (
+            <div onClick={onLogout}>Logout</div>
+          ) : (
+            <Link href="/login">
+              Login
+            </Link>
+          )}
         </RightClickLogin>
         {navbar.map((item, index) => {
           const active = item.path === pathname

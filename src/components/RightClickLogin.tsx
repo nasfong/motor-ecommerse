@@ -5,6 +5,7 @@ import {
   ContextMenuShortcut,
   ContextMenuTrigger,
 } from "@/components/ui/context-menu"
+import { Package2 } from "lucide-react"
 import Link from "next/link"
 
 export function RightClickLogin({
@@ -13,13 +14,17 @@ export function RightClickLogin({
   return (
     <ContextMenu>
       <ContextMenuTrigger className="">
-        {children}
+        <Link
+          href="#"
+          className="flex items-center gap-2 text-lg font-semibold md:text-base"
+        >
+          <Package2 className="h-6 w-6" />
+          <span className="sr-only">Acme Inc</span>
+        </Link>
       </ContextMenuTrigger>
       <ContextMenuContent className="w-64">
         <ContextMenuItem inset>
-          <Link href="/login">
-            Login
-          </Link>
+          {children}
           <ContextMenuShortcut>⌘[</ContextMenuShortcut>
         </ContextMenuItem>
 

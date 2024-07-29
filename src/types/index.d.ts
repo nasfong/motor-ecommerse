@@ -22,3 +22,8 @@ type Type = {
   id: string
   name: string
 }
+
+type Login = {
+  username: string
+  password: string
+}

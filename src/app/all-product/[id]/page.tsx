@@ -8,7 +8,7 @@ import Container from "@/components/ui/container"
 import Text from "@/components/ui/text"
 
 async function getData(id: string): Promise<Product> {
-  const res = await fetch(`http://localhost:5000/api/product/${id}`)
+  const res = await fetch(`http://localhost:5000/api/product/${id}`, { next: { revalidate: 3600 }, cache: 'no-store' })
   if (!res.ok) {
     throw new Error('Failed to fetch data')
   }

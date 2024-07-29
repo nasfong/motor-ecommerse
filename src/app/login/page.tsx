@@ -1,23 +1,26 @@
+'use client'
 import { Button } from "@/components/ui/button"
 import boy_svg from "@/assets/svg/boy.svg"
 import { Form } from "@/components/ui/form"
 import { z } from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { toast } from "sonner"
 import { InputForm } from "@/components/form/InputForm"
 import { useMutationLogin } from "@/hook"
+import Image from "next/image"
+import { useRouter } from "next/navigation"
 
 const formSchema = z.object({
   username: z.string().min(1, { message: 'username is required!' }),
-  password: z.string().min(8, {
+  password: z.string().min(3, {
     message: "password must be at least 8 characters long."
   }),
 })
 
 const LoginPage = () => {
+  const router = useRouter();
 
-  const { mutate, isPending: loginLoading } = useMutationLogin()
+  const { mutate, isPending: loginLoading, isSuccess } = useMutationLogin()
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -29,26 +32,15 @@ const LoginPage = () => {
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {
     mutate(data, {
-      onSuccess: (response) => {
-        console.log('Response:', response.data);
-        toast('Event has been created', {
-          description: JSON.stringify(data, null, 2),
-          action: {
-            label: 'Undo',
-            onClick: () => console.log('Undo')
-          }
-        });
-      },
-      onError: (error) => {
-        console.error('Error:', error);
-        toast.error('Failed to create event');
+      onSuccess: () => {
+        router.push('/all-product');
       }
     });
   }
 
-  return (
 
-    <div className="lg:grid lg:grid-cols-2 h-[100vh]">
+  return (
+    <div className="lg:grid lg:grid-cols-2">
       <div className="flex items-center justify-center py-12">
         <div className="mx-auto grid w-[350px] gap-6">
           <div className="grid gap-2 text-center">
@@ -70,15 +62,6 @@ const LoginPage = () => {
                   />
                 </div>
                 <div className="grid gap-2">
-                  {/* <div className="flex items-center">
-                    <Label htmlFor="password">Password</Label>
-                    <Link
-                      href="/forgot-password"
-                      className="ml-auto inline-block text-sm underline"
-                    >
-                      Forgot your password?
-                    </Link>
-                  </div> */}
                   <InputForm
                     form={form}
                     id="password"
@@ -88,26 +71,19 @@ const LoginPage = () => {
                     label="Password"
                   />
                 </div>
-                <Button type="submit" className="w-full" loading={loginLoading}>
+                <Button type="submit" className="w-full">
                   Login
                 </Button>
-
-                {/* <Button variant="outline" className="w-full">
-              Login with Google
-            </Button> */}
               </div>
             </form>
           </Form>
           <div className="mt-4 text-center text-sm">
             Don&apos;t have an account?{" "}
-            {/* <Link href="#" className="underline">
-              Sign up
-            </Link> */}
           </div>
         </div>
       </div>
       <div className="hidden bg-muted lg:block">
-        <img
+        <Image
           src={boy_svg}
           alt="Image"
           className="h-full object-cover dark:brightness-[0.2] dark:grayscale"

@@ -32,8 +32,6 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        {/* <header className="sticky top-0 flex h-16 items-center gap-4 border-b px-4 md:px-6 z-50 border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"> */}
-
         <Provider>
           <GlobalProvider>
             <header className="flex h-16 items-center gap-4 px-4 md:px-6">

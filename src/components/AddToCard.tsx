@@ -3,7 +3,7 @@ import { useGlobalContext } from "@/lib/context"
 import { Button } from "./ui/button"
 
 const AddToCard = ({ item }: { item: Product }) => {
-  const { state, dispatch } = useGlobalContext()
+  const { dispatch } = useGlobalContext()
   const onAddCard = (data: Product) => {
     dispatch({ type: 'ADD_CART', payload: data })
   }

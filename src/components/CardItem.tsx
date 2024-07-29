@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { Button } from './ui/button'
 import { X } from 'lucide-react'
 import { useGlobalContext } from '@/lib/context'
+import Quantity from './Quantity'
+import { useState } from 'react'
 
 const placeholderImg = '/product-img-placeholder.svg'
 
@@ -13,13 +15,14 @@ const CartItem = ({
   item: Product
 }) => {
   const { dispatch } = useGlobalContext()
+  const [quantity, setQuantity] = useState<number>(1)
 
   const onRemoveCart = (id: string) => {
     dispatch({ type: 'REMOVE_CART', payload: id })
   }
 
   const onCloseSidebar = () => {
-    dispatch({type: 'CLOSE_SIDEBAR'})
+    dispatch({ type: 'CLOSE_SIDEBAR' })
   }
 
   return (
