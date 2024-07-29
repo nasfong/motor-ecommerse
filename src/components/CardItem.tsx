@@ -4,7 +4,6 @@ import Link from 'next/link'
 import { Button } from './ui/button'
 import { X } from 'lucide-react'
 import { useGlobalContext } from '@/lib/context'
-import Quantity from './Quantity'
 import { useState } from 'react'
 
 const placeholderImg = '/product-img-placeholder.svg'
