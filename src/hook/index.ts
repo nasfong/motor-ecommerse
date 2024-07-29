@@ -74,3 +74,9 @@ export const useSubmitProduct = (id?: string) => {
     },
   })
 }
+
+export const useMutationLogin = () => {
+  return useMutation({
+    mutationFn: async (formData: LoginMutation) => axios.post('/login', formData)
+  })
+}

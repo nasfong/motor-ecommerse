@@ -3,6 +3,7 @@ import React, { createContext, useReducer, ReactNode, useContext, useEffect, use
 import Cookies from 'js-cookie';
 import Sidebar from '@/components/ui/sidebar';
 import SidebarCard from '@/components/SidebarCard';
+import { SheetCard } from '@/components/SheetCard';
 
 // Define the shape of your context state
 interface MyContextState {
@@ -59,11 +60,7 @@ const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   const onCloseSidebar = useCallback(() => dispatch({ type: 'CLOSE_SIDEBAR' }), [dispatch])
   return (
     <GlobalContext.Provider value={{ state, dispatch }}>
-      {state.sidebar && (
-        <Sidebar onClose={onCloseSidebar}>
-          <SidebarCard data={state.carts} onClose={onCloseSidebar} />
-        </Sidebar>
-      )}
+      <SheetCard open={state.sidebar} onChangeModal={onCloseSidebar} data={state.carts} />
       {children}
     </GlobalContext.Provider>
   );

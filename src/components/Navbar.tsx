@@ -8,6 +8,7 @@ import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import dynamic from 'next/dynamic';
 import { useGlobalContext } from '@/lib/context';
+import { RightClickLogin } from './RightClickLogin';
 const CartCount = dynamic(() => import('./CartCount'), { ssr: false })
 
 const navbar = [
@@ -36,13 +37,15 @@ const Navbar = () => {
   return (
     <>
       <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
-        <Link
-          href="#"
-          className="flex items-center gap-2 text-lg font-semibold md:text-base"
-        >
-          <Package2 className="h-6 w-6" />
-          <span className="sr-only">Acme Inc</span>
-        </Link>
+        <RightClickLogin>
+          <Link
+            href="#"
+            className="flex items-center gap-2 text-lg font-semibold md:text-base"
+          >
+            <Package2 className="h-6 w-6" />
+            <span className="sr-only">Acme Inc</span>
+          </Link>
+        </RightClickLogin>
         {navbar.map((item, index) => {
           const active = item.path === pathname
           return (
