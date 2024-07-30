@@ -27,3 +27,5 @@ type Login = {
   username: string
   password: string
 }
+
+type ProductCard = Product & { quantity: number }

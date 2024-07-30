@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils';
 import dynamic from 'next/dynamic';
 import { useGlobalContext } from '@/lib/context';
 import { RightClickLogin } from './RightClickLogin';
+import { toast } from 'sonner';
 const CartCount = dynamic(() => import('./CartCount'), { ssr: false })
 
 const navbar = [
@@ -37,6 +38,7 @@ const Navbar = () => {
 
   const onLogout = () => {
     dispatch({ type: 'LOGOUT' })
+    toast.success('Logout!')
   }
   
   return (

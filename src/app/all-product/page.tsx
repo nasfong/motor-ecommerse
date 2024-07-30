@@ -1,6 +1,7 @@
 'use client'
 import AllProductCard2 from "@/components/AllProductCard2";
 import AllProductLoading from "@/components/AllProductLoading";
+import { useProducts } from "@/hook";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import useSWR from 'swr'
@@ -15,19 +16,12 @@ const groupList = (list: any[]) => {
   }, {})
 }
 
-const useProducts = () => {
-  return useQuery<Products>({
-    queryKey: ['product'],
-    queryFn: () =>
-      axios.get('http://localhost:5000/api/product',).then((res) => res.data),
-  });
-};
+
 
 const AllProductPage = () => {
 
   const { data, isLoading, isFetching, error } = useProducts()
   if (error) return <div>Failed to load</div>
-
   return (
     <div className='flex flex-col gap-5 w-full'>
       {isLoading || isFetching ?

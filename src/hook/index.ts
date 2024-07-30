@@ -93,3 +93,11 @@ export const useMutationLogin = () => {
     },
   })
 }
+
+export const useProducts = () => {
+  return useQuery<Products>({
+    queryKey: ['product'],
+    queryFn: () =>
+      axios.get('http://localhost:5000/api/product',).then((res) => res.data),
+  });
+};

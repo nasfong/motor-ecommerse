@@ -15,7 +15,7 @@ import CartItem from "./CardItem"
 import { ScrollArea } from "./ui/scroll-area"
 
 export function SheetCard({ open, onChangeModal, data }: any) {
-
+console.log(data)
   return (
     <Sheet open={open} onOpenChange={onChangeModal}>
       <SheetTrigger asChild>

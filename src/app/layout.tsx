@@ -32,8 +32,8 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <Provider>
-          <GlobalProvider>
+        <GlobalProvider>
+          <Provider>
             <header className="flex h-16 items-center gap-4 px-4 md:px-6">
               <Navbar />
             </header>
@@ -51,8 +51,8 @@ export default function RootLayout({
               />
               {children}
             </main>
-          </GlobalProvider>
-        </Provider>
+          </Provider>
+        </GlobalProvider>
       </body>
     </html>
   );
