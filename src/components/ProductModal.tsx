@@ -13,6 +13,7 @@ import Upload from "./form/Upload"
 import { CheckboxForm } from "./form/CheckboxForm"
 import { useQueryType, useSubmitProduct } from "@/hook"
 import { Constant } from "@/lib/constant"
+import TypeModal from "./TypeModal"
 
 const formSchema = z.object({
   image: z.any().optional(),
@@ -110,7 +111,7 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
   return (
     <Dialog open={open} onOpenChange={onChangeModal}>
       <DialogTrigger asChild>
-        
+
       </DialogTrigger>
       <DialogContent className="min-w-[60%]">
         <DialogHeader>
@@ -152,6 +153,9 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
                 name="type"
                 placeholder="Select a type"
                 label="Model"
+                addMoreComponent={
+                  <TypeModal />
+                }
                 options={typeData}
                 loading={typeLoading}
               />

@@ -22,7 +22,7 @@ export function DeleteButton({ handleConfirm }: any) {
   return (
     <AlertDialog open={open} onOpenChange={onChangeModal}>
       <AlertDialogTrigger asChild>
-        <Button size='sm' variant='outline' onClick={() => setOpen(true)}>
+        <Button type="button" size='sm' variant='outline' onClick={() => setOpen(true)}>
           <Trash2 className="h-4 w-4" />
         </Button>
       </AlertDialogTrigger>

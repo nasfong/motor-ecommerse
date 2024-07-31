@@ -5,8 +5,8 @@ import axios from "axios";
 import { toast } from "sonner";
 
 export const useQueryType = () => {
-  return useQuery<Type>({
-    queryKey: ['type'],
+  return useQuery<Type[]>({
+    queryKey: ['productType'],
     queryFn: () =>
       axios.get('http://localhost:5000/api/type')
         .then((res) => res.data)
@@ -101,3 +101,44 @@ export const useProducts = () => {
       axios.get('http://localhost:5000/api/product',).then((res) => res.data),
   });
 };
+
+export const useSubmitType = (id?: string) => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data: any): Promise<any> => {
+      if (id) {
+        return axios
+          .put(`/type/${id}`, data)
+      } else {
+        return axios.post(`/type`, data)
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['productType'] })
+      if (id) toast.success("Type has been updated")
+      else toast.success("Type has been created")
+    },
+    onError: (error: any) => {
+      const errorMessage = error.response?.data?.message || error.message || "An error occurred";
+      toast.error(`Error deleting type: ${errorMessage}`);
+    },
+  })
+}
+
+export const useDeleteType = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation<string, void, unknown>({
+    mutationFn: (id) => {
+      return axios.delete(`/type/${id}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['productType'] })
+      toast.success("Type deleted successfully!")
+    },
+    onError: (error: any) => {
+      const errorMessage = error.response?.data?.message || error.message || "An error occurred";
+      toast.error(`Error deleting type: ${errorMessage}`);
+    },
+  })
+}

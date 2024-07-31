@@ -2,14 +2,19 @@ import { forwardRef } from 'react';
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 
-export const SelectForm = forwardRef<HTMLDivElement, any>(({ form, name, label, description, options = [], loading = false, ...props }, ref) => {
+export const SelectForm = forwardRef<HTMLDivElement, any>(({ form, name, label, description, options = [], loading = false, addMoreComponent, ...props }, ref) => {
   return (
     <FormField
       control={form.control}
       name={name}
       render={({ field: { value, onChange, ...fieldProps } }) => (
         <FormItem>
-          <FormLabel>{label}</FormLabel>
+          <FormLabel className='w-full'>
+            {label}
+            <span className='float-end'>
+              {addMoreComponent}
+            </span>
+          </FormLabel>
           <Select onValueChange={(value) => isNaN(Number(value)) ? onChange(value) : onChange(Number(value))} defaultValue={value} value={value}  {...fieldProps} {...props} ref={ref}>
             <FormControl>
               <SelectTrigger loading={loading}>

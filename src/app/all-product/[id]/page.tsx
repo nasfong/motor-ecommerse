@@ -6,13 +6,17 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import Container from "@/components/ui/container"
 import Text from "@/components/ui/text"
+import { useQueryProduct } from "@/hook"
+import { formatMoney } from "@/lib/utils"
 
 async function getData(id: string): Promise<Product> {
-  const res = await fetch(`http://localhost:5000/api/product/${id}`, { next: { revalidate: 3600 }, cache: 'no-store' })
+  const res = await fetch(`http://localhost:5000/api/product/${id}`, { cache: 'no-store' })
   if (!res.ok) {
     throw new Error('Failed to fetch data')
   }
   return res.json()
+  // const { data } = useQueryProduct(id)
+  // return data
 }
 
 export default async function Page({ params }: { params: { id: string } }) {
@@ -28,7 +32,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           <div className="mb-6 flex flex-col border-b pb-6 dark:border-neutral-700">
             <h1 className="mb-2 text-5xl font-medium text-nowrap">{data.name}</h1>
             <Ratings rating={4} variant="yellow" />
-            <p>$20.00<span className="ml-1 inline">USD</span></p>
+            <p>{formatMoney(data.price)}<span className="ml-1 inline">USD</span></p>
           </div>
           <Text>
             {data.description}

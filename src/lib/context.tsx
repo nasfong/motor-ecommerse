@@ -5,6 +5,13 @@ import Cookies from 'js-cookie';
 import { SheetCard } from '@/components/SheetCard';
 
 // Define the shape of your context state
+interface ProductCard {
+  id: string;
+  name: string;
+  quantity: number;
+  // Include other properties as needed
+}
+
 interface MyContextState {
   carts: ProductCard[];
   sidebar: boolean;
@@ -13,14 +20,14 @@ interface MyContextState {
 
 // Define the shape of your actions
 type Action =
-  | { type: 'ADD_CART', payload: Product }
+  | { type: 'ADD_CART', payload: ProductCard }
   | { type: 'REMOVE_CART', payload: string }
   | { type: 'INCREASE_QUANTITY', payload: string }
   | { type: 'DECREASE_QUANTITY', payload: string }
   | { type: 'OPEN_SIDEBAR' }
   | { type: 'CLOSE_SIDEBAR' }
   | { type: 'LOGIN', payload: string }
-  | { type: 'LOGOUT' }
+  | { type: 'LOGOUT' };
 
 // Create the context with an undefined default state
 const GlobalContext = createContext<
@@ -36,6 +43,7 @@ const initialState: MyContextState = {
 
 // Define the reducer function
 const reducer = (state: MyContextState, action: Action): MyContextState => {
+  const expires = new Date(Date.now() + 3 * 24 * 60 * 1000) // 3 days expired
   switch (action.type) {
     case 'ADD_CART':
       const existingCartItem = state.carts.find(item => item.id === action.payload.id);
@@ -47,24 +55,24 @@ const reducer = (state: MyContextState, action: Action): MyContextState => {
       } else {
         updatedCarts = [...state.carts, { ...action.payload, quantity: 1 }];
       }
-      Cookies.set('carts', JSON.stringify(updatedCarts), { expires: 7 });
+      Cookies.set('carts', JSON.stringify(updatedCarts), { expires });
       return { ...state, sidebar: true, carts: updatedCarts };
     case 'REMOVE_CART':
       const filteredCarts = state.carts.filter(item => item.id !== action.payload);
-      Cookies.set('carts', JSON.stringify(filteredCarts), { expires: 7 });
+      Cookies.set('carts', JSON.stringify(filteredCarts), { expires });
       return { ...state, carts: filteredCarts };
     case 'INCREASE_QUANTITY':
-      updatedCarts = state.carts.map(item =>
+      const increasedCart = state.carts.map(item =>
         item.id === action.payload ? { ...item, quantity: item.quantity + 1 } : item
       );
-      Cookies.set('carts', JSON.stringify(updatedCarts), { expires: 7 });
-      return { ...state, carts: updatedCarts };
+      Cookies.set('carts', JSON.stringify(increasedCart), { expires });
+      return { ...state, carts: increasedCart };
     case 'DECREASE_QUANTITY':
-      updatedCarts = state.carts.map(item =>
+      const decreasedCart = state.carts.map(item =>
         item.id === action.payload ? { ...item, quantity: item.quantity - 1 } : item
       ).filter(item => item.quantity > 0); // Remove item if quantity is 0
-      Cookies.set('carts', JSON.stringify(updatedCarts), { expires: 7 });
-      return { ...state, carts: updatedCarts };
+      Cookies.set('carts', JSON.stringify(decreasedCart), { expires });
+      return { ...state, carts: decreasedCart };
     case 'OPEN_SIDEBAR':
       return { ...state, sidebar: true };
     case 'CLOSE_SIDEBAR':

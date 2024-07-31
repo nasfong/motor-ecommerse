@@ -15,7 +15,6 @@ import CartItem from "./CardItem"
 import { ScrollArea } from "./ui/scroll-area"
 
 export function SheetCard({ open, onChangeModal, data }: any) {
-console.log(data)
   return (
     <Sheet open={open} onOpenChange={onChangeModal}>
       <SheetTrigger asChild>
@@ -28,7 +27,7 @@ console.log(data)
               {/* Make changes to your profile here. Click save when you're done. */}
             </SheetDescription>
           </SheetHeader>
-          <ul className="p-4 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-accent-2 border-accent-2">
+          <ul className="px-8 py-4 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-accent-2 border-accent-2">
             {data!.map((item: any, index: any) => (
               <CartItem
                 key={index}

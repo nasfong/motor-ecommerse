@@ -6,6 +6,7 @@ import { X } from 'lucide-react'
 import { useGlobalContext } from '@/lib/context'
 import { useState } from 'react'
 import { Quantity } from './Quantity'
+import { formatMoney } from '@/lib/utils'
 
 const placeholderImg = '/product-img-placeholder.svg'
 
@@ -17,16 +18,15 @@ const CartItem = ({
   item,
 }: CardItemProps) => {
   const { dispatch } = useGlobalContext()
-  const [quantity, setQuantity] = useState<number>(1)
 
   const onRemoveCart = (id: string) => {
     dispatch({ type: 'REMOVE_CART', payload: id })
   }
-  const onInCreaseCard = () => {
-    dispatch({ type: 'INCREASE_QUANTITY', payload: '1' });
+  const onInCreaseCard = (id: string) => {
+    dispatch({ type: 'INCREASE_QUANTITY', payload: id });
   }
-  const onDeCreaseCard = () => {
-    dispatch({ type: 'DECREASE_QUANTITY', payload: '1' });
+  const onDeCreaseCard = (id: string) => {
+    dispatch({ type: 'DECREASE_QUANTITY', payload: id });
   }
 
   const onCloseSidebar = () => {
@@ -71,16 +71,17 @@ const CartItem = ({
               {item.name}
             </span>
           </Link>
-          <div>
+          <span>{item.description}</span>
+        </div>
+        <div className="flex flex-col items-end text-sm">
+          <span>{formatMoney(item.price)}</span>
+          <div className=''>
             <Quantity
               quantity={item.quantity}
-              onMinusCard={onDeCreaseCard}
-              onPlusCard={onInCreaseCard}
+              onMinusCard={() => onDeCreaseCard(item.id)}
+              onPlusCard={() => onInCreaseCard(item.id)}
             />
           </div>
-        </div>
-        <div className="flex flex-col justify-between space-y-2 text-sm">
-          <span>100$</span>
         </div>
       </div>
     </li>

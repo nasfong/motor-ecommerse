@@ -21,7 +21,7 @@ export function Quantity({
           -
         </PaginationItem>
         <PaginationItem>
-          <PaginationLink href="#" isActive>
+          <PaginationLink isActive>
             {quantity}
           </PaginationLink>
         </PaginationItem>

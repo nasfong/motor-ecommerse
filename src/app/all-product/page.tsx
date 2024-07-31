@@ -2,9 +2,6 @@
 import AllProductCard2 from "@/components/AllProductCard2";
 import AllProductLoading from "@/components/AllProductLoading";
 import { useProducts } from "@/hook";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import useSWR from 'swr'
 
 const groupList = (list: any[]) => {
   return list.reduce<{ [key: string]: typeof list }>((acc, item) => {
@@ -15,8 +12,6 @@ const groupList = (list: any[]) => {
     return acc;
   }, {})
 }
-
-
 
 const AllProductPage = () => {
 
