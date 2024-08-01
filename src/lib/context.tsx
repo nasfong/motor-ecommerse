@@ -20,7 +20,7 @@ interface MyContextState {
 
 // Define the shape of your actions
 type Action =
-  | { type: 'ADD_CART', payload: ProductCard }
+  | { type: 'ADD_CART', payload: Product }
   | { type: 'REMOVE_CART', payload: string }
   | { type: 'INCREASE_QUANTITY', payload: string }
   | { type: 'DECREASE_QUANTITY', payload: string }
