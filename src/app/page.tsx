@@ -6,7 +6,7 @@ import Link from "next/link";
 import ProductList from "@/components/ProductList";
 
 async function getData(): Promise<Type[]> {
-  const res = await fetch('http://localhost:5000/api/type', { cache: 'no-store' })
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/type`, { cache: 'no-store' })
   if (!res.ok) {
     throw new Error('Failed to fetch data')
   }
