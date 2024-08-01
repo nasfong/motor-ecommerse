@@ -11,7 +11,7 @@ import ProductList from "@/components/ProductList";
 //   }
 //   return res.json()
 // }
-export default async function HomePage() {
+export default function HomePage() {
   // const data = await getData()
 
   return (
