@@ -4,15 +4,15 @@ import Tabs from "@/components/Tabs";
 import Link from "next/link";
 // import ProductList from "@/components/ProductList";
 
-export default async function HomePage() {
-  async function getData(): Promise<Type[]> {
-    const res = await fetch('/type', { cache: 'no-store' })
-    if (!res.ok) {
-      throw new Error('Failed to fetch data')
-    }
-    return res.json()
+async function getData(): Promise<Type[]> {
+  const res = await fetch('http://localhost:5000/api/type', { cache: 'no-store' })
+  if (!res.ok) {
+    throw new Error('Failed to fetch data')
   }
-  const data = await getData()
+  return res.json()
+}
+export default async function HomePage() {
+  // const data = await getData()
 
   return (
     <main className="flex flex-col gap-5">
