@@ -25,10 +25,6 @@ const navbar = [
     name: 'Contact',
     path: '/contact',
   },
-  {
-    name: 'About',
-    path: '/about',
-  },
 ]
 
 const Navbar = () => {

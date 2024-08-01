@@ -3,6 +3,12 @@ const stocks = [
   { id: 2, name: "Out Stock" },
 ]
 
+export const location = {
+  lat: 13.3782812,
+  lng: 103.8599097
+};
+
 export const Constant = {
-  stocks
+  stocks,
+  location,
 }
