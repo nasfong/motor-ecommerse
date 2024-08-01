@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
-import Tabs from "@/components/Tabs";
-import Slider from "@/components/Slider";
+// import Tabs from "@/components/Tabs";
+// import Slider from "@/components/Slider";
 import Link from "next/link";
 import ProductList from "@/components/ProductList";
 
