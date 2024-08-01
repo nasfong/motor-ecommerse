@@ -7,7 +7,7 @@ import { Skeleton } from "./ui/skeleton"
 const fetcher = (...args: Parameters<typeof fetch>) => fetch(...args).then((res) => res.json())
 
 const RelationProduct = ({ typeId }: { typeId: string }) => {
-  const { data: relateData, error } = useSWR<Products>(`http://localhost:5000/api/product?limit=5&type=${typeId}`, fetcher)
+  const { data: relateData, error } = useSWR<Products>(`/product?limit=5&type=${typeId}`, fetcher)
 
   return (
     <ScrollProduct>

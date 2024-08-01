@@ -10,7 +10,7 @@ import { useQueryProduct } from "@/hook"
 import { formatMoney } from "@/lib/utils"
 
 async function getData(id: string): Promise<Product> {
-  const res = await fetch(`http://localhost:5000/api/product/${id}`, { cache: 'no-store' })
+  const res = await fetch(`/product/${id}`, { cache: 'no-store' })
   if (!res.ok) {
     throw new Error('Failed to fetch data')
   }

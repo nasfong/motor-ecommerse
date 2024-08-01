@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default async function HomePage() {
   async function getData(): Promise<Type[]> {
-    const res = await fetch('http://localhost:5000/api/type', { cache: 'no-store' })
+    const res = await fetch('/type', { cache: 'no-store' })
     if (!res.ok) {
       throw new Error('Failed to fetch data')
     }
