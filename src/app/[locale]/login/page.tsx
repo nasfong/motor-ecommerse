@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { InputForm } from "@/components/form/InputForm"
 import { useMutationLogin } from "@/hook"
 import Image from "next/image"
-import { useRouter } from "next/navigation"
+import { useRouter } from "@/navigation"
 
 const formSchema = z.object({
   username: z.string().min(1, { message: 'username is required!' }),
@@ -20,7 +20,7 @@ const formSchema = z.object({
 const LoginPage = () => {
   const router = useRouter();
 
-  const { mutate, isPending: loginLoading, isSuccess } = useMutationLogin()
+  const { mutate, isPending, isSuccess } = useMutationLogin()
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -71,7 +71,7 @@ const LoginPage = () => {
                     label="Password"
                   />
                 </div>
-                <Button type="submit" className="w-full">
+                <Button type="submit" className="w-full" loading={isPending}>
                   Login
                 </Button>
               </div>

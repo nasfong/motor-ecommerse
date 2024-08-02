@@ -1,6 +1,4 @@
 'use client'
-
-import useSWR from "swr"
 import ProductCard from "./ProductCard"
 import { Skeleton } from "./ui/skeleton"
 import { useSearchParams } from "next/navigation"

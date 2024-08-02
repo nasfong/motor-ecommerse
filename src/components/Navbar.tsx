@@ -1,15 +1,14 @@
 "use client"
-import Link from 'next/link'
 import { Menu, Package2, Search, ShoppingCart } from 'lucide-react'
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import dynamic from 'next/dynamic';
 import { useGlobalContext } from '@/lib/context';
 import { RightClickLogin } from './RightClickLogin';
 import { toast } from 'sonner';
+import { useTranslations } from 'next-intl';
+import { Link, usePathname } from '@/navigation';
 const CartCount = dynamic(() => import('./CartCount'), { ssr: false })
 
 const navbar = [
@@ -29,6 +28,7 @@ const navbar = [
 
 const Navbar = () => {
   const pathname = usePathname()
+  const t = useTranslations()
   const { dispatch, state: { token: isAuth } } = useGlobalContext()
   const onOpenSidebar = () => dispatch({ type: 'OPEN_SIDEBAR' })
 
@@ -36,7 +36,7 @@ const Navbar = () => {
     dispatch({ type: 'LOGOUT' })
     toast.success('Logout!')
   }
-  
+
   return (
     <>
       <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">

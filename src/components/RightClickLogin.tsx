@@ -6,7 +6,7 @@ import {
   ContextMenuTrigger,
 } from "@/components/ui/context-menu"
 import { Package2 } from "lucide-react"
-import Link from "next/link"
+import { Link } from '@/navigation';
 
 export function RightClickLogin({
   children

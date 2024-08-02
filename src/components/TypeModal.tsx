@@ -19,8 +19,8 @@ const TypeModal = () => {
   const [formValue, setFormValue] = useState<any>(null)
 
   const { data: typeData, isLoading: typeLoading } = useQueryType()
-  const productMutation = useSubmitType(formValue?.id)
-  const deleteProductMutation = useDeleteType()
+  const { mutate, isPending } = useSubmitType(formValue?.id)
+  const { mutateAsync: mutateAsyncDelete, isPending: isPendingDelete } = useDeleteType()
 
   const defaultValues = {
     name: "",
@@ -49,13 +49,13 @@ const TypeModal = () => {
   }
 
   const handleDelete = (id: string): Promise<boolean> => {
-    return deleteProductMutation.mutateAsync(id)
+    return mutateAsyncDelete(id)
       .then(() => true)
       .catch(() => false);
   }
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {
-    productMutation.mutate(data, {
+    mutate(data, {
       onSuccess: () => {
         setFormValue(null)
         form.reset(defaultValues)
@@ -95,12 +95,12 @@ const TypeModal = () => {
                     <Button type='button' size='sm' variant='outline' onClick={() => handleEdit(item)} disabled={formValue?.id === item.id}>
                       <Pencil className="h-4 w-4" />
                     </Button>
-                    <DeleteButton handleConfirm={() => handleDelete(item.id)} />
+                    <DeleteButton handleConfirm={() => handleDelete(item.id)} loading={isPendingDelete} />
                   </span>
                 </div>
               ))}</div>
               <DialogFooter className="mt-3">
-                <Button type="submit">{formValue?.id ? 'Update' : 'Create'}</Button>
+                <Button type="submit" loading={isPending}>{formValue?.id ? 'Update' : 'Create'}</Button>
               </DialogFooter>
             </form>
           </Form>

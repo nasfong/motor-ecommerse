@@ -17,7 +17,7 @@ export const SelectForm = forwardRef<HTMLDivElement, any>(({ form, name, label, 
           </FormLabel>
           <Select onValueChange={(value) => isNaN(Number(value)) ? onChange(value) : onChange(Number(value))} defaultValue={value} value={value}  {...fieldProps} {...props} ref={ref}>
             <FormControl>
-              <SelectTrigger loading={loading}>
+              <SelectTrigger loading={loading} name={name}>
                 <SelectValue placeholder={props.placeholder} />
               </SelectTrigger>
             </FormControl>

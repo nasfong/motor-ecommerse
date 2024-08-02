@@ -1,12 +1,12 @@
 import cn from 'clsx'
 import Image from 'next/image'
-import Link from 'next/link'
 import { Button } from './ui/button'
 import { X } from 'lucide-react'
 import { useGlobalContext } from '@/lib/context'
 import { useState } from 'react'
 import { Quantity } from './Quantity'
 import { formatMoney } from '@/lib/utils'
+import { Link } from '@/navigation'
 
 const placeholderImg = '/product-img-placeholder.svg'
 
@@ -65,13 +65,13 @@ const CartItem = ({
         <div className="flex-1 flex flex-col text-base">
           <Link href={`/all-product/${item.id}`}>
             <span
-              className="font-medium cursor-pointer pb-1"
+              className="font-medium cursor-pointer pb-1 line-clamp-2 tracking-tight"
               onClick={onCloseSidebar}
             >
               {item.name}
             </span>
           </Link>
-          <span>{item.description}</span>
+          <span className='font-light text-[12px] line-clamp-2 leading-none tracking-tight'>{item.description}</span>
         </div>
         <div className="flex flex-col items-end text-sm">
           <span>{formatMoney(item.price)}</span>
