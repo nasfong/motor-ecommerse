@@ -96,7 +96,7 @@ export const useMutationLogin = () => {
 
 export const useProducts = (queryParams?: Record<string, any>) => {
   return useQuery<Products>({
-    queryKey: ['product'],
+    queryKey: ['product', queryParams],
     queryFn: () =>
       axios.get('http://localhost:5000/api/product', {
         params: queryParams

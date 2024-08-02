@@ -3,21 +3,22 @@ import Image from 'next/image'
 import React from 'react'
 import { Badge } from './ui/badge';
 import FramerWrapper from './FramerWrapper';
-import Link from 'next/link';
 import { Button } from './ui/button';
-import { Pencil, Trash2 } from 'lucide-react';
+import { Pencil } from 'lucide-react';
 import { DeleteButton } from './DeleteButton';
+import { Link } from '@/navigation';
 
 type Props = {
   item: Product,
   className?: string
   pageRef?: any
   delay?: number
-  handleEdit?: any
-  handleDelete?: any
+  handleEdit?: (item: Product) => void
+  handleDelete?: (id: string) => Promise<boolean>
+  isPendingDelete?: boolean
 }
 
-const ProductCard = ({ item, className, pageRef, delay, handleEdit, handleDelete }: Props) => {
+const ProductCard = ({ item, className, pageRef, delay, handleEdit, handleDelete, isPendingDelete }: Props) => {
   return (
     <FramerWrapper y={0} scale={0.8} delay={delay} duration={0.15}>
       <div className='relative inline-block h-full w-full'>
@@ -63,7 +64,7 @@ const ProductCard = ({ item, className, pageRef, delay, handleEdit, handleDelete
             </Button>
           )}
           {handleDelete && (
-            <DeleteButton handleConfirm={() => handleDelete(item.id)} />
+            <DeleteButton handleConfirm={() => handleDelete(item.id)} loading={isPendingDelete} />
           )}
         </div>
       </div>

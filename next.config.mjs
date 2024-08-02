@@ -1,10 +1,19 @@
 /** @type {import('next').NextConfig} */
+import createNextIntlPlugin from 'next-intl/plugin'
+
+const withNextIntl = createNextIntlPlugin()
+
 const nextConfig = {
   images: {
-    domains: [
-      'tra-bucket01.s3.ap-southeast-2.amazonaws.com',
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'tra-bucket01.s3.ap-southeast-2.amazonaws.com',
+        port: '',
+        pathname: '**',
+      },
     ],
   },
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);

@@ -14,10 +14,12 @@ import { CheckboxForm } from "./form/CheckboxForm"
 import { useQueryType, useSubmitProduct } from "@/hook"
 import { Constant } from "@/lib/constant"
 import TypeModal from "./TypeModal"
+import { Ratings } from "./Rating"
+import { TextAreaForm } from "./form/TextAreaForm"
 
 const formSchema = z.object({
   image: z.any().optional(),
-  name: z.string({ message: "required!" }),
+  name: z.string().nonempty("required!"),
   price: z.number({ message: "required!" }),
   description: z.string().optional(),
   type: z.string().nonempty("required!"),
@@ -25,7 +27,7 @@ const formSchema = z.object({
   isSold: z.number().default(1),
   recommend: z.boolean().default(false),
   removeImages: z.array(z.string()).optional(),
-  star: z.number().optional(),
+  star: z.number(),
 })
 
 type Props = {
@@ -46,7 +48,7 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
   }
 
   const { data: typeData, isLoading: typeLoading } = useQueryType()
-  const productMutation = useSubmitProduct(formValue?.id)
+  const { mutateAsync, isPending } = useSubmitProduct(formValue?.id)
 
   // default value
   const defaultValues = {
@@ -82,9 +84,10 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
     formData.append('isNews', data.isNews.toString());
     formData.append('isSold', data.isSold.toString());
     formData.append('recommend', data.recommend.toString());
+    formData.append('star', data.star.toString());
     formData.append('removeImages', JSON.stringify(data.removeImages));
 
-    productMutation.mutateAsync(formData)
+    mutateAsync(formData)
       .finally(() => {
         onChangeModal(false)
       })
@@ -101,6 +104,7 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
         type: formValue.type.id,
         isSold: formValue.isSold,
         isNews: formValue.isNews,
+        star: formValue.star,
         recommend: formValue.recommend,
         removeImages: []
       })
@@ -121,7 +125,7 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-3">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-2">
             <Upload
               form={form}
               name="image"
@@ -141,13 +145,7 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
                 type="number"
               />
             </div>
-            <div className="grid grid-cols-3 gap-3">
-              <InputForm
-                form={form}
-                name="description"
-                placeholder="description"
-                label="Description"
-              />
+            <div className="grid grid-cols-2 gap-3">
               <SelectForm
                 form={form}
                 name="type"
@@ -167,6 +165,13 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
                 options={Constant.stocks}
               />
             </div>
+            <TextAreaForm
+              form={form}
+              name="description"
+              placeholder="description"
+              label="Description"
+            />
+            <Ratings rating={form.getValues('star')} variant="yellow" onRatingChange={(value) => form.setValue('star', value)} />
             <CheckboxForm
               form={form}
               name="isNews"
@@ -178,12 +183,12 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
               label="Recommend"
             />
             <DialogFooter className="mt-3">
-              <Button type="submit">{formValue?.id ? 'Update' : 'Create'}</Button>
+              <Button type="submit" loading={isPending}>{formValue?.id ? 'Update' : 'Create'}</Button>
             </DialogFooter>
           </form>
         </Form>
       </DialogContent>
-    </Dialog>
+    </Dialog >
   )
 }
 

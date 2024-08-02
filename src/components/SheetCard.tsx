@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/sheet"
 import CartItem from "./CardItem"
 import { ScrollArea } from "./ui/scroll-area"
+import { Separator } from "./ui/separator"
 
 export function SheetCard({ open, onChangeModal, data }: any) {
   return (
@@ -28,11 +29,11 @@ export function SheetCard({ open, onChangeModal, data }: any) {
             </SheetDescription>
           </SheetHeader>
           <ul className="px-8 py-4 space-y-6 sm:py-0 sm:space-y-0 sm:divide-y sm:divide-accent-2 border-accent-2">
-            {data!.map((item: any, index: any) => (
-              <CartItem
-                key={index}
-                item={item}
-              />
+            {data.concat(data).concat(data).concat(data).map((item: any, index: any) => (
+              <div key={index}>
+                {index > 0 && <Separator />}
+                <CartItem item={item} />
+              </div>
             ))}
           </ul>
         </ScrollArea>

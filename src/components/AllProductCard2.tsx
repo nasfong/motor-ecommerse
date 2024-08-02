@@ -14,7 +14,7 @@ type Props = {
 
 const AllProductCard = ({ parent, child }: Props) => {
   const { state: { token: isAuth } } = useGlobalContext()
-  const deleteProductMutation = useDeleteProduct()
+  const { mutateAsync: mutateAsyncDelete, isPending: isPendingDelete } = useDeleteProduct()
 
   const [open, setOpen] = useState(false)
   const [formValue, setFormValue] = useState<Product | null>(null)
@@ -25,11 +25,11 @@ const AllProductCard = ({ parent, child }: Props) => {
   }
 
   const handleDelete = (id: string): Promise<boolean> => {
-    return deleteProductMutation.mutateAsync(id)
+    return mutateAsyncDelete(id)
       .then(() => true)
       .catch(() => false);
   }
-  
+
   return (
     <div className='flex flex-col gap-5' >
       <div className='flex justify-between border-b'>
@@ -63,8 +63,9 @@ const AllProductCard = ({ parent, child }: Props) => {
               key={index}
               // pageRef={slides.length >= 5 && slides.length === index + 1 ? pageRef : null}
               delay={child.length <= 5 ? index / 4 : 0}
-              handleEdit={!!isAuth && handleEdit}
-              handleDelete={!!isAuth && handleDelete}
+              handleEdit={isAuth ? handleEdit : undefined}
+              handleDelete={isAuth ? handleDelete : undefined}
+              isPendingDelete={isPendingDelete}
             />
           ))
         }

@@ -10,6 +10,7 @@ type Product = {
   isNews: boolean;
   isSold: 1 | 2;
   recommend: boolean;
+  star: number
 }
 
 type Products = {

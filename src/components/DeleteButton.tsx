@@ -1,7 +1,6 @@
 'use client'
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -14,7 +13,7 @@ import { Button } from "@/components/ui/button"
 import { Trash2 } from "lucide-react"
 import { useState } from "react"
 
-export function DeleteButton({ handleConfirm }: any) {
+export function DeleteButton({ handleConfirm, loading }: any) {
   const [open, setOpen] = useState(false)
 
   const onChangeModal = (isOpen: boolean) => setOpen(isOpen)
@@ -36,10 +35,10 @@ export function DeleteButton({ handleConfirm }: any) {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel onClick={() => setOpen(false)}>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={handleConfirm}>
+          <Button onClick={handleConfirm} loading={loading}>
             Delete
             <Trash2 className="ml-2 h-4 w-4" />
-          </AlertDialogAction>
+          </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

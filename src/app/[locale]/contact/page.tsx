@@ -4,11 +4,11 @@ import React from 'react'
 
 const ContactPage = () => {
   return (
-    <div className="flex space-x-0">
-      <div className="flex-1">
+    <div className="flex flex-col sm:flex-row gap-4">
+      <div className="w-full sm:w-1/3">
         <Contact />
       </div>
-      <div className="flex-1">
+      <div className="h-[600px] w-full sm:w-2/3">
         <Map />
       </div>
     </div>

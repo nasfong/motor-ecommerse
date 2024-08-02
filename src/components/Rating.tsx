@@ -1,4 +1,5 @@
-import React from "react"
+'use client'
+import React, { useState } from "react"
 import { Star } from "lucide-react"
 
 import { cn } from "@/lib/utils"
@@ -25,23 +26,36 @@ interface RatingsProps extends React.HTMLAttributes<HTMLDivElement> {
   fill?: boolean
   Icon?: React.ReactElement
   variant?: keyof typeof ratingVariants
+  onRatingChange?: (rating: number) => void
+  readOnly?: boolean // Add readOnly prop
 }
 
-const Ratings = ({ ...props }: RatingsProps) => {
-  const {
-    rating,
-    totalStars = 5,
-    size = 20,
-    fill = true,
-    Icon = <Star />,
-    variant = "default",
-  } = props
+const Ratings = ({
+  rating,
+  totalStars = 5,
+  size = 20,
+  fill = true,
+  Icon = <Star />,
+  variant = "default",
+  onRatingChange,
+  readOnly = false, // Default to false
+  ...props
+}: RatingsProps) => {
+  const [rate, setRate] = useState(rating)
 
-  const fullStars = Math.floor(rating)
+  const handleStarClick = (index: number) => {
+    const newRating = index + 1
+    setRate(newRating)
+    if (onRatingChange) {
+      onRatingChange(newRating)
+    }
+  }
+
+  const fullStars = Math.floor(rate)
   const partialStar =
-    rating % 1 > 0 ? (
+    rate % 1 > 0 ? (
       <PartialStar
-        fillPercentage={rating % 1}
+        fillPercentage={rate % 1}
         size={size}
         className={cn(ratingVariants[variant].star)}
         Icon={Icon}
@@ -58,14 +72,16 @@ const Ratings = ({ ...props }: RatingsProps) => {
             fill ? "fill-current" : "fill-transparent",
             ratingVariants[variant].star
           ),
+          onClick: readOnly ? undefined : () => handleStarClick(i), // Disable click if readOnly
         })
       )}
       {partialStar}
       {[...Array(totalStars - fullStars - (partialStar ? 1 : 0))].map((_, i) =>
         React.cloneElement(Icon, {
-          key: i + fullStars + 1,
+          key: i + fullStars,
           size,
           className: cn(ratingVariants[variant].emptyStar),
+          onClick: readOnly ? undefined : () => handleStarClick(i + fullStars), // Disable click if readOnly
         })
       )}
     </div>
@@ -78,9 +94,13 @@ interface PartialStarProps {
   className?: string
   Icon: React.ReactElement
 }
-const PartialStar = ({ ...props }: PartialStarProps) => {
-  const { fillPercentage, size, className, Icon } = props
 
+const PartialStar = ({
+  fillPercentage,
+  size,
+  className,
+  Icon,
+}: PartialStarProps) => {
   return (
     <div style={{ position: "relative", display: "inline-block" }}>
       {React.cloneElement(Icon, {

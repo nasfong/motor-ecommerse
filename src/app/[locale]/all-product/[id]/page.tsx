@@ -29,7 +29,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         <div className="basis-full lg:basis-2/6">
           <div className="mb-6 flex flex-col border-b pb-6 dark:border-neutral-700">
             <h1 className="mb-2 text-5xl font-medium text-nowrap">{data.name}</h1>
-            <Ratings rating={4} variant="yellow" />
+            <Ratings rating={data.star} variant="yellow" readOnly />
             <p>{formatMoney(data.price)}<span className="ml-1 inline">USD</span></p>
           </div>
           <Text>
@@ -52,7 +52,7 @@ export default async function Page({ params }: { params: { id: string } }) {
       </div>
       <div className="py-8">
         <h2 className="mb-4 text-2xl font-bold">Related Products</h2>
-        <RelationProduct typeId={data.type.id} />
+        <RelationProduct typeId={data.type.id} excludeProductId={data.id} />
       </div>
     </Container>
   )
