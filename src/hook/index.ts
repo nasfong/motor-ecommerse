@@ -8,7 +8,7 @@ export const useQueryType = () => {
   return useQuery<Type[]>({
     queryKey: ['productType'],
     queryFn: () =>
-      axios.get('http://localhost:5000/api/type')
+      axios.get('/type')
         .then((res) => res.data)
         .catch(
           (error) => {
@@ -23,7 +23,7 @@ export const useQueryProduct = (id: string) => {
   return useQuery<Product>({
     queryKey: ['product', id],
     queryFn: () =>
-      axios.get(`http://localhost:5000/api/product/${id}`).then((res) => res.data),
+      axios.get(`/product/${id}`).then((res) => res.data),
   });
 }
 
@@ -32,7 +32,7 @@ export const useDeleteProduct = () => {
 
   return useMutation<string, void, unknown>({
     mutationFn: (id) => {
-      return axios.delete(`http://localhost:5000/api/product/${id}`);
+      return axios.delete(`/product/${id}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['product'] })
@@ -51,13 +51,13 @@ export const useSubmitProduct = (id?: string) => {
     mutationFn: (data: any): Promise<any> => {
       if (id) {
         return axios
-          .put(`http://localhost:5000/api/product/${id}`, data, {
+          .put(`/product/${id}`, data, {
             headers: {
               'Content-Type': 'multipart/form-data',
             }
           })
       } else {
-        return axios.post(`http://localhost:5000/api/product`, data, {
+        return axios.post(`/product`, data, {
           headers: {
             'Content-Type': 'multipart/form-data',
           }
@@ -80,7 +80,7 @@ export const useMutationLogin = () => {
   const { dispatch } = useGlobalContext()
   return useMutation({
     mutationFn: (data: Login): Promise<string> => {
-      return axios.post('http://localhost:5000/api/login', data).then(resp => resp.data.token)
+      return axios.post('/login', data).then(resp => resp.data.token)
     },
     onSuccess: (token) => {
       dispatch({ type: 'LOGIN', payload: token })
@@ -98,7 +98,7 @@ export const useProducts = (queryParams?: Record<string, any>) => {
   return useQuery<Products>({
     queryKey: ['product', queryParams],
     queryFn: () =>
-      axios.get('http://localhost:5000/api/product', {
+      axios.get('/product', {
         params: queryParams
       }).then((res) => res.data),
   });
