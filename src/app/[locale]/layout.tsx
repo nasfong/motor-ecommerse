@@ -4,10 +4,10 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import NextTopLoader from 'nextjs-toploader'
 import Navbar from "@/components/Navbar";
-import Provider from "./_provider";
 import { GlobalProvider } from "@/lib/context";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
+import Provider from "@/lib/provider";
 
 const fontSans = FontSans({
   subsets: ["latin"],
