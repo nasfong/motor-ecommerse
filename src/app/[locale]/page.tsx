@@ -26,13 +26,13 @@ export default async function HomePage({
 }) {
   const t = await getTranslations({ locale });
   try {
-    // const data = await getData();
+    const data = await getData();
     // if (!data) throw new Error('product_type_not_found');
     return (
       <main className="flex flex-col gap-5">
         {/* <Slider /> */}
-        {/* <Tabs data={data} /> */}
-        <ProductList />
+        <Tabs data={data} />
+        {/* <ProductList /> */}
         <div className='text-center'>
           <Link href='/all-product'>
             <Button variant="destructive">
