@@ -20,7 +20,7 @@ export default async function HomePage({
 }) {
   const t = await getTranslations({ locale })
   const data = await getData()
-
+  if (!data) throw new Error('product_type_not_found');
   return (
     <main className="flex flex-col gap-5">
       {/* <Slider /> */}
