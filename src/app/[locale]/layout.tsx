@@ -46,7 +46,7 @@ export default async function RootLayout({
               <header className="flex h-16 items-center gap-4 px-4 md:px-6">
                 <Navbar />
               </header>
-              <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
+              <div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
                 <NextTopLoader
                   color="#2299DD"
                   initialPosition={0.08}
@@ -59,7 +59,7 @@ export default async function RootLayout({
                   shadow="0 0 10px #2299DD,0 0 5px #2299DD"
                 />
                 {children}
-              </main>
+              </div>
             </Provider>
           </GlobalProvider>
         </NextIntlClientProvider>
