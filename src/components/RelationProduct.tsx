@@ -1,11 +1,8 @@
 'use client'
-import useSWR from "swr"
 import ScrollProduct from "./ScrollProduct"
 import ProductCard from "./ProductCard"
 import { Skeleton } from "./ui/skeleton"
 import { useProducts } from '../hook/index';
-
-const fetcher = (...args: Parameters<typeof fetch>) => fetch(...args).then((res) => res.json())
 
 const RelationProduct = ({ typeId, excludeProductId }: { typeId: string; excludeProductId: string }) => {
   const { data: relateData, error, isLoading } = useProducts({ type: typeId, excludeId: excludeProductId })
@@ -22,13 +19,14 @@ const RelationProduct = ({ typeId, excludeProductId }: { typeId: string; exclude
         </div>
       ) :
         relateData?.data.map((item, index) => (
-          <ProductCard
-            item={item}
-            className='h-[200px] w-[300px]'
-            key={index}
-            // pageRef={slides.length > 5 && slides.length === index + 1 ? pageRef : null}
-            delay={index / 4}
-          />
+          <div className='relative' key={index}>
+            <ProductCard
+              item={item}
+              className='h-[200px] w-[300px]'
+              // pageRef={slides.length > 5 && slides.length === index + 1 ? pageRef : null}
+              delay={index / 4}
+            />
+          </div>
         ))}
     </ScrollProduct>
   )

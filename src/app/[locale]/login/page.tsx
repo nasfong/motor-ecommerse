@@ -9,6 +9,7 @@ import { InputForm } from "@/components/form/InputForm"
 import { useMutationLogin } from "@/hook"
 import Image from "next/image"
 import { useRouter } from "@/navigation"
+import * as NProgress from "nprogress"
 
 const formSchema = z.object({
   username: z.string().min(1, { message: 'username is required!' }),
@@ -20,7 +21,7 @@ const formSchema = z.object({
 const LoginPage = () => {
   const router = useRouter();
 
-  const { mutate, isPending, isSuccess } = useMutationLogin()
+  const { mutate, isPending } = useMutationLogin()
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -33,11 +34,11 @@ const LoginPage = () => {
   const onSubmit = (data: z.infer<typeof formSchema>) => {
     mutate(data, {
       onSuccess: () => {
+        NProgress.start();
         router.push('/all-product');
       }
     });
   }
-
 
   return (
     <div className="lg:grid lg:grid-cols-2">

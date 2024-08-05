@@ -1,5 +1,5 @@
 "use client"
-import { Menu, Package2, Search, ShoppingCart } from 'lucide-react'
+import { Menu, Package2, ShoppingCart } from 'lucide-react'
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import { Button } from './ui/button';
 import { cn } from '@/lib/utils';
@@ -9,6 +9,8 @@ import { RightClickLogin } from './RightClickLogin';
 import { toast } from 'sonner';
 import { useTranslations } from 'next-intl';
 import { Link, usePathname } from '@/navigation';
+import { LanguageSelector } from './Language';
+import { ThemeToggle } from './ThemeToggle';
 const CartCount = dynamic(() => import('./CartCount'), { ssr: false })
 
 const navbar = [
@@ -26,7 +28,7 @@ const navbar = [
   },
 ]
 
-const Navbar = () => {
+const Navbar = ({ locale }: { locale: string }) => {
   const pathname = usePathname()
   const t = useTranslations()
   const { dispatch, state: { token: isAuth } } = useGlobalContext()
@@ -115,10 +117,14 @@ const Navbar = () => {
           </div>
         </form>
       </div> */}
-      <Button size="icon" variant="outline" className='relative ml-auto' onClick={onOpenSidebar}>
-        <ShoppingCart />
-        <CartCount />
-      </Button>
+      <div className='flex gap-3 ml-auto'>
+        <ThemeToggle />
+        <LanguageSelector locale={locale} />
+        <Button size="icon" variant="outline" className='relative' onClick={onOpenSidebar}>
+          <ShoppingCart />
+          <CartCount />
+        </Button>
+      </div>
     </>
   )
 }
