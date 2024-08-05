@@ -44,7 +44,7 @@ export default async function RootLayout({
           <GlobalProvider>
             <Provider
               attribute="class"
-              defaultTheme="system"
+              defaultTheme="light"
               enableSystem
               disableTransitionOnChange
             >
