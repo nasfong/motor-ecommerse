@@ -1,31 +1,8 @@
-'use client'
 import { useGlobalContext } from "@/lib/context";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { toast } from "sonner";
 
-export const useQueryType = () => {
-  return useQuery<Type[]>({
-    queryKey: ['productType'],
-    queryFn: () =>
-      axios.get('/type')
-        .then((res) => res.data)
-        .catch(
-          (error) => {
-            const errorMessage = error.response?.data?.message || error.message || "An error occurred";
-            toast.error(`Error deleting product: ${errorMessage}`);
-          }
-        ),
-  });
-}
-
-export const useQueryProduct = (id: string) => {
-  return useQuery<Product>({
-    queryKey: ['product', id],
-    queryFn: () =>
-      axios.get(`/product/${id}`).then((res) => res.data),
-  });
-}
 
 export const useDeleteProduct = () => {
   const queryClient = useQueryClient();
@@ -35,7 +12,7 @@ export const useDeleteProduct = () => {
       return axios.delete(`/product/${id}`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['product'] })
+      queryClient.invalidateQueries({ queryKey: ['products'] })
       toast.success("Product deleted successfully!")
     },
     onError: (error: any) => {
@@ -65,13 +42,13 @@ export const useSubmitProduct = (id?: string) => {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['product'] })
+      queryClient.invalidateQueries({ queryKey: ['products'] })
       if (id) toast.success("Product has been updated")
       else toast.success("Product has been created")
     },
     onError: (error: any) => {
       const errorMessage = error.response?.data?.message || error.message || "An error occurred";
-      toast.error(`Error deleting product: ${errorMessage}`);
+      toast.error(`Error product: ${errorMessage}`);
     },
   })
 }
@@ -85,7 +62,6 @@ export const useMutationLogin = () => {
     onSuccess: (token) => {
       dispatch({ type: 'LOGIN', payload: token })
       toast.success("Login Successfully!")
-      // router.push('/')
     },
     onError: (error: any) => {
       const errorMessage = error.response?.data?.message || error.message || "An error occurred";
@@ -143,4 +119,35 @@ export const useDeleteType = () => {
       toast.error(`Error deleting type: ${errorMessage}`);
     },
   })
+}
+
+export async function getProduct(): Promise<Products> {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/product`, { cache: 'no-cache' })
+  if (!res.ok) {
+    throw new Error('Failed to fetch data')
+  }
+  return res.json()
+}
+
+export async function getProductById(id: string): Promise<Product> {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/product/${id}`, { cache: 'no-cache' })
+  if (!res.ok) {
+    throw new Error('Failed to fetch data')
+  }
+  return res.json()
+}
+
+export async function getType(): Promise<Type[]> {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/type`, { cache: 'no-cache' })
+  if (!res.ok) {
+    throw new Error('Failed to fetch data')
+  }
+  return res.json()
+}
+
+export const useQueryType = () => {
+  return useQuery<Type[]>({
+    queryKey: ['productType'],
+    queryFn: getType
+  });
 }

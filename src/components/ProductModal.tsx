@@ -1,5 +1,4 @@
 'use client'
-import { PlusCircle, Trash2 } from "lucide-react"
 import { Button } from "./ui/button"
 import { useForm } from "react-hook-form"
 import { z } from 'zod'
@@ -38,15 +37,6 @@ type Props = {
 }
 
 const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
-  const onChangeModal = (isOpen: boolean) => {
-    setOpen(isOpen)
-    if (!isOpen) {
-      setOpen(false)
-      form.reset()
-      setFormValue(defaultValues)
-    }
-  }
-
   const { data: typeData, isLoading: typeLoading } = useQueryType()
   const { mutateAsync, isPending } = useSubmitProduct(formValue?.id)
 
@@ -68,7 +58,15 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
     resolver: zodResolver(formSchema),
     defaultValues: defaultValues
   })
-
+  const onChangeModal = (isOpen: boolean) => {
+    setOpen(isOpen)
+    if (!isOpen) {
+      setOpen(false)
+      form.reset(defaultValues)
+      console.log('clear')
+      setFormValue(null)
+    }
+  }
   // handle submit
   const onSubmit = (data: z.infer<typeof formSchema>) => {
     const formData = new FormData();

@@ -36,15 +36,20 @@ export default async function RootLayout({
     <html lang={locale}>
       <body
         className={cn(
-          "min-h-screen bg-neutral-50 font-sans antialiased",
+          "min-h-screen  font-sans antialiased",
           fontSans.variable
         )}
       >
         <NextIntlClientProvider messages={messages}>
           <GlobalProvider>
-            <Provider>
+            <Provider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
               <header className="flex h-16 items-center gap-4 px-4 md:px-6">
-                <Navbar />
+                <Navbar locale={locale} />
               </header>
               <div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
                 <NextTopLoader

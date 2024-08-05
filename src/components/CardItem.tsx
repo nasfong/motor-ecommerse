@@ -8,8 +8,6 @@ import { Quantity } from './Quantity'
 import { formatMoney } from '@/lib/utils'
 import { Link } from '@/navigation'
 
-const placeholderImg = '/product-img-placeholder.svg'
-
 type CardItemProps = {
   item: Product & { quantity: number }
 }
@@ -47,8 +45,8 @@ const CartItem = ({
               className="w-full h-full object-cover rounded-lg"
               width={64}
               height={64}
-              src={item.image[0] || placeholderImg}
-              alt={item.image[0] || 'Product Image'}
+              src={item.image[0]}
+              alt={item.image[0]}
             />
           </Link>
           <div className='absolute -top-2 -right-2'>

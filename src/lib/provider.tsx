@@ -2,21 +2,21 @@
 import { useGlobalContext } from '@/lib/context'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import axios from 'axios'
-import { ReactNode } from 'react'
+import { useState } from 'react'
 import { Toaster } from 'sonner'
+import { ThemeProvider as NextThemesProvider } from "next-themes"
+import { ThemeProviderProps } from 'next-themes/dist/types'
 
-export default function Provider({ children }: { children: ReactNode }) {
+export default function Provider({ children, ...props }: ThemeProviderProps) {
   const { state: { token } } = useGlobalContext()
-  const queryClient = new QueryClient({
+  const [queryClient] = useState(() => new QueryClient({
     defaultOptions: {
       queries: {
         refetchOnWindowFocus: false,
         refetchOnMount: false,
-        // staleTime: 6 * 1000,
-        // refetchInterval: 6 * 1000,
       },
     },
-  })
+  }))
 
   axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL
   axios.defaults.headers.post['Content-Type'] = 'application/json'
@@ -33,8 +33,10 @@ export default function Provider({ children }: { children: ReactNode }) {
   // )
   return (
     <QueryClientProvider client={queryClient}>
-      <Toaster richColors closeButton />
-      {children}
+      <NextThemesProvider {...props}>
+        <Toaster richColors closeButton />
+        {children}
+      </NextThemesProvider>
     </QueryClientProvider>
   )
 }
