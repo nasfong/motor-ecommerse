@@ -4,6 +4,7 @@ import React from 'react'
 import { Badge } from './ui/badge';
 // import FramerWrapper from './FramerWrapper';
 import { Link } from '@/navigation';
+import { AspectRatio } from './ui/aspect-ratio';
 
 type Props = {
   item: Product,
@@ -18,14 +19,16 @@ const ProductCard = ({ item, className, pageRef, delay }: Props) => {
     <div className='inline-block h-full w-full'>
       <Link ref={pageRef} href={`/all-product/${item.id}`}>
         <div className={cn("group flex h-full w-full items-center justify-center overflow-hidden rounded-lg border bg-white hover:border-blue-600 dark:bg-black relative border-neutral-200 dark:border-neutral-800", className)}>
-          <Image
-            src={item.image[0]}
-            width={1000}
-            height={1000}
-            className='relative h-full w-full object-contain transition duration-300 ease-in-out group-hover:scale-105'
-            alt={item.image[0]}
-            priority
-          />
+          <AspectRatio ratio={1 / 1}>
+            <Image
+              src={item.image[0]}
+              width={1000}
+              height={1000}
+              className='relative h-full w-full object-contain transition duration-300 ease-in-out group-hover:scale-105'
+              alt={item.image[0]}
+              priority
+            />
+          </AspectRatio>
         </div>
         <div className='absolute top-2 right-2 flex flex-col items-end gap-1'>
           {item.isNews ? (

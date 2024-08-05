@@ -71,7 +71,7 @@ const TypeModal = () => {
             <PlusCircle className="h-3.5 w-3.5" />
           </Button>
         </DialogTrigger>
-        <DialogContent className="max-w-[30%]">
+        <DialogContent className="w-[300px] sm:w-[400px] md:w-[500px]">
           <DialogHeader>
             <DialogTitle>{!formValue?.id ? 'Create' : 'Edit'} Type</DialogTitle>
             <DialogDescription>
