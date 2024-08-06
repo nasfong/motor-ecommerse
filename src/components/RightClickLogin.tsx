@@ -37,7 +37,9 @@ export function RightClickLogin({
             </ContextMenuItem>
           </Link>
         ) : (
-          <div onClick={onLogout}>Logout</div>
+          <ContextMenuItem inset onClick={onLogout}>
+            Logout
+          </ContextMenuItem>
         )}
       </ContextMenuContent>
     </ContextMenu >
