@@ -5,17 +5,22 @@ import Tabs from "../Tabs"
 import ProductList from "../ProductList"
 import { Link } from "@/navigation"
 import { Button } from "../ui/button"
+
+type HomeProps = {
+  searchParams: { type: string, recommend: boolean }
+}
+
 import { useTranslations } from "next-intl"
 
-export default function Home() {
+export default function Home({ searchParams }: HomeProps) {
   const t = useTranslations()
-  const { data: typeData} = useQuery({
+  const { data: typeData } = useQuery({
     queryKey: ['productType'],
     queryFn: getType,
   })
   const { data: productData } = useQuery({
-    queryKey: ['products'],
-    queryFn: getProduct,
+    queryKey: ['products', searchParams],
+    queryFn: () => getProduct(searchParams),
   })
 
   return (

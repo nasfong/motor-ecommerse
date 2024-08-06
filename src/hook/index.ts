@@ -121,20 +121,17 @@ export const useDeleteType = () => {
   })
 }
 
-export async function getProduct(): Promise<Products> {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/product`, { cache: 'no-cache' })
-  if (!res.ok) {
-    throw new Error('Failed to fetch data')
-  }
-  return res.json()
+export async function getProduct(queryParams?: Record<string, any>): Promise<Products> {
+  const res = await
+    axios.get(`${process.env.NEXT_PUBLIC_API_URL}/product`, {
+      params: queryParams
+    })
+  return res.data
 }
 
 export async function getProductById(id: string): Promise<Product> {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/product/${id}`, { cache: 'no-cache' })
-  if (!res.ok) {
-    throw new Error('Failed to fetch data')
-  }
-  return res.json()
+  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/product/${id}`)
+  return res.data
 }
 
 export async function getType(): Promise<Type[]> {

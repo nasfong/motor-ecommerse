@@ -30,7 +30,6 @@ const navbar = [
 
 const Navbar = ({ locale }: { locale: string }) => {
   const pathname = usePathname()
-  const t = useTranslations()
   const { dispatch, state: { token: isAuth } } = useGlobalContext()
   const onOpenSidebar = () => dispatch({ type: 'OPEN_SIDEBAR' })
 
@@ -42,15 +41,7 @@ const Navbar = ({ locale }: { locale: string }) => {
   return (
     <>
       <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
-        <RightClickLogin>
-          {isAuth ? (
-            <div onClick={onLogout}>Logout</div>
-          ) : (
-            <Link href="/login">
-              Login
-            </Link>
-          )}
-        </RightClickLogin>
+        <RightClickLogin isAuth={isAuth} onLogout={onLogout} />
         {navbar.map((item, index) => {
           const active = item.path === pathname
           return (
@@ -105,18 +96,6 @@ const Navbar = ({ locale }: { locale: string }) => {
           </nav>
         </SheetContent>
       </Sheet>
-      {/* <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
-        <form className="ml-auto flex-1 sm:flex-initial">
-          <div className="relative">
-            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input
-              type="search"
-              placeholder="Search products..."
-              className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
-            />
-          </div>
-        </form>
-      </div> */}
       <div className='flex gap-3 ml-auto'>
         <ThemeToggle />
         <LanguageSelector locale={locale} />
