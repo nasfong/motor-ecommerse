@@ -38,7 +38,7 @@ const options = [
   },
   {
     value: "kh",
-    label: "khmer",
+    label: "ខ្មែរ",
     icon: Cambodia,
   },
 ];

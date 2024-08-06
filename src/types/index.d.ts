@@ -30,3 +30,10 @@ type Login = {
 }
 
 type ProductCard = Product & { quantity: number }
+
+type QueryParams = {
+  id?: string
+  type?: string;
+  recommend?: boolean;
+  excludeId?: string;
+};

@@ -9,8 +9,10 @@ import Text from "../ui/text";
 import { Badge } from "../ui/badge";
 import AddToCard from "../AddToCard";
 import RelationProduct from "../RelationProduct";
+import { useTranslations } from "next-intl";
 
 export default function ProductDetail({ id }: { id: string }) {
+  const t = useTranslations('product')
   const { data } = useQuery({
     queryKey: ['product', id],
     queryFn: () => getProductById(id),
@@ -32,21 +34,21 @@ export default function ProductDetail({ id }: { id: string }) {
           </Text>
           <div className='flex  gap-2 my-5'>
             {data.isSold === 1 ? (
-              <Badge variant="outline">New</Badge>
+              <Badge variant="outline">{t('New')}</Badge>
             ) : (
-              <Badge variant="outline">Secondary</Badge>
+              <Badge variant="outline">{t('Second hand')}</Badge>
             )}
             {data.isSold === 1 ? (
-              <Badge variant="outline" className=''>In Stock</Badge>
+              <Badge variant="outline" className=''>{t('In Stock')}</Badge>
             ) : (
-              <Badge variant="outline" className=''>Sold Out</Badge>
+              <Badge variant="outline" className=''>{t('Out Stock')}</Badge>
             )}
           </div>
           <AddToCard item={data} />
         </div>
       </div>
       <div className="py-8">
-        <h2 className="mb-4 text-2xl font-bold">Related Products</h2>
+        <h2 className="mb-4 text-2xl font-bold">{t('Related Products')}</h2>
         <RelationProduct typeId={data.type.id} excludeProductId={data.id} />
       </div>
     </Container>

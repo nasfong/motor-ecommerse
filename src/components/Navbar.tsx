@@ -13,22 +13,9 @@ import { LanguageSelector } from './Language';
 import { ThemeToggle } from './ThemeToggle';
 const CartCount = dynamic(() => import('./CartCount'), { ssr: false })
 
-const navbar = [
-  {
-    name: 'Home',
-    path: '/',
-  },
-  {
-    name: 'All Product',
-    path: '/all-product',
-  },
-  {
-    name: 'Contact',
-    path: '/contact',
-  },
-]
 
 const Navbar = ({ locale }: { locale: string }) => {
+  const t = useTranslations('navbar');
   const pathname = usePathname()
   const { dispatch, state: { token: isAuth } } = useGlobalContext()
   const onOpenSidebar = () => dispatch({ type: 'OPEN_SIDEBAR' })
@@ -38,10 +25,25 @@ const Navbar = ({ locale }: { locale: string }) => {
     toast.success('Logout!')
   }
 
+  const navbar = [
+    {
+      name: t('Home'),
+      path: '/',
+    },
+    {
+      name: t('All Products'),
+      path: '/all-product',
+    },
+    {
+      name: t('Contact'),
+      path: '/contact',
+    },
+  ];
+
   return (
     <>
       <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
-        <RightClickLogin isAuth={isAuth} onLogout={onLogout} />
+        <RightClickLogin isAuth={!!isAuth} onLogout={onLogout} />
         {navbar.map((item, index) => {
           const active = item.path === pathname
           return (

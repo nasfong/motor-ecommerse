@@ -1,18 +1,21 @@
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
 } from "@/components/ui/pagination"
+
+type QuantityProps = {
+  quantity: number
+  onMinusCard: () => void
+  onPlusCard: () => void
+}
 
 export function Quantity({
   quantity,
   onMinusCard,
   onPlusCard
-}: any) {
+}: QuantityProps) {
 
   return (
     <Pagination>

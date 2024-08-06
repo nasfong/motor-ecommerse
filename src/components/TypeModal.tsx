@@ -9,12 +9,14 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { InputForm } from './form/InputForm'
 import { useDeleteType, useQueryType, useSubmitType } from '@/hook'
 import { DeleteButton } from './DeleteButton'
+import { useTranslations } from 'next-intl'
 
 const formSchema = z.object({
   name: z.string().nonempty("required!"),
 })
 
 const TypeModal = () => {
+  const t = useTranslations('all-product')
   const [open, setOpen] = useState(false)
   const [formValue, setFormValue] = useState<any>(null)
 
@@ -73,9 +75,9 @@ const TypeModal = () => {
         </DialogTrigger>
         <DialogContent className="w-[300px] sm:w-[400px] md:w-[500px]">
           <DialogHeader>
-            <DialogTitle>{!formValue?.id ? 'Create' : 'Edit'} Type</DialogTitle>
+            <DialogTitle>{!formValue?.id ? t('Create Model') : t('Edit Model')}</DialogTitle>
             <DialogDescription>
-              type information form.
+              {t('model information form')}
             </DialogDescription>
           </DialogHeader>
           <Form {...form}>
@@ -86,7 +88,7 @@ const TypeModal = () => {
               <InputForm
                 form={form}
                 name="name"
-                placeholder="name"
+                placeholder={t('Name')}
               />
               <div>{typeData?.map((item, index) => (
                 <div key={index} className='flex justify-between'>
@@ -100,7 +102,7 @@ const TypeModal = () => {
                 </div>
               ))}</div>
               <DialogFooter className="mt-3">
-                <Button type="submit" loading={isPending}>{formValue?.id ? 'Update' : 'Create'}</Button>
+                <Button type="submit" loading={isPending}>{formValue?.id ? t('Update') : t('Create')}</Button>
               </DialogFooter>
             </form>
           </Form>

@@ -10,15 +10,17 @@ import { useMutationLogin } from "@/hook"
 import Image from "next/image"
 import { useRouter } from "@/navigation"
 import * as NProgress from "nprogress"
+import { useTranslations } from "next-intl"
 
 const formSchema = z.object({
   username: z.string().min(1, { message: 'username is required!' }),
   password: z.string().min(3, {
-    message: "password must be at least 8 characters long."
+    message: "password must be at least 3 characters long."
   }),
 })
 
 const LoginPage = () => {
+  const t = useTranslations('login')
   const router = useRouter();
 
   const { mutate, isPending } = useMutationLogin()
@@ -45,9 +47,9 @@ const LoginPage = () => {
       <div className="flex items-center justify-center py-12">
         <div className="mx-auto grid w-[350px] gap-6">
           <div className="grid gap-2 text-center">
-            <h1 className="text-3xl font-bold">Login</h1>
+            <h1 className="text-3xl font-bold">{t('Logins')}</h1>
             <p className="text-balance text-muted-foreground">
-              Enter your username below to login to your account
+              {t('Enter your username below to login to your account')}
             </p>
           </div>
           <Form {...form}>
@@ -58,8 +60,8 @@ const LoginPage = () => {
                     form={form}
                     id="username"
                     name="username"
-                    placeholder="username"
-                    label="Username"
+                    label={t("Username")}
+                    placeholder={t("Username")}
                   />
                 </div>
                 <div className="grid gap-2">
@@ -68,12 +70,12 @@ const LoginPage = () => {
                     id="password"
                     name="password"
                     type="password"
-                    placeholder="password"
-                    label="Password"
+                    label={t("Password")}
+                    placeholder={t("Password")}
                   />
                 </div>
                 <Button type="submit" className="w-full" loading={isPending}>
-                  Login
+                  {t('Login')}
                 </Button>
               </div>
             </form>

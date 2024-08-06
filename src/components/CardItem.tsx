@@ -9,7 +9,7 @@ import { formatMoney } from '@/lib/utils'
 import { Link } from '@/navigation'
 
 type CardItemProps = {
-  item: Product & { quantity: number }
+  item: ProductCard
 }
 
 const CartItem = ({

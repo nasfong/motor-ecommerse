@@ -1,7 +1,10 @@
-const stocks = [
-  { id: 1, name: "In Stock" },
-  { id: 2, name: "Out Stock" },
-]
+// Create a function to get the translated data based on the locale
+export const stocks = (t: (s: string) => void) => {
+  return [
+    { id: 1, name: t('In Stock') },
+    { id: 2, name: t('Out Stock') }
+  ];
+};
 
 export const location = {
   lat: 13.3782812,
