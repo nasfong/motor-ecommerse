@@ -5,13 +5,6 @@ import Cookies from 'js-cookie';
 import { SheetCard } from '@/components/SheetCard';
 
 // Define the shape of your context state
-interface ProductCard {
-  id: string;
-  name: string;
-  quantity: number;
-  // Include other properties as needed
-}
-
 interface MyContextState {
   carts: ProductCard[];
   sidebar: boolean;
