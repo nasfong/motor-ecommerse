@@ -14,14 +14,24 @@ import {
 import CartItem from "./CardItem"
 import { ScrollArea } from "./ui/scroll-area"
 import { Separator } from "./ui/separator"
+import { formatMoney } from "@/lib/utils"
 
-export function SheetCard({ open, onChangeModal, data }: any) {
+type SheetCardProps = {
+  open: boolean
+  onChangeModal: (open: boolean) => void
+  data: ProductCard[]
+}
+
+export function SheetCard({ open, onChangeModal, data }: SheetCardProps) {
+  const total = data.reduce((accumulator, product) => {
+    return accumulator + (product.price * product.quantity);
+  }, 0);
   return (
     <Sheet open={open} onOpenChange={onChangeModal}>
       <SheetTrigger asChild>
       </SheetTrigger>
       <SheetContent>
-        <ScrollArea className="h-3/4">
+        <ScrollArea className="h-5/6">
           <SheetHeader className="p-6">
             <SheetTitle>My Cart</SheetTitle>
             <SheetDescription>
@@ -37,24 +47,10 @@ export function SheetCard({ open, onChangeModal, data }: any) {
             ))}
           </ul>
         </ScrollArea>
-        <div className="flex-shrink-0 bg-white px-6 py-6 sm:px-6 sticky z-20 bottom-0 w-full right-0 left-0 bg-accent-0 border-t text-sm">
-          <ul className="pb-2">
-            <li className="flex justify-between py-1">
-              <span>Subtotal</span>
-              {/* <span>{subTotal}</span> */}
-            </li>
-            <li className="flex justify-between py-1">
-              <span>Taxes</span>
-              <span>Calculated at checkout</span>
-            </li>
-            <li className="flex justify-between py-1">
-              <span>Shipping</span>
-              <span className="font-bold tracking-wide">FREE</span>
-            </li>
-          </ul>
-          <div className="flex justify-between border-t border-accent-2 py-3 font-bold mb-2">
+        <div className="flex-shrink-0 px-6 py-6 sm:px-6 sticky z-20 bottom-0 w-full right-0 left-0 bg-accent-0 border-t text-sm">
+          <div className="flex justify-between py-3 font-bold mb-2">
             <span>Total</span>
-            {/* <span>{total}</span> */}
+            <span>{formatMoney(total)}</span>
           </div>
           <div>
             {/* <Link href="/checkout" className="w-full">
@@ -62,11 +58,6 @@ export function SheetCard({ open, onChangeModal, data }: any) {
           </Link> */}
           </div>
         </div>
-        <SheetFooter>
-          <SheetClose asChild>
-            <Button type="submit">Save changes</Button>
-          </SheetClose>
-        </SheetFooter>
       </SheetContent>
     </Sheet>
   )
