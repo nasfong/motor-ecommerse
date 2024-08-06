@@ -1,8 +1,42 @@
 import { useGlobalContext } from "@/lib/context";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
 import { toast } from "sonner";
+import axios from "axios";
 
+export async function getProduct(queryParams?: QueryParams): Promise<Products> {
+  const res = await
+    axios.get(`${process.env.NEXT_PUBLIC_API_URL}/product`, {
+      params: queryParams
+    })
+  return res.data
+}
+
+export async function getProductById(id: string): Promise<Product> {
+  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/product/${id}`)
+  return res.data
+}
+
+export async function getType(): Promise<Type[]> {
+  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/type`)
+  return res.data
+}
+
+export const useQueryType = () => {
+  return useQuery<Type[]>({
+    queryKey: ['productType'],
+    queryFn: getType
+  });
+}
+
+export const useProducts = (queryParams?: QueryParams) => {
+  return useQuery<Products>({
+    queryKey: ['product', queryParams],
+    queryFn: () =>
+      axios.get('/product', {
+        params: queryParams
+      }).then((res) => res.data),
+  });
+};
 
 export const useDeleteProduct = () => {
   const queryClient = useQueryClient();
@@ -16,8 +50,16 @@ export const useDeleteProduct = () => {
       toast.success("Product deleted successfully!")
     },
     onError: (error: any) => {
+      const status = error.response?.status;
       const errorMessage = error.response?.data?.message || error.message || "An error occurred";
-      toast.error(`Error deleting product: ${errorMessage}`);
+
+      if (status === 400) {
+        toast.warning(errorMessage);
+      } else if (status === 500) {
+        toast.error(`Server Error: ${errorMessage}`);
+      } else {
+        toast.error(`Error deleting product: ${errorMessage}`);
+      }
     },
   })
 }
@@ -70,16 +112,6 @@ export const useMutationLogin = () => {
   })
 }
 
-export const useProducts = (queryParams?: Record<string, any>) => {
-  return useQuery<Products>({
-    queryKey: ['product', queryParams],
-    queryFn: () =>
-      axios.get('/product', {
-        params: queryParams
-      }).then((res) => res.data),
-  });
-};
-
 export const useSubmitType = (id?: string) => {
   const queryClient = useQueryClient();
   return useMutation({
@@ -115,36 +147,18 @@ export const useDeleteType = () => {
       toast.success("Type deleted successfully!")
     },
     onError: (error: any) => {
+      const status = error.response?.status;
       const errorMessage = error.response?.data?.message || error.message || "An error occurred";
-      toast.error(`Error deleting type: ${errorMessage}`);
+
+      if (status === 400) {
+        toast.warning(errorMessage);
+      } else if (status === 500) {
+        toast.error(`Server Error: ${errorMessage}`);
+      } else {
+        toast.error(`Error deleting type: ${errorMessage}`);
+      }
     },
   })
 }
 
-export async function getProduct(queryParams?: Record<string, any>): Promise<Products> {
-  const res = await
-    axios.get(`${process.env.NEXT_PUBLIC_API_URL}/product`, {
-      params: queryParams
-    })
-  return res.data
-}
 
-export async function getProductById(id: string): Promise<Product> {
-  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/product/${id}`)
-  return res.data
-}
-
-export async function getType(): Promise<Type[]> {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/type`, { cache: 'no-cache' })
-  if (!res.ok) {
-    throw new Error('Failed to fetch data')
-  }
-  return res.json()
-}
-
-export const useQueryType = () => {
-  return useQuery<Type[]>({
-    queryKey: ['productType'],
-    queryFn: getType
-  });
-}

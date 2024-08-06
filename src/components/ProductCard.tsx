@@ -5,6 +5,7 @@ import { Badge } from './ui/badge';
 // import FramerWrapper from './FramerWrapper';
 import { Link } from '@/navigation';
 import { AspectRatio } from './ui/aspect-ratio';
+import { useTranslations } from 'next-intl';
 
 type Props = {
   item: Product,
@@ -14,6 +15,7 @@ type Props = {
 }
 
 const ProductCard = ({ item, className, pageRef, delay }: Props) => {
+  const t = useTranslations('product')
   return (
     // <FramerWrapper y={0} scale={0.8} delay={delay} duration={0.15}>
     <div className='inline-block h-full w-full'>
@@ -32,14 +34,14 @@ const ProductCard = ({ item, className, pageRef, delay }: Props) => {
         </div>
         <div className='absolute top-2 right-2 flex flex-col items-end gap-1'>
           {item.isNews ? (
-            <Badge variant="secondary">New</Badge>
+            <Badge variant="secondary">{t('New')}</Badge>
           ) : (
-            <Badge variant="secondary">Secondary</Badge>
+            <Badge variant="secondary">{t('Second hand')}</Badge>
           )}
           {item.isSold === 1 ? (
-            <Badge variant="secondary">In Stock</Badge>
+            <Badge variant="secondary">{t('In Stock')}</Badge>
           ) : (
-            <Badge variant="secondary">Out of Stock</Badge>
+            <Badge variant="secondary">{t('Out Stock')}</Badge>
           )}
         </div>
         <div className='absolute bottom-0 left-0 flex w-full px-4 pb-4 @container/label'>

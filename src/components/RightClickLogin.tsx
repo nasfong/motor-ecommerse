@@ -8,9 +8,14 @@ import {
 import { Package2 } from "lucide-react"
 import { Link } from '@/navigation';
 
+type RightClickLoginProps = {
+  isAuth: boolean
+  onLogout: () => void
+}
+
 export function RightClickLogin({
-  children, isAuth, onLogout
-}: any) {
+  isAuth, onLogout
+}: RightClickLoginProps) {
   return (
     <ContextMenu>
       <ContextMenuTrigger className="">

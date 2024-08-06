@@ -15,6 +15,7 @@ import { Constant } from "@/lib/constant"
 import TypeModal from "./TypeModal"
 import { Ratings } from "./Rating"
 import { TextAreaForm } from "./form/TextAreaForm"
+import { useTranslations } from "next-intl"
 
 const formSchema = z.object({
   image: z.any().optional(),
@@ -33,10 +34,11 @@ type Props = {
   open: boolean
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
   formValue: Product | null
-  setFormValue: any
+  setFormValue: React.Dispatch<React.SetStateAction<Product | null>>
 }
 
 const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
+  const t = useTranslations('all-product')
   const { data: typeData, isLoading: typeLoading } = useQueryType()
   const { mutateAsync, isPending } = useSubmitProduct(formValue?.id)
 
@@ -63,7 +65,6 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
     if (!isOpen) {
       setOpen(false)
       form.reset(defaultValues)
-      console.log('clear')
       setFormValue(null)
     }
   }
@@ -112,14 +113,12 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
 
   return (
     <Dialog open={open} onOpenChange={onChangeModal}>
-      <DialogTrigger asChild>
-
-      </DialogTrigger>
+      <DialogTrigger asChild></DialogTrigger>
       <DialogContent className="min-w-[60%]">
         <DialogHeader>
-          <DialogTitle>{!formValue?.id ? 'Create' : 'Edit'} Product</DialogTitle>
+          <DialogTitle>{!formValue?.id ? t('Create Product') : t('Edit Product')}</DialogTitle>
           <DialogDescription>
-            product information form.
+            {t('product information form')}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -132,23 +131,23 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
               <InputForm
                 form={form}
                 name="name"
-                placeholder="name"
-                label="Name"
+                label={t('Name')}
+                placeholder={t('Name')}
               />
               <InputForm
                 form={form}
-                name="price"
-                placeholder="price"
-                label="Price"
                 type="number"
+                name="price"
+                label={t('Price')}
+                placeholder={t('Price')}
               />
             </div>
             <div className="grid grid-cols-2 gap-3">
               <SelectForm
                 form={form}
                 name="type"
-                placeholder="Select a type"
-                label="Model"
+                label={t('Model')}
+                placeholder={t('Select a Model')}
                 addMoreComponent={
                   <TypeModal />
                 }
@@ -158,30 +157,30 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
               <SelectForm
                 form={form}
                 name="isSold"
-                placeholder="Select a Stock"
-                label="Stock"
-                options={Constant.stocks}
+                options={Constant.stocks(t)}
+                label={t('Stock')}
+                placeholder={t('Select a Stock')}
               />
             </div>
             <TextAreaForm
               form={form}
               name="description"
-              placeholder="description"
-              label="Description"
+              label={t('Description')}
+              placeholder={t('Description')}
             />
             <Ratings rating={form.getValues('star')} variant="yellow" onRatingChange={(value) => form.setValue('star', value)} />
             <CheckboxForm
               form={form}
               name="isNews"
-              label="New"
+              label={t('New')}
             />
             <CheckboxForm
               form={form}
               name="recommend"
-              label="Recommend"
+              label={t('Recommend')}
             />
             <DialogFooter className="mt-3">
-              <Button type="submit" loading={isPending}>{formValue?.id ? 'Update' : 'Create'}</Button>
+              <Button type="submit" loading={isPending}>{formValue?.id ? t('Update') : t('Create')}</Button>
             </DialogFooter>
           </form>
         </Form>

@@ -1,12 +1,15 @@
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import Home from "@/components/modules/Home";
 import { getProduct, getType } from "@/hook";
-import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
-export const metadata: Metadata = {
-  title: "Home Page",
-  description: "home page list product.",
-};
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
+  const t = await getTranslations({ locale, namespace: '' });
+  return {
+    title: t('Home Page'),
+    description: t("home page list product"),
+  };
+}
 
 type HomePageProps = {
   searchParams: { type: string }

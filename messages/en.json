@@ -1,3 +1,73 @@
 {
-  "View All Products": "View All Products"
+  "metadata": {
+    "Contact Page": "Contact Page",
+    "Contact Map address": "Contact & Map address"
+  },
+  "Home Page": "Home Page",
+  "home page list product": "home page list product.",
+  "View All Products": "View All Products",
+  "All Product Page": "All Product Page",
+  "All product motor cycle list": "All product motor cycle list.",
+  "Contact Page": "Contact Page",
+  "contact & Map address": "contact & Map address.",
+  "navbar": {
+    "Home": "Home",
+    "All Products": "All Products",
+    "Contact": "Contact"
+  },
+  "all-product": {
+    "Create Product": "Create Product",
+    "Edit Product": "Edit Product",
+    "Add Product": "Add Product",
+    "Create": "Create",
+    "product information form": "product information form.",
+    "Drag your files here or click in this area": "Drag your files here or click in this area.",
+    "Name": "Name",
+    "Price": "Price",
+    "Model": "Model",
+    "Stock": "Stock",
+    "Description": "Description",
+    "New": "New",
+    "Recommend": "Recommend",
+    "Save": "Save",
+    "Edit": "Edit",
+    "Update": "Update",
+    "Select a Model": "Select a Model",
+    "Select a Stock": "Select a Stock",
+    "Create Model": "Create Model",
+    "Edit Model": "Edit Model",
+    "model information form": "model information form",
+    "In Stock": "In Stock",
+    "Out Stock": "Out Stock"
+  },
+  "alert": {
+    "Are you absolutely sure": "Are you absolutely sure?",
+    "This action cannot be undone This will permanently delete your account and remove your data from our servers": "This action cannot be undone. This will permanently delete your account and remove your data from our servers.",
+    "Cancel": "Cancel",
+    "Delete": "Delete"
+  },
+  "product": {
+    "New": "New",
+    "Second hand": "Second hand",
+    "In Stock": "In Stock",
+    "Out Stock": "Out Stock",
+    "Add to cart": "Add to cart",
+    "Related Products": "Related Products"
+  },
+  "cart": {
+    "My Cart": "My Cart",
+    "Total": "Total"
+  },
+  "contact": {
+    "Phone Number": "Phone Number",
+    "Facebook": "Facebook",
+    "Telegram": "Telegram"
+  },
+  "login": {
+    "Enter your username below to login to your account": "Enter your username below to login to your account",
+    "Username": "Username",
+    "Password": "Password",
+    "Logins": "Login",
+    "Login": "Login"
+  }
 }

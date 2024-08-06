@@ -1,3 +1,73 @@
 {
-  "View All Products": "ផលិតផលទាំងអស់"
+  "metadata": {
+    "Contact Page": "ទំនាក់ទំនង",
+    "Contact Map address": "ទំនាក់ទំនង និងអាសយដ្ឋានផែនទី"
+  },
+  "Home Page": "ទំព័រដើម",
+  "home page list product": "home page list product.",
+  "View All Products": "ផលិតផលទាំងអស់",
+  "All Product Page": "ផលិតផល",
+  "All product motor cycle list": "All product motor cycle list.",
+  "Contact Page": "Contact Page",
+  "contact & Map address": "contact & Map address.",
+  "navbar": {
+    "Home": "ទំព័រដើម",
+    "All Products": "ផលិតផល",
+    "Contact": "ទំនាក់ទំនង"
+  },
+  "all-product": {
+    "Create Product": "បង្កើតផលិតផល",
+    "Edit Product": "កែផលិតផល",
+    "Add Product": "បង្កើតផលិតផល",
+    "Create": "បង្កើត",
+    "product information form": "ទម្រង់ព័ត៌មានផលិតផល",
+    "Drag your files here or click in this area": "អូសរូបថតរបស់អ្នកមកទីនេះ ឬចុចក្នុងតំបន់នេះ",
+    "Name": "ឈ្មោះ",
+    "Price": "តម្លៃ",
+    "Model": "ប្រភេទ",
+    "Stock": "ស្តុក",
+    "Description": "ពិពណ៌នា",
+    "New": "ថ្មី",
+    "Recommend": "ណែនាំ",
+    "Save": "រក្សាទុក",
+    "Edit": "កែ",
+    "Update": "រក្សាទុក",
+    "Select a Model": "ជ្រើសរើសប្រភេទ",
+    "Select a Stock": "ជ្រើសរើសស្តុក",
+    "Create Model": "បង្កើតប្រភេទ",
+    "Edit Model": "កែប្រភេទ",
+    "model information form": "ទម្រង់ព័ត៌មានប្រភេទ",
+    "In Stock": "មានស្តុក",
+    "Out Stock": "អស់ពីស្តុក"
+  },
+  "alert": {
+    "Are you absolutely sure": "តើអ្នកប្រាកដទេ?",
+    "This action cannot be undone This will permanently delete your account and remove your data from our servers": "សកម្មភាពនេះមិនអាចត្រឡប់វិញបានទេ។ វានឹងលុបគណនីរបស់អ្នកជាអចិន្ត្រៃយ៍ និងលុបទិន្នន័យរបស់អ្នកចេញពីម៉ាស៊ីនមេរបស់យើង",
+    "Cancel": "បោះបង់",
+    "Delete": "លុប"
+  },
+  "product": {
+    "New": "ថ្មី",
+    "Second hand": "មួយ​ទឹក",
+    "In Stock": "មានស្តុក",
+    "Out Stock": "អស់ពីស្តុក",
+    "Add to cart": "បញ្ចូលទៅក្នុងរទេះ",
+    "Related Products": "ផលិតផលដែលពាក់ព័ន្ធ"
+  },
+  "cart": {
+    "My Cart": "រទេះរបស់ខ្ញុំ",
+    "Total": "សរុប"
+  },
+  "contact": {
+    "Phone Number": "លេខទូរសព្ទ",
+    "Facebook": "ហ្វេសប៊ុក",
+    "Telegram": "Telegram"
+  },
+  "login": {
+    "Enter your username below to login to your account": "បញ្ចូលឈ្មោះអ្នកប្រើប្រាស់របស់អ្នកខាងក្រោម ដើម្បីចូលគណនីរបស់អ្នក",
+    "Username": "ឈ្មោះ​អ្នកប្រើប្រាស់",
+    "Password": "ពាក្យសម្ងាត់",
+    "Logins": "គណនី",
+    "Login": "ចូល"
+  }
 }

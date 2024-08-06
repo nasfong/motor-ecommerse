@@ -7,6 +7,7 @@ import { useState } from "react";
 import { Button } from "../ui/button";
 import { PlusCircle } from "lucide-react";
 import ProductModal from "../ProductModal";
+import { useTranslations } from "next-intl";
 
 const groupList = (list: Product[]) => {
   return list.reduce<{ [key: string]: typeof list }>((acc, item) => {
@@ -19,9 +20,10 @@ const groupList = (list: Product[]) => {
 }
 
 export default function AllProduct() {
+  const t = useTranslations('all-product')
   const { data: productData } = useQuery({
     queryKey: ['products'],
-    queryFn: getProduct,
+    queryFn: () => getProduct(),
   })
   const { mutateAsync: mutateAsyncDelete, isPending: isPendingDelete } = useDeleteProduct()
 
@@ -46,7 +48,7 @@ export default function AllProduct() {
         <Button size="sm" className="h-8 gap-1 float-end" onClick={() => setOpen(true)}>
           <PlusCircle className="h-3.5 w-3.5" />
           <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-            Add Product
+            {t('Add Product')}
           </span>
         </Button>
       )}

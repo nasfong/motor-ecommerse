@@ -1,28 +1,31 @@
 import React from 'react'
 import { TelegramIcon, Facebook02Icon } from "hugeicons-react"
 import { Phone } from 'lucide-react'
-const contacts = [
-  {
-    icon: Phone,
-    name: 'Phone Number',
-    value: '+855 456-7890',
-    color: '#90bb21',
-  },
-  {
-    icon: Facebook02Icon,
-    name: 'Facebook',
-    value: 'Motor Shop',
-    color: '#227bf3',
-  },
-  {
-    icon: TelegramIcon,
-    name: 'Telegram',
-    value: 'Motor Shop',
-    color: '#31aae9',
-  }
-]
+import { useTranslations } from 'next-intl'
+
 
 const Contact = () => {
+  const t = useTranslations('contact')
+  const contacts = [
+    {
+      icon: Phone,
+      name: t('Phone Number'),
+      value: '+855 456-7890',
+      color: '#90bb21',
+    },
+    {
+      icon: Facebook02Icon,
+      name: t('Facebook'),
+      value: 'Motor Shop',
+      color: '#227bf3',
+    },
+    {
+      icon: TelegramIcon,
+      name: t('Telegram'),
+      value: 'Motor Shop',
+      color: '#31aae9',
+    }
+  ]
   return (
     <div className='flex flex-col gap-3'>
       {contacts.map(({ name, value, icon: Icon, color }, index) => (
