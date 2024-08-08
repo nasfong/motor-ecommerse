@@ -25,14 +25,14 @@ const Tabs = ({ data }: Props) => {
       >
         All
       </button>
-      {data.map(({ id, name }, index) => (
+      {data.map(({ _id, name }, index) => (
         <button
           key={index}
           className={cn(
             `flex h-7 items-center justify-center rounded-full px-4 text-center text-sm transition-colors hover:text-destructive text-muted-foreground`,
-            { 'font-medium text-destructive': search ? id === search : id === 'All' }
+            { 'font-medium text-destructive': search ? _id === search : _id === 'All' }
           )}
-          onClick={() => onTab(id)}
+          onClick={() => onTab(_id)}
         >
           {name}
         </button>
