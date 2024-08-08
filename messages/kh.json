@@ -4,11 +4,11 @@
     "Contact Map address": "ទំនាក់ទំនង និងអាសយដ្ឋានផែនទី"
   },
   "Home Page": "ទំព័រដើម",
-  "home page list product": "home page list product.",
+  "home page list product": "ផលិតផលម៉ូតូទំព័រដើម.",
   "View All Products": "ផលិតផលទាំងអស់",
   "All Product Page": "ផលិតផល",
-  "All product motor cycle list": "All product motor cycle list.",
-  "Contact Page": "Contact Page",
+  "All product motor cycle list": "ផលិតផលម៉ូតូទាំងអស់",
+  "Contact Page": "ទំព័រទំនាក់ទំនង",
   "contact & Map address": "contact & Map address.",
   "navbar": {
     "Home": "ទំព័រដើម",
@@ -39,7 +39,8 @@
     "Edit Model": "កែប្រភេទ",
     "model information form": "ទម្រង់ព័ត៌មានប្រភេទ",
     "In Stock": "មានស្តុក",
-    "Out Stock": "អស់ពីស្តុក"
+    "Out Stock": "អស់ពីស្តុក",
+    "required": "ទាមទារ!"
   },
   "alert": {
     "Are you absolutely sure": "តើអ្នកប្រាកដទេ?",
@@ -53,7 +54,8 @@
     "In Stock": "មានស្តុក",
     "Out Stock": "អស់ពីស្តុក",
     "Add to cart": "បញ្ចូលទៅក្នុងរទេះ",
-    "Related Products": "ផលិតផលដែលពាក់ព័ន្ធ"
+    "Related Products": "ផលិតផលដែលពាក់ព័ន្ធ",
+    "Contact": "ទំនាក់ទំនង"
   },
   "cart": {
     "My Cart": "រទេះរបស់ខ្ញុំ",
@@ -62,7 +64,7 @@
   "contact": {
     "Phone Number": "លេខទូរសព្ទ",
     "Facebook": "ហ្វេសប៊ុក",
-    "Telegram": "Telegram"
+    "Telegram": "តេលេក្រាម"
   },
   "login": {
     "Enter your username below to login to your account": "បញ្ចូលឈ្មោះអ្នកប្រើប្រាស់របស់អ្នកខាងក្រោម ដើម្បីចូលគណនីរបស់អ្នក",

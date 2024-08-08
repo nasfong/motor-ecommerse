@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils';
 import Image from 'next/image'
 import React from 'react'
 import { Badge } from './ui/badge';
-import FramerWrapper from './FramerWrapper';
+// import FramerWrapper from './FramerWrapper';
 import { Link } from '@/navigation';
 import { AspectRatio } from './ui/aspect-ratio';
 import { useTranslations } from 'next-intl';
