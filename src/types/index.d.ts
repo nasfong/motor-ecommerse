@@ -1,7 +1,7 @@
 
 
 type Product = {
-  id: string
+  _id: string
   image: string[]
   name: string
   price: string
@@ -22,7 +22,7 @@ type Product = {
 type Products = Product[]
 
 type Type = {
-  id: string
+  _id: string
   name: string
 }
 

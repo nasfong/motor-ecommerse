@@ -48,7 +48,7 @@ export default function ProductDetail({ id }: { id: string }) {
       </div>
       <div className="py-8">
         <h2 className="mb-4 text-2xl font-bold">{t('Related Products')}</h2>
-        <RelationProduct typeId={data.type.id} excludeProductId={data.id} />
+        <RelationProduct typeId={data.type._id} excludeProductId={data._id} />
       </div>
     </Container>
   ) : null

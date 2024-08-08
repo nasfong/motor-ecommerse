@@ -28,7 +28,7 @@ export const SelectForm = forwardRef<HTMLDivElement, any>(({ form, name, label, 
               {options.map((item: any, index: any) => (
                 <SelectItem
                   key={index}
-                  value={item.id}
+                  value={item._id}
                 >
                   {item.name}
                 </SelectItem>
