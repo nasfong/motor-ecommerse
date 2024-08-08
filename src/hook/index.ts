@@ -24,7 +24,7 @@ export async function getType(): Promise<Type[]> {
 export const useQueryType = () => {
   return useQuery<Type[]>({
     queryKey: ['productType'],
-    queryFn: getType
+    queryFn: getType,
   });
 }
 

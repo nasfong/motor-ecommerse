@@ -20,7 +20,7 @@ import { useTranslations } from "next-intl"
 const formSchema = z.object({
   image: z.any().optional(),
   name: z.string().nonempty("required!"),
-  price: z.number({ message: "required!" }),
+  price: z.string().nonempty("required!"),
   description: z.string().optional(),
   type: z.string().nonempty("required!"),
   isNews: z.boolean().default(false),
@@ -46,7 +46,7 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
   const defaultValues = {
     image: [],
     name: "",
-    price: 0,
+    price: "",
     description: "",
     type: "",
     isNews: true,
@@ -77,7 +77,7 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
       }
     }
     formData.append('name', data.name);
-    formData.append('price', data.price.toString());
+    formData.append('price', data.price);
     formData.append('description', data.description || '');
     formData.append('type', data.type);
     formData.append('isNews', data.isNews.toString());
@@ -136,7 +136,6 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
               />
               <InputForm
                 form={form}
-                type="number"
                 name="price"
                 label={t('Price')}
                 placeholder={t('Price')}

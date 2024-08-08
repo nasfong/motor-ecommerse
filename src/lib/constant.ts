@@ -11,6 +11,8 @@ export const location = {
   lng: 103.8599097
 };
 
+export const imageUrl = `${process.env.NEXT_PUBLIC_API_URL}/image/`
+
 export const Constant = {
   stocks,
   location,

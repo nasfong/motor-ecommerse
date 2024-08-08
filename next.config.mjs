@@ -5,11 +5,18 @@ const withNextIntl = createNextIntlPlugin()
 
 const nextConfig = {
   images: {
-    remotePatterns: [
+    remotePatterns: process.env.NODE_ENV === 'production' ? [
       {
         protocol: 'https',
-        hostname: 'tra-bucket01.s3.ap-southeast-2.amazonaws.com',
+        hostname: new URL(process.env.NEXT_PUBLIC_API_URL).hostname,
         port: '',
+        pathname: '**',
+      },
+    ] : [
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '5000',
         pathname: '**',
       },
     ],

@@ -3,9 +3,7 @@ import Image from 'next/image'
 import { Button } from './ui/button'
 import { X } from 'lucide-react'
 import { useGlobalContext } from '@/lib/context'
-import { useState } from 'react'
 import { Quantity } from './Quantity'
-import { formatMoney } from '@/lib/utils'
 import { Link } from '@/navigation'
 
 type CardItemProps = {
@@ -72,7 +70,7 @@ const CartItem = ({
           <span className='font-light text-[12px] line-clamp-2 leading-none tracking-tight'>{item.description}</span>
         </div>
         <div className="flex flex-col items-end text-sm">
-          <span>{formatMoney(item.price)}</span>
+          <span>${item.price}</span>
           <div className=''>
             <Quantity
               quantity={item.quantity}

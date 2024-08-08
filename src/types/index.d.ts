@@ -4,7 +4,7 @@ type Product = {
   id: string
   image: string[]
   name: string
-  price: number
+  price: string
   description: string
   type: Type
   isNews: boolean;
@@ -13,11 +13,13 @@ type Product = {
   star: number
 }
 
-type Products = {
-  data: Product[]
-  totalPages: number
-  currentPage: number
-}
+// type Products = {
+//   data: Product[]
+//   totalPages: number
+//   currentPage: number
+// }
+
+type Products = Product[]
 
 type Type = {
   id: string

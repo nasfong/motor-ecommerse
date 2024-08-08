@@ -11,14 +11,14 @@ import { useTranslations } from 'next-intl';
 import { Link, usePathname } from '@/navigation';
 import { LanguageSelector } from './Language';
 import { ThemeToggle } from './ThemeToggle';
-const CartCount = dynamic(() => import('./CartCount'), { ssr: false })
+// const CartCount = dynamic(() => import('./CartCount'), { ssr: false })
 
 
 const Navbar = ({ locale }: { locale: string }) => {
   const t = useTranslations('navbar');
   const pathname = usePathname()
   const { dispatch, state: { token: isAuth } } = useGlobalContext()
-  const onOpenSidebar = () => dispatch({ type: 'OPEN_SIDEBAR' })
+  // const onOpenSidebar = () => dispatch({ type: 'OPEN_SIDEBAR' })
 
   const onLogout = () => {
     dispatch({ type: 'LOGOUT' })
@@ -101,10 +101,10 @@ const Navbar = ({ locale }: { locale: string }) => {
       <div className='flex gap-3 ml-auto'>
         <ThemeToggle />
         <LanguageSelector locale={locale} />
-        <Button size="icon" variant="outline" className='relative' onClick={onOpenSidebar}>
+        {/* <Button size="icon" variant="outline" className='relative' onClick={onOpenSidebar}>
           <ShoppingCart />
           <CartCount />
-        </Button>
+        </Button> */}
       </div>
     </>
   )
