@@ -18,7 +18,7 @@ const RelationProduct = ({ typeId, excludeProductId }: { typeId: string; exclude
           </div>
         </div>
       ) :
-        relateData?.data.map((item, index) => (
+        relateData?.map((item, index) => (
           <div className='relative' key={index}>
             <ProductCard
               item={item}

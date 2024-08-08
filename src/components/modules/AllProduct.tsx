@@ -61,7 +61,7 @@ export default function AllProduct() {
         />
       )}
       <div className='flex flex-col gap-5 w-full'>
-        {productData?.data && Object.entries(groupList(productData.data))
+        {productData && Object.entries(groupList(productData))
           .map(([key, value]) =>
             <AllProductCard
               key={key}

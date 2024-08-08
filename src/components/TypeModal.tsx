@@ -21,7 +21,7 @@ const TypeModal = () => {
   const [formValue, setFormValue] = useState<any>(null)
 
   const { data: typeData, isLoading: typeLoading } = useQueryType()
-  const { mutate, isPending } = useSubmitType(formValue?.id)
+  const { mutate, isPending } = useSubmitType(formValue?._id)
   const { mutateAsync: mutateAsyncDelete, isPending: isPendingDelete } = useDeleteType()
 
   const defaultValues = {
@@ -75,7 +75,7 @@ const TypeModal = () => {
         </DialogTrigger>
         <DialogContent className="w-[300px] sm:w-[400px] md:w-[500px]">
           <DialogHeader>
-            <DialogTitle>{!formValue?.id ? t('Create Model') : t('Edit Model')}</DialogTitle>
+            <DialogTitle>{!formValue?._id ? t('Create Model') : t('Edit Model')}</DialogTitle>
             <DialogDescription>
               {t('model information form')}
             </DialogDescription>
@@ -94,15 +94,15 @@ const TypeModal = () => {
                 <div key={index} className='flex justify-between'>
                   {item.name}
                   <span>
-                    <Button type='button' size='sm' variant='outline' onClick={() => handleEdit(item)} disabled={formValue?.id === item.id}>
+                    <Button type='button' size='sm' variant='outline' onClick={() => handleEdit(item)} disabled={formValue?._id === item._id}>
                       <Pencil className="h-4 w-4" />
                     </Button>
-                    <DeleteButton handleConfirm={() => handleDelete(item.id)} loading={isPendingDelete} />
+                    <DeleteButton handleConfirm={() => handleDelete(item._id)} loading={isPendingDelete} />
                   </span>
                 </div>
               ))}</div>
               <DialogFooter className="mt-3">
-                <Button type="submit" loading={isPending}>{formValue?.id ? t('Update') : t('Create')}</Button>
+                <Button type="submit" loading={isPending}>{formValue?._id ? t('Update') : t('Create')}</Button>
               </DialogFooter>
             </form>
           </Form>

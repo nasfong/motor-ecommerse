@@ -1,11 +1,12 @@
-import { cn, formatMoney } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 import Image from 'next/image'
 import React from 'react'
 import { Badge } from './ui/badge';
-// import FramerWrapper from './FramerWrapper';
+import FramerWrapper from './FramerWrapper';
 import { Link } from '@/navigation';
 import { AspectRatio } from './ui/aspect-ratio';
 import { useTranslations } from 'next-intl';
+import { imageUrl } from '@/lib/constant';
 
 type Props = {
   item: Product,
@@ -19,11 +20,11 @@ const ProductCard = ({ item, className, pageRef, delay }: Props) => {
   return (
     // <FramerWrapper y={0} scale={0.8} delay={delay} duration={0.15}>
     <div className='inline-block h-full w-full'>
-      <Link ref={pageRef} href={`/all-product/${item.id}`}>
-        <div className={cn("group flex h-full w-full items-center justify-center overflow-hidden rounded-lg border bg-white hover:border-blue-600 dark:bg-black relative border-neutral-200 dark:border-neutral-800", className)}>
+      <Link ref={pageRef} href={`/all-product/${item._id}`}>
+        <div className={cn("group flex h-full w-full items-center justify-center overflow-hidden rounded-lg border bg-white  hover:border-blue-600 dark:bg-black relative border-neutral-200 dark:border-neutral-800", className)}>
           <AspectRatio ratio={1 / 1}>
             <Image
-              src={item.image[0]}
+              src={imageUrl + item.image[0]}
               width={1000}
               height={1000}
               className='relative h-full w-full object-contain transition duration-300 ease-in-out group-hover:scale-105'
@@ -50,7 +51,7 @@ const ProductCard = ({ item, className, pageRef, delay }: Props) => {
               {item.name}
             </h3>
             <p className="flex-none rounded-full bg-blue-600 p-2 text-white">
-              {formatMoney(item.price)}
+              ${item.price}
               <span className="ml-1 inline @[275px]/label:inline">USD</span>
             </p>
           </div>
@@ -58,7 +59,7 @@ const ProductCard = ({ item, className, pageRef, delay }: Props) => {
       </Link>
 
     </div>
-    // </FramerWrapper>
+  // </FramerWrapper>
   )
 }
 

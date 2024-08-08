@@ -9,7 +9,7 @@ import {
 import CartItem from "./CardItem"
 import { ScrollArea } from "./ui/scroll-area"
 import { Separator } from "./ui/separator"
-import { formatMoney } from "@/lib/utils"
+// import { formatMoney } from "@/lib/utils"
 import { useTranslations } from "next-intl"
 
 type SheetCardProps = {
@@ -20,9 +20,9 @@ type SheetCardProps = {
 
 export function SheetCard({ open, onChangeModal, data }: SheetCardProps) {
   const t = useTranslations('cart')
-  const total = data.reduce((accumulator, product) => {
-    return accumulator + (product.price * product.quantity);
-  }, 0);
+  // const total = data.reduce((accumulator, product) => {
+  //   return accumulator + (product.price * product.quantity);
+  // }, 0);
   return (
     <Sheet open={open} onOpenChange={onChangeModal}>
       <SheetTrigger asChild>
@@ -47,7 +47,7 @@ export function SheetCard({ open, onChangeModal, data }: SheetCardProps) {
         <div className="flex-shrink-0 px-6 py-6 sm:px-6 sticky z-20 bottom-0 w-full right-0 left-0 bg-accent-0 border-t text-sm">
           <div className="flex justify-between py-3 font-bold mb-2">
             <span>{t('Total')}</span>
-            <span>{formatMoney(total)}</span>
+            {/* <span>{formatMoney(total)}</span> */}
           </div>
           <div>
             {/* <Link href="/checkout" className="w-full">

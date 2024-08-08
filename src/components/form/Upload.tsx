@@ -3,6 +3,7 @@ import React, { useState, useRef, ChangeEvent, DragEvent, useMemo, useCallback }
 import { InputFileForm } from './InputFileForm';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import { imageUrl } from '@/lib/constant';
 
 interface FileDnDProps {
   files: File[];
@@ -136,8 +137,8 @@ const Upload: React.FC<UploadProps> = ({ form, name }) => {
                 </svg>
               </button>
               <Image
-                className="absolute inset-0 z-0 object-cover w-full h-full border-4 border-white preview"
-                src={image}
+                className="absolute inset-0 z-0 object-contain w-full h-full border-4 border-white preview"
+                src={imageUrl + image}
                 alt={image}
                 width={1000}
                 height={1000}

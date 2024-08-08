@@ -8,7 +8,7 @@ import { ThemeProvider as NextThemesProvider } from "next-themes"
 import { ThemeProviderProps } from 'next-themes/dist/types'
 
 export default function Provider({ children, ...props }: ThemeProviderProps) {
-  const { state: { token } } = useGlobalContext()
+  // const { state: { token } } = useGlobalContext()
   const [queryClient] = useState(() => new QueryClient({
     defaultOptions: {
       queries: {

@@ -20,7 +20,7 @@ import { useTranslations } from "next-intl"
 const formSchema = z.object({
   image: z.any().optional(),
   name: z.string().nonempty("required!"),
-  price: z.number({ message: "required!" }),
+  price: z.string().nonempty("required!"),
   description: z.string().optional(),
   type: z.string().nonempty("required!"),
   isNews: z.boolean().default(false),
@@ -40,13 +40,13 @@ type Props = {
 const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
   const t = useTranslations('all-product')
   const { data: typeData, isLoading: typeLoading } = useQueryType()
-  const { mutateAsync, isPending } = useSubmitProduct(formValue?.id)
+  const { mutateAsync, isPending } = useSubmitProduct(formValue?._id)
 
   // default value
   const defaultValues = {
     image: [],
     name: "",
-    price: 0,
+    price: "",
     description: "",
     type: "",
     isNews: true,
@@ -77,7 +77,7 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
       }
     }
     formData.append('name', data.name);
-    formData.append('price', data.price.toString());
+    formData.append('price', data.price);
     formData.append('description', data.description || '');
     formData.append('type', data.type);
     formData.append('isNews', data.isNews.toString());
@@ -100,7 +100,7 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
         name: formValue.name,
         description: formValue.description,
         price: formValue.price,
-        type: formValue.type.id,
+        type: formValue.type._id,
         isSold: formValue.isSold,
         isNews: formValue.isNews,
         star: formValue.star,
@@ -116,7 +116,7 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
       <DialogTrigger asChild></DialogTrigger>
       <DialogContent className="min-w-[60%]">
         <DialogHeader>
-          <DialogTitle>{!formValue?.id ? t('Create Product') : t('Edit Product')}</DialogTitle>
+          <DialogTitle>{!formValue?._id ? t('Create Product') : t('Edit Product')}</DialogTitle>
           <DialogDescription>
             {t('product information form')}
           </DialogDescription>
@@ -136,7 +136,6 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
               />
               <InputForm
                 form={form}
-                type="number"
                 name="price"
                 label={t('Price')}
                 placeholder={t('Price')}
@@ -180,7 +179,7 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
               label={t('Recommend')}
             />
             <DialogFooter className="mt-3">
-              <Button type="submit" loading={isPending}>{formValue?.id ? t('Update') : t('Create')}</Button>
+              <Button type="submit" loading={isPending}>{formValue?._id ? t('Update') : t('Create')}</Button>
             </DialogFooter>
           </form>
         </Form>
