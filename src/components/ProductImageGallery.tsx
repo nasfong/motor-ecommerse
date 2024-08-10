@@ -12,6 +12,7 @@ import 'swiper/css/scrollbar';
 import { FreeMode, Navigation, Scrollbar, Thumbs } from 'swiper/modules';
 import { AspectRatio } from '@radix-ui/react-aspect-ratio';
 import { imageUrl } from '@/lib/constant';
+import { CustomImage } from './custom/CustomImage';
 
 const ProductImageGallery = ({ images }: { images: string[] }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
@@ -34,14 +35,7 @@ const ProductImageGallery = ({ images }: { images: string[] }) => {
         {images.map((image, index) => (
           <SwiperSlide key={index}>
             <AspectRatio ratio={1 / 1}>
-              <Image
-                src={imageUrl + image}
-                width={1000}
-                height={1000}
-                className='h-full w-full object-contain'
-                alt={image}
-                priority
-              />
+              <CustomImage src={image} />
             </AspectRatio>
           </SwiperSlide>
         ))}
@@ -61,14 +55,7 @@ const ProductImageGallery = ({ images }: { images: string[] }) => {
         {images.map((image, index) => (
           <SwiperSlide key={index}>
             <AspectRatio ratio={1 / 1}>
-              <Image
-                src={imageUrl + image}
-                width={1000}
-                height={1000}
-                className='h-full w-full object-contain'
-                alt={image}
-                priority
-              />
+              <CustomImage src={image} />
             </AspectRatio>
           </SwiperSlide>
         ))}

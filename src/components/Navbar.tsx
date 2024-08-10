@@ -1,9 +1,8 @@
 "use client"
-import { Menu, Package2, ShoppingCart } from 'lucide-react'
-import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import { Menu, Package2 } from 'lucide-react'
+import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "./ui/sheet";
 import { Button } from './ui/button';
 import { cn } from '@/lib/utils';
-import dynamic from 'next/dynamic';
 import { useGlobalContext } from '@/lib/context';
 import { RightClickLogin } from './RightClickLogin';
 import { toast } from 'sonner';
@@ -11,6 +10,8 @@ import { useTranslations } from 'next-intl';
 import { Link, usePathname } from '@/navigation';
 import { LanguageSelector } from './Language';
 import { ThemeToggle } from './ThemeToggle';
+import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
+// import dynamic from 'next/dynamic';
 // const CartCount = dynamic(() => import('./CartCount'), { ssr: false })
 
 
@@ -71,28 +72,36 @@ const Navbar = ({ locale }: { locale: string }) => {
             <span className="sr-only">Toggle navigation menu</span>
           </Button>
         </SheetTrigger>
-        <SheetContent side="left">
+        <SheetContent side="left" className='fixed z-50 gap-4 bg-background p-6 shadow-lg transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500 data-[state=open]:animate-in data-[state=closed]:animate-out inset-y-0 left-0 h-full w-3/4 border-r data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left sm:max-w-sm pr-0'>
+          <SheetTitle>
+            <VisuallyHidden.Root>
+              Menu
+            </VisuallyHidden.Root>
+          </SheetTitle>
           <nav className="grid gap-6 text-lg font-medium">
-            <Link
-              href="/"
-              className="flex items-center gap-2 text-lg font-semibold"
-            >
-              <Package2 className="h-6 w-6" />
-              <span className="sr-only">Acme Inc</span>
-            </Link>
+            <SheetClose asChild>
+              <Link
+                href="/"
+                className="flex items-center gap-2 text-lg font-semibold"
+              >
+                <Package2 className="h-6 w-6" />
+                <span className="sr-only">Acme Inc</span>
+              </Link>
+            </SheetClose>
             {navbar.map((item, index) => {
               const active = item.path === pathname
               return (
-                <Link
-                  key={index}
-                  href={item.path}
-                  className={cn(
-                    `text-muted-foreground transition-colors hover:text-foreground whitespace-nowrap`,
-                    { 'text-foreground': active }
-                  )}
-                >
-                  {item.name}
-                </Link>
+                <SheetClose key={index} asChild>
+                  <Link
+                    href={item.path}
+                    className={cn(
+                      `text-muted-foreground transition-colors hover:text-foreground whitespace-nowrap`,
+                      { 'text-foreground': active }
+                    )}
+                  >
+                    {item.name}
+                  </Link>
+                </SheetClose>
               )
             })}
           </nav>

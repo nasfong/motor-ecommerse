@@ -12,8 +12,10 @@ export const location = {
 };
 
 export const imageUrl = `${process.env.NEXT_PUBLIC_API_URL}/image/`
+export const default_image = '/images/default-image.jpg'
 
 export const Constant = {
   stocks,
   location,
+  default_image
 }

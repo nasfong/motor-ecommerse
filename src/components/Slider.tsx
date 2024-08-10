@@ -28,6 +28,7 @@ const Slider = () => {
             height={1000}
             className='h-[200px] w-full'
             alt=""
+            property=''
           />
         </SwiperSlide>
       ))}
