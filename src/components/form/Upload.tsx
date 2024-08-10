@@ -4,6 +4,7 @@ import { InputFileForm } from './InputFileForm';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { imageUrl } from '@/lib/constant';
+import { CustomImage } from '../custom/CustomImage';
 
 interface FileDnDProps {
   files: File[];
@@ -136,14 +137,7 @@ const Upload: React.FC<UploadProps> = ({ form, name }) => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                 </svg>
               </button>
-              <Image
-                className="absolute inset-0 z-0 object-contain w-full h-full border-4 border-white preview"
-                src={imageUrl + image}
-                alt={image}
-                width={1000}
-                height={1000}
-                priority
-              />
+              <CustomImage src={image} className="absolute inset-0 z-0 object-contain w-full h-full border-4 border-white preview" />
               <div className={`absolute inset-0 z-40 transition-colors duration-300 ${fileDropping === index && fileDragging !== index ? 'bg-blue-200 bg-opacity-80' : ''}`} />
             </div>
           ))}
@@ -178,7 +172,7 @@ const Upload: React.FC<UploadProps> = ({ form, name }) => {
                 </svg>
               )}
               {file.type.includes('image/') && (
-                <img className="absolute inset-0 z-0 object-cover w-full h-full border-4 border-white preview" src={loadFile(file)} alt={file.name} />
+                <CustomImage src={loadFile(file)} className="absolute inset-0 z-0 object-cover w-full h-full border-4 border-white preview" />
               )}
               {file.type.includes('video/') && (
                 <video className="absolute inset-0 object-cover w-full h-full border-4 border-white pointer-events-none preview">

@@ -17,18 +17,7 @@ import { Ratings } from "./Rating"
 import { TextAreaForm } from "./form/TextAreaForm"
 import { useTranslations } from "next-intl"
 
-const formSchema = z.object({
-  image: z.any().optional(),
-  name: z.string().nonempty("required!"),
-  price: z.string().nonempty("required!"),
-  description: z.string().optional(),
-  type: z.string().nonempty("required!"),
-  isNews: z.boolean().default(false),
-  isSold: z.number().default(1),
-  recommend: z.boolean().default(false),
-  removeImages: z.array(z.string()).optional(),
-  star: z.number(),
-})
+
 
 type Props = {
   open: boolean
@@ -41,6 +30,19 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
   const t = useTranslations('all-product')
   const { data: typeData, isLoading: typeLoading } = useQueryType()
   const { mutateAsync, isPending } = useSubmitProduct(formValue?._id)
+
+  const formSchema = z.object({
+    image: z.any().optional(),
+    name: z.string().nonempty(t('required')),
+    price: z.string().nonempty(t('required')),
+    description: z.string().optional(),
+    type: z.string().nonempty(t('required')),
+    isNews: z.boolean().default(false),
+    isSold: z.number().default(1),
+    recommend: z.boolean().default(false),
+    removeImages: z.array(z.string()).optional(),
+    star: z.number(),
+  })
 
   // default value
   const defaultValues = {

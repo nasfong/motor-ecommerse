@@ -39,7 +39,8 @@
     "Edit Model": "Edit Model",
     "model information form": "model information form",
     "In Stock": "In Stock",
-    "Out Stock": "Out Stock"
+    "Out Stock": "Out Stock",
+    "required": "Required!"
   },
   "alert": {
     "Are you absolutely sure": "Are you absolutely sure?",
@@ -53,7 +54,8 @@
     "In Stock": "In Stock",
     "Out Stock": "Out Stock",
     "Add to cart": "Add to cart",
-    "Related Products": "Related Products"
+    "Related Products": "Related Products",
+    "Contact": "Contact"
   },
   "cart": {
     "My Cart": "My Cart",

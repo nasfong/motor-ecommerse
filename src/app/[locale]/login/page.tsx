@@ -90,6 +90,7 @@ const LoginPage = () => {
           src={boy_svg}
           alt="Image"
           className="h-full object-cover dark:brightness-[0.2] dark:grayscale"
+          property=""
         />
       </div>
     </div>
