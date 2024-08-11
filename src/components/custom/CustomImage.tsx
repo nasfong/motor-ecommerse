@@ -30,6 +30,8 @@ export const CustomImage = ({ src, className }: CustomImageProps) => {
         className='object-cover h-full w-full'
       />
       <Image
+        sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 3840px'
+        priority
         fill
         alt={src}
         src={src}
@@ -39,7 +41,7 @@ export const CustomImage = ({ src, className }: CustomImageProps) => {
           transition-opacity duration-150 ease-in-out
           ${isLoading ? 'opacity-100' : 'opacity-0'}
           `}
-        onLoadingComplete={() => setIsLoading(true)}
+        onLoad={() => setIsLoading(true)}
       />
     </div>
   )
