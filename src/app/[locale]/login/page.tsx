@@ -43,7 +43,7 @@ const LoginPage = () => {
   }
 
   return (
-    <div className="lg:grid lg:grid-cols-2">
+    <div className="lg:grid lg:grid-cols-1">
       <div className="flex items-center justify-center py-12">
         <div className="mx-auto grid w-[350px] gap-6">
           <div className="grid gap-2 text-center">
@@ -85,14 +85,14 @@ const LoginPage = () => {
           </div>
         </div>
       </div>
-      <div className="hidden bg-muted lg:block">
+      {/* <div className="hidden bg-muted lg:block">
         <Image
           src={boy_svg}
           alt="Image"
           className="h-full object-cover dark:brightness-[0.2] dark:grayscale"
           property=""
         />
-      </div>
+      </div> */}
     </div>
 
   )

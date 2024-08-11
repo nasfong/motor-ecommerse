@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Star } from "lucide-react"
 
 import { cn } from "@/lib/utils"
@@ -27,7 +27,7 @@ interface RatingsProps extends React.HTMLAttributes<HTMLDivElement> {
   Icon?: React.ReactElement
   variant?: keyof typeof ratingVariants
   onRatingChange?: (rating: number) => void
-  readOnly?: boolean // Add readOnly prop
+  readOnly?: boolean
 }
 
 const Ratings = ({
@@ -38,10 +38,14 @@ const Ratings = ({
   Icon = <Star />,
   variant = "default",
   onRatingChange,
-  readOnly = false, // Default to false
+  readOnly = false,
   ...props
 }: RatingsProps) => {
   const [rate, setRate] = useState(rating)
+
+  useEffect(() => {
+    setRate(rating)
+  }, [rating])
 
   const handleStarClick = (index: number) => {
     const newRating = index + 1
