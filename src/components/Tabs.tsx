@@ -15,7 +15,7 @@ const Tabs = ({ data }: Props) => {
     replace(`?type=${name}`, { scroll: false });
   }
   return (
-    <article className="flex gap-1">
+    <article className="flex flex-wrap py-6">
       <button
         className={cn(
           `flex h-7 items-center justify-center rounded-full px-4 text-center text-sm transition-colors hover:text-destructive text-muted-foreground`,

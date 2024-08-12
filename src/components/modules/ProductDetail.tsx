@@ -18,13 +18,13 @@ export default function ProductDetail({ id }: { id: string }) {
   })
   return data ? (
     <Container>
-      <section className='flex flex-col rounded-lg border border-neutral-200 bg-white p-8 md:p-12 lg:flex-row lg:gap-8 dark:border-neutral-800 dark:bg-black'>
-        <article className="relative  h-full w-full overflow-hidden">
+      <section className='flex flex-col md:flex-row md:gap-8 rounded-lg border border-neutral-200 bg-white p-8  dark:border-neutral-800 dark:bg-black'>
+        <article className="h-full w-full md:w-1/2">
           <ProductImageGallery images={data.image} alt={data.name} />
         </article>
-        <article className="basis-full lg:basis-2/6">
+        <article className="w-full md:w-1/2">
           <div className="mb-6 flex flex-col border-b pb-6 dark:border-neutral-700">
-            <h2 className="mb-2 text-5xl font-medium text-nowrap">{data.name}</h2>
+            <h2 className="mb-2 text-2xl md:text-5xl font-medium">{data.name}</h2>
             <Ratings rating={data.star} variant="yellow" readOnly />
             <span>${data.price}</span>
           </div>
