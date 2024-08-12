@@ -27,18 +27,18 @@ const Contact = () => {
     }
   ]
   return (
-    <div className='flex flex-col gap-3'>
+    <article className='flex flex-col gap-3'>
       {contacts.map(({ name, value, icon: Icon, color }, index) => (
         <div key={index} className='flex justify-between items-center rounded-lg border hover:border-blue-600 dark:bg-black relative border-neutral-200 dark:border-neutral-800 p-3'>
           <div>
-            <div>{name}</div>
-            <div className='font-bold'>{value}</div>
+            <h4>{name}</h4>
+            <h3 className='font-bold'>{value}</h3>
           </div>
           <Icon color={color} />
         </div>
       ))
       }
-    </div >
+    </article >
   )
 }
 

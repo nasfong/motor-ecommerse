@@ -15,7 +15,7 @@ const Tabs = ({ data }: Props) => {
     replace(`?type=${name}`, { scroll: false });
   }
   return (
-    <div className="flex gap-1">
+    <article className="flex gap-1">
       <button
         className={cn(
           `flex h-7 items-center justify-center rounded-full px-4 text-center text-sm transition-colors hover:text-destructive text-muted-foreground`,
@@ -33,11 +33,12 @@ const Tabs = ({ data }: Props) => {
             { 'font-medium text-destructive': search ? _id === search : _id === 'All' }
           )}
           onClick={() => onTab(_id)}
+          title={`${name} Motor Products`}
         >
           {name}
         </button>
       ))}
-    </div>
+    </article>
   )
 }
 

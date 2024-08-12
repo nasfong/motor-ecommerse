@@ -18,15 +18,15 @@ export default function ProductDetail({ id }: { id: string }) {
   })
   return data ? (
     <Container>
-      <div className='flex flex-col rounded-lg border border-neutral-200 bg-white p-8 md:p-12 lg:flex-row lg:gap-8 dark:border-neutral-800 dark:bg-black'>
-        <div className="relative  h-full w-full overflow-hidden">
-          <ProductImageGallery images={data.image} />
-        </div>
-        <div className="basis-full lg:basis-2/6">
+      <section className='flex flex-col rounded-lg border border-neutral-200 bg-white p-8 md:p-12 lg:flex-row lg:gap-8 dark:border-neutral-800 dark:bg-black'>
+        <article className="relative  h-full w-full overflow-hidden">
+          <ProductImageGallery images={data.image} alt={data.name} />
+        </article>
+        <article className="basis-full lg:basis-2/6">
           <div className="mb-6 flex flex-col border-b pb-6 dark:border-neutral-700">
-            <h1 className="mb-2 text-5xl font-medium text-nowrap">{data.name}</h1>
+            <h2 className="mb-2 text-5xl font-medium text-nowrap">{data.name}</h2>
             <Ratings rating={data.star} variant="yellow" readOnly />
-            <p>${data.price}<span className="ml-1 inline">USD</span></p>
+            <span>${data.price}</span>
           </div>
           <Text>
             {data.description}
@@ -44,12 +44,12 @@ export default function ProductDetail({ id }: { id: string }) {
             )}
           </div>
           <AddToCard item={data} />
-        </div>
-      </div>
-      <div className="py-8">
-        <h2 className="mb-4 text-2xl font-bold">{t('Related Products')}</h2>
+        </article>
+      </section>
+      <section className="py-8">
+        <h3 className="mb-4 text-2xl font-bold">{t('Related Products')}</h3>
         <RelationProduct typeId={data.type._id} excludeProductId={data._id} />
-      </div>
+      </section>
     </Container>
   ) : null
 }

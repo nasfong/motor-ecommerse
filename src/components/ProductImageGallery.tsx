@@ -14,7 +14,7 @@ import { AspectRatio } from '@radix-ui/react-aspect-ratio';
 import { imageUrl } from '@/lib/constant';
 import { CustomImage } from './custom/CustomImage';
 
-const ProductImageGallery = ({ images }: { images: string[] }) => {
+const ProductImageGallery = ({ images, alt }: { images: string[]; alt: string }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
 
   const swiperStyle: CSSProperties & { [key: string]: string } = {
@@ -35,7 +35,7 @@ const ProductImageGallery = ({ images }: { images: string[] }) => {
         {images.map((image, index) => (
           <SwiperSlide key={index}>
             <AspectRatio ratio={1 / 1}>
-              <CustomImage src={image} />
+              <CustomImage src={image} alt={`${alt} - ${index}`} />
             </AspectRatio>
           </SwiperSlide>
         ))}
@@ -55,7 +55,7 @@ const ProductImageGallery = ({ images }: { images: string[] }) => {
         {images.map((image, index) => (
           <SwiperSlide key={index}>
             <AspectRatio ratio={1 / 1}>
-              <CustomImage src={image} />
+              <CustomImage src={image} alt={`${alt} - ${index}`} />
             </AspectRatio>
           </SwiperSlide>
         ))}

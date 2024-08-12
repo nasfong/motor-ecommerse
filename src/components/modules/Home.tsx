@@ -24,16 +24,16 @@ export default function Home({ searchParams }: HomeProps) {
   })
 
   return (
-    <div className='flex flex-col gap-5'>
+    <section className='flex flex-col gap-5'>
       {typeData && <Tabs data={typeData} />}
       {productData && <ProductList data={productData} />}
-      <div className='text-center'>
+      <article className='text-center'>
         <Link href='/all-product'>
           <Button variant="destructive">
             {t('View All Products')}
           </Button>
         </Link>
-      </div>
-    </div>
+      </article>
+    </section>
   )
 }

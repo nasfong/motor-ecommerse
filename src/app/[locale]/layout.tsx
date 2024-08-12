@@ -8,6 +8,7 @@ import { GlobalProvider } from "@/lib/context";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import Provider from "@/lib/provider";
+import Head from "next/head";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -34,6 +35,40 @@ export default async function RootLayout({
   const messages = await getMessages()
   return (
     <html lang={locale} suppressHydrationWarning>
+      <Head>
+        {/* Title */}
+        <title>Shop Quality Motor Products | Kyhan Motor Shop</title>
+
+        {/* Meta tags */}
+        <meta name="description" content="Explore our incredible range of motor products at Kyhan Motor Shop." />
+        <meta name="keywords" content="motor products, motorcycles, auto parts, Kyhan Motor Shop" />
+        <meta name="author" content="Kyhan Motor Shop Team" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        {/* Open Graph (for social media sharing) */}
+        <meta property="og:title" content="Discover Top Motor Products | Kyhan Motor Shop" />
+        <meta property="og:description" content="Shop the latest and greatest motor products at Kyhan Motor Shop. Quality and performance guaranteed!" />
+        <meta property="og:image" content="/favicon.ico" />
+        <meta property="og:url" content="https://www.kyhanmotorshop.store/" />
+        <meta property="og:type" content="website" />
+
+        {/* Twitter Card (for Twitter sharing) */}
+        {/* <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="My Awesome Page | Next.js 14" />
+        <meta name="twitter:description" content="This is an awesome description for my Next.js 14 page." />
+        <meta name="twitter:image" content="/path-to-your-image.jpg" />
+        <meta name="twitter:site" content="@yourTwitterHandle" /> */}
+
+        {/* Favicon */}
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png" />
+        <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+        <meta name="theme-color" content="#ffffff" />
+      </Head>
       <body
         className={cn(
           "min-h-screen  font-sans antialiased",
@@ -48,9 +83,9 @@ export default async function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
-              <header className="flex h-16 items-center gap-4 px-4 md:px-6 border-b">
+              <nav className="flex h-16 items-center gap-4 px-4 md:px-6 border-b">
                 <Navbar locale={locale} />
-              </header>
+              </nav>
               <div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
                 <NextTopLoader
                   color="#2299DD"
