@@ -6,10 +6,11 @@ import { useState } from 'react';
 
 type CustomImageProps = {
   src: string
+  alt: string
   className?: string
 }
 
-export const CustomImage = ({ src, className }: CustomImageProps) => {
+export const CustomImage = ({ src, className, alt }: CustomImageProps) => {
   const [isLoading, setIsLoading] = useState(false)
   const loader = ({ width, quality, src, thumbnail }: { width: number, quality?: number, src: string, thumbnail?: boolean }) => {
     const props = [`w${width}`]
@@ -24,7 +25,7 @@ export const CustomImage = ({ src, className }: CustomImageProps) => {
         sizes='10px'
         fill
         priority
-        alt={src + '-Thumbnail'}
+        alt={alt + '-Thumbnail'}
         src={src}
         loader={({ ...rest }) => loader({ ...rest, thumbnail: true })}
         className='object-cover h-full w-full'
@@ -33,7 +34,7 @@ export const CustomImage = ({ src, className }: CustomImageProps) => {
         sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 3840px'
         priority
         fill
-        alt={src}
+        alt={alt}
         src={src}
         loader={loader}
         className={`

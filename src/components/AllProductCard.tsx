@@ -17,13 +17,13 @@ type Props = {
 const AllProductCard = ({ parent, child, handleEdit, handleDelete, isPendingDelete }: Props) => {
   const t = useTranslations('all-product')
   return (
-    <div className='flex flex-col gap-5' >
-      <div className='flex justify-between border-b'>
-        <h2 className="scroll-m-20 text-2xl font-semibold tracking-tight transition-colors">
+    <section className='flex flex-col gap-5' >
+      <article className='flex justify-between border-b'>
+        <h2 id={`section-${parent}`} className="scroll-m-20 text-2xl font-semibold tracking-tight transition-colors">
           {parent}
         </h2>
-      </div>
-      <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4" >
+      </article>
+      <article className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4" >
         {child.map((item, index) => (
           <div className='relative' key={index}>
             <ProductCard
@@ -42,7 +42,7 @@ const AllProductCard = ({ parent, child, handleEdit, handleDelete, isPendingDele
                       </Button>
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p>{t('Edit')}</p>
+                      {t('Edit')}
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
@@ -54,7 +54,7 @@ const AllProductCard = ({ parent, child, handleEdit, handleDelete, isPendingDele
                       <DeleteButton handleConfirm={() => handleDelete(item._id)} loading={isPendingDelete} />
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p>{t('Delete')}</p>
+                      {t('Delete')}
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
@@ -62,8 +62,8 @@ const AllProductCard = ({ parent, child, handleEdit, handleDelete, isPendingDele
             </div>
           </div>
         ))}
-      </div >
-    </div >
+      </article >
+    </section >
   )
 }
 

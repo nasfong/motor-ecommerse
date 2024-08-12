@@ -43,7 +43,7 @@ const Navbar = ({ locale }: { locale: string }) => {
 
   return (
     <>
-      <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
+      <span className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
         <RightClickLogin isAuth={!!isAuth} onLogout={onLogout} />
         {navbar.map((item, index) => {
           const active = item.path === pathname
@@ -60,7 +60,7 @@ const Navbar = ({ locale }: { locale: string }) => {
             </Link>
           )
         })}
-      </nav>
+      </span>
       <Sheet>
         <SheetTrigger asChild>
           <Button

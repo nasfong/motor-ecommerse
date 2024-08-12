@@ -43,24 +43,24 @@ export default function AllProduct() {
   }
 
   return (
-    <div>
-      {!!isAuth && (
-        <Button size="sm" className="h-8 gap-1 float-end" onClick={() => setOpen(true)}>
-          <PlusCircle className="h-3.5 w-3.5" />
-          <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
-            {t('Add Product')}
-          </span>
-        </Button>
+    <section>
+      {isAuth && (
+        <section>
+          <Button size="sm" className="h-8 gap-1 float-end" onClick={() => setOpen(true)}>
+            <PlusCircle className="h-3.5 w-3.5" />
+            <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
+              {t('Add Product')}
+            </span>
+          </Button>
+          <ProductModal
+            open={open}
+            setOpen={setOpen}
+            formValue={formValue}
+            setFormValue={setFormValue}
+          />
+        </section>
       )}
-      {!!isAuth && (
-        <ProductModal
-          open={open}
-          setOpen={setOpen}
-          formValue={formValue}
-          setFormValue={setFormValue}
-        />
-      )}
-      <div className='flex flex-col gap-5 w-full'>
+      <section className='flex flex-col gap-5 w-full'>
         {productData && Object.entries(groupList(productData))
           .map(([key, value]) =>
             <AllProductCard
@@ -72,7 +72,7 @@ export default function AllProduct() {
               isPendingDelete={isPendingDelete}
             />
           )}
-      </div>
-    </div>
+      </section>
+    </section>
   )
 }
