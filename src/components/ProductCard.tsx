@@ -19,7 +19,7 @@ const ProductCard = ({ item, className, pageRef, delay }: Props) => {
   const t = useTranslations('product')
   return (
     // <FramerWrapper y={0} scale={0.8} delay={delay} duration={0.15}>
-    <div className='inline-block h-full w-full rounded-lg border  overflow-hidden dark:bg-black relative border-neutral-200 dark:border-neutral-800 hover:border-blue-600'>
+    <div className='inline-block h-full w-full rounded-lg border overflow-hidden dark:bg-black relative border-neutral-200 dark:border-neutral-800 hover:border-blue-600'>
       <Link ref={pageRef} href={`/all-product/${item._id}`}>
         <div className={cn("group flex h-full w-full items-center justify-center", className)}>
           <CustomImage src={item.image[0]} alt={item.name} />

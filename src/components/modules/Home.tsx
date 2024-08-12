@@ -11,6 +11,7 @@ type HomeProps = {
 }
 
 import { useTranslations } from "next-intl"
+import Slider from "../Slider"
 
 export default function Home({ searchParams }: HomeProps) {
   const t = useTranslations()
@@ -24,10 +25,11 @@ export default function Home({ searchParams }: HomeProps) {
   })
 
   return (
-    <section className='flex flex-col gap-5'>
+    <section className=''>
+      <Slider />
       {typeData && <Tabs data={typeData} />}
       {productData && <ProductList data={productData} />}
-      <article className='text-center'>
+      <article className='text-center mt-3'>
         <Link href='/all-product'>
           <Button variant="destructive">
             {t('View All Products')}

@@ -3,8 +3,15 @@ import Image from 'next/image';
 
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Scrollbar, Autoplay } from 'swiper/modules'
+import '../assets/styles/slide.css'
 import 'swiper/css';
 import 'swiper/css/scrollbar';
+
+const images = [
+  '/images/slides/1.jpg',
+  '/images/slides/2.jpg',
+  '/images/slides/3.jpg',
+]
 
 const Slider = () => {
   return (
@@ -18,17 +25,14 @@ const Slider = () => {
         disableOnInteraction: false,
       }}
       modules={[Scrollbar, Autoplay]}
-      className="mySwiper"
     >
-      {Array.from({ length: 3 }).map((_, index) => (
-        <SwiperSlide className="flex justify-center items-center" key={index}>
+      {images.map((src, index) => (
+        <SwiperSlide key={index}>
           <Image
-            src="/images/placeholder.svg"
-            width={1000}
-            height={1000}
-            className='h-[200px] w-full'
-            alt=""
-            property=''
+            src={src}
+            alt={src}
+            fill
+            priority
           />
         </SwiperSlide>
       ))}
