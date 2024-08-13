@@ -1,15 +1,27 @@
-
 'use client'
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 import { Constant } from '@/lib/constant'
 
-const Map = () => {
-  const { isLoaded } = useJsApiLoader({
+const Map = ({ options }: { options?: google.maps.MapOptions }) => {
+  const { isLoaded, loadError } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: "AIzaSyBVR6OkfLXHW82kWhxyeqOFnuyWlNzHwLM"
-  })
+    googleMapsApiKey: process.env.NEXT_PUBLIC_MAP_API!
+  });
 
-  return isLoaded ? (
+  if (loadError) {
+    return <div>Error loading Google Maps</div>;
+  }
+
+  if (!isLoaded) {
+    return <div>Loading...</div>;
+  }
+
+  const handleMarkerClick = () => {
+    // Redirect to Google Maps or a different URL
+    window.open(`https://www.google.com/maps?q=${Constant.location.lat},${Constant.location.lng}`, '_blank');
+  };
+
+  return (
     <GoogleMap
       mapContainerStyle={{
         width: '100%',
@@ -17,17 +29,17 @@ const Map = () => {
       }}
       center={Constant.location}
       zoom={15}
-    // onLoad={onLoad}
+      options={options}
+      onClick={handleMarkerClick} // Handle marker click
     >
-
       <Marker
         position={Constant.location}
         label={{
           text: "🏡",
         }}
-      ></Marker>
+      />
     </GoogleMap>
-  ) : <></>
-}
+  );
+};
 
-export default Map
+export default Map;

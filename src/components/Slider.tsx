@@ -1,43 +1,39 @@
-'use client'
-import Image from 'next/image';
+// components/Slider.tsx
+'use client';
 
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Scrollbar, Autoplay } from 'swiper/modules'
-import '../assets/styles/slide.css'
+import Image from 'next/image';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Scrollbar, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/scrollbar';
 
-const images = [
-  '/images/slides/1.jpg',
-  '/images/slides/2.jpg',
-  '/images/slides/3.jpg',
-]
-
-const Slider = () => {
+export default function Slider({ images }: { images: string[] }) {
   return (
-    <Swiper
-      loop={true}
-      scrollbar={{
-        hide: true,
-      }}
-      autoplay={{
-        delay: 2500,
-        disableOnInteraction: false,
-      }}
-      modules={[Scrollbar, Autoplay]}
-    >
-      {images.map((src, index) => (
-        <SwiperSlide key={index}>
-          <Image
-            src={src}
-            alt={src}
-            fill
-            priority
-          />
-        </SwiperSlide>
-      ))}
-    </Swiper>
-  )
+    <div className='h-[400px]'>
+      <Swiper
+        loop={true}
+        scrollbar={{
+          hide: true,
+        }}
+        autoplay={{
+          delay: 2000,
+          disableOnInteraction: false,
+        }}
+        modules={[Scrollbar, Autoplay]}
+      >
+        {images.map((src, index) => (
+          <SwiperSlide key={index}>
+            <div className="relative w-full h-full">
+              <Image
+                src={src}
+                alt={`Slide ${index + 1}`}
+                fill
+                priority
+              />
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
+  );
 }
-
-export default Slider

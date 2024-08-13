@@ -83,9 +83,7 @@ export default async function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
-              <nav className="flex h-16 items-center gap-4 px-4 md:px-6 border-b">
-                <Navbar locale={locale} />
-              </nav>
+              <Navbar locale={locale} />
               <div className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
                 <NextTopLoader
                   color="#2299DD"

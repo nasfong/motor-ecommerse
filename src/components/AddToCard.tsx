@@ -3,6 +3,8 @@ import { Link } from "@/navigation"
 // import { useGlobalContext } from "@/lib/context"
 import { Button } from "./ui/button"
 import { useTranslations } from "next-intl"
+import { Constant } from '@/lib/constant'
+import Map from "./Map"
 
 const AddToCard = ({ item }: { item: Product }) => {
   const t = useTranslations('product')
@@ -10,12 +12,51 @@ const AddToCard = ({ item }: { item: Product }) => {
   // const onAddCard = (data: Product) => {
   //   dispatch({ type: 'ADD_CART', payload: data })
   // }
+  const { color, value, icon: Icon } = Constant.contacts.find(contact => contact.name === 'Phone Number')!
 
   return (
-    // <Button className="w-full" onClick={() => onAddCard(item)}>{t('Add to cart')}</Button>
-    <Link href="/contact">
-      <Button className="w-full">{t('Contact')}</Button>
-    </Link>
+    <div>
+      {/* <Button className="w-full" onClick={() => onAddCard(item)}>{t('Add to cart')}</Button> */}
+      {/* <Link href="/contact">
+        <Button className="w-full">{t('Contact')}</Button>  
+       </Link> */}
+      <div className="flex gap-3 mb-3">
+        <div
+          style={{ backgroundColor: color }}
+          className={
+            `flex gap-3 rounded-lg border 
+            hover:opacity-95
+            p-3 text-white cursor-pointer w-fit h-fit`
+          }
+        >
+          <div>
+            <h3 className='font-bold'>{value}</h3>
+          </div>
+          <Icon fill="#ffffff" strokeWidth={0} />
+        </div>
+        <div className="">
+          {/* <h4 className="mt-4 text-lg text-gray-500">Social Media</h4> */}
+          <div className='flex gap-1'>
+            {Constant.contacts.filter(contact => contact.name !== 'Phone Number').map(({ name, value, icon: Icon, color }, index) => (
+              <div
+                key={index}
+                style={{ backgroundColor: color }}  // Use inline style for dynamic background color
+                className="rounded-full hover:opacity-95 p-3 text-white cursor-pointer"
+              >
+                <Icon fill="#ffffff" strokeWidth={0} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      <section className="h-[200px] w-full">
+        <Map options={{
+          draggable: false, // Disable map dragging
+          scrollwheel: false, // Disable zooming with scroll wheel
+          disableDefaultUI: true // Optional: Hide default UI controls
+        }} />
+      </section>
+    </div>
 
   )
 }

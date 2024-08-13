@@ -5,13 +5,18 @@ import Tabs from "../Tabs"
 import ProductList from "../ProductList"
 import { Link } from "@/navigation"
 import { Button } from "../ui/button"
+import { useTranslations } from "next-intl"
+import Slider from "../Slider"
+
+const images = [
+  '/images/slides/1.jpg',
+  '/images/slides/2.jpg',
+  '/images/slides/3.jpg',
+];
 
 type HomeProps = {
   searchParams: { type: string, recommend: boolean }
 }
-
-import { useTranslations } from "next-intl"
-import Slider from "../Slider"
 
 export default function Home({ searchParams }: HomeProps) {
   const t = useTranslations()
@@ -25,8 +30,8 @@ export default function Home({ searchParams }: HomeProps) {
   })
 
   return (
-    <section className=''>
-      <Slider />
+    <section>
+      <Slider images={images} />
       {typeData && <Tabs data={typeData} />}
       {productData && <ProductList data={productData} />}
       <article className='text-center mt-3'>

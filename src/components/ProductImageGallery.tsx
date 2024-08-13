@@ -1,18 +1,15 @@
 'use client'
-import Image from 'next/image';
 import { useState, CSSProperties } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-
+import { FreeMode, Navigation, Scrollbar, Thumbs } from 'swiper/modules';
+import { AspectRatio } from '@radix-ui/react-aspect-ratio';
+import { CustomImage } from './custom/CustomImage';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 import 'swiper/css/scrollbar';
-import { FreeMode, Navigation, Scrollbar, Thumbs } from 'swiper/modules';
-import { AspectRatio } from '@radix-ui/react-aspect-ratio';
-import { imageUrl } from '@/lib/constant';
-import { CustomImage } from './custom/CustomImage';
 
 const ProductImageGallery = ({ images, alt }: { images: string[]; alt: string }) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null);
@@ -30,7 +27,7 @@ const ProductImageGallery = ({ images, alt }: { images: string[]; alt: string })
         navigation={true}
         thumbs={{ swiper: thumbsSwiper }}
         modules={[FreeMode, Navigation, Thumbs]}
-        className="mySwiper2"
+        className="mySwiperGallery2"
       >
         {images.map((image, index) => (
           <SwiperSlide key={index}>
@@ -50,7 +47,7 @@ const ProductImageGallery = ({ images, alt }: { images: string[]; alt: string })
           hide: false,
         }}
         modules={[FreeMode, Navigation, Thumbs, Scrollbar]}
-        className="mySwiper"
+        className="mySwiperGallery"
       >
         {images.map((image, index) => (
           <SwiperSlide key={index}>

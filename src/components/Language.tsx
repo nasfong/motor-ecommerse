@@ -32,14 +32,14 @@ const English = () => (
 
 const options = [
   {
-    value: "en",
-    label: "English",
-    icon: English,
-  },
-  {
     value: "kh",
     label: "ខ្មែរ",
     icon: Cambodia,
+  },
+  {
+    value: "en",
+    label: "English",
+    icon: English,
   },
 ];
 
