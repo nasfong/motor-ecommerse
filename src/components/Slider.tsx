@@ -1,13 +1,11 @@
-// components/Slider.tsx
 'use client';
-
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Scrollbar, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/scrollbar';
 
-export default function Slider({ images }: { images: string[] }) {
+export default function Slider({ images }: { images: StaticImageData[] }) {
   return (
     <div className='h-[400px]'>
       <Swiper
@@ -29,6 +27,7 @@ export default function Slider({ images }: { images: string[] }) {
                 alt={`Slide ${index + 1}`}
                 fill
                 priority
+                placeholder='blur'
               />
             </div>
           </SwiperSlide>

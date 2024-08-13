@@ -7,11 +7,14 @@ import { Link } from "@/navigation"
 import { Button } from "../ui/button"
 import { useTranslations } from "next-intl"
 import Slider from "../Slider"
+import slides1 from '../../../public/images/slides/1.jpg'
+import slides2 from '../../../public/images/slides/2.jpg'
+import slides3 from '../../../public/images/slides/3.jpg'
 
 const images = [
-  '/images/slides/1.jpg',
-  '/images/slides/2.jpg',
-  '/images/slides/3.jpg',
+  slides1,
+  slides2,
+  slides3,
 ];
 
 type HomeProps = {
