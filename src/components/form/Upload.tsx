@@ -111,7 +111,7 @@ const Upload: React.FC<UploadProps> = ({ form, name }) => {
             name={name}
             multiple={true}
             onChanges={addFiles}
-            className=""
+            className="absolute inset-0 z-50 h-full py-16 opacity-0  cursor-pointer"
           />
           <div className="flex flex-col items-center justify-center py-10 text-center">
             <svg className="w-6 h-6 mr-1 text-current-50" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -172,8 +172,7 @@ const Upload: React.FC<UploadProps> = ({ form, name }) => {
                 </svg>
               )}
               {file.type.includes('image/') && (
-                <Image priority
-                  fill src={loadFile(file)} className="absolute inset-0 z-0 object-cover w-full h-full border-4 border-white preview" alt={`upload-image-${index}`} />
+                <Image fill src={loadFile(file)} className="absolute inset-0 z-0 object-cover w-full h-full border-4 border-white preview" alt={`upload-image-${index}`} />
               )}
               {file.type.includes('video/') && (
                 <video className="absolute inset-0 object-cover w-full h-full border-4 border-white pointer-events-none preview">
