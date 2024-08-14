@@ -12,8 +12,9 @@ const AddToCard = ({ item }: { item: Product }) => {
   // const onAddCard = (data: Product) => {
   //   dispatch({ type: 'ADD_CART', payload: data })
   // }
-  const { color, value, icon: Icon } = Constant.contacts.find(contact => contact.name === 'Phone Number')!
 
+  const { color, value, icon: Icon } = Constant.phone
+  const social = [Constant.facebook, Constant.telegram]
   return (
     <div>
       {/* <Button className="w-full" onClick={() => onAddCard(item)}>{t('Add to cart')}</Button> */}
@@ -37,7 +38,7 @@ const AddToCard = ({ item }: { item: Product }) => {
         <div className="">
           {/* <h4 className="mt-4 text-lg text-gray-500">Social Media</h4> */}
           <div className='flex gap-1'>
-            {Constant.contacts.filter(contact => contact.name !== 'Phone Number').map(({ name, value, icon: Icon, color }, index) => (
+            {social.map(({ icon: Icon, color }, index) => (
               <div
                 key={index}
                 style={{ backgroundColor: color }}  // Use inline style for dynamic background color

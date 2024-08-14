@@ -1,14 +1,19 @@
 import { useSearch } from '@/hook';
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { debounce } from '@/lib/utils';
 import { LoadingSpinner } from './LoadingSpinner';
 import { CustomImage } from './CustomImage';
+import { Link } from '@/navigation';
+import { Search } from 'lucide-react';
 
 export const CommandSearch: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
   const { data: products, isLoading, isError } = useSearch(searchTerm);
+
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLUListElement>(null);
+  const [dropdownHeight, setDropdownHeight] = useState<number>(0);
 
   const handleChange = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -16,7 +21,6 @@ export const CommandSearch: React.FC = () => {
     setIsOpen(value.length > 0);
   }, 500);
 
-  // Function to highlight matching text
   const highlightText = (text: string, search: string) => {
     if (!search) return text;
 
@@ -28,66 +32,92 @@ export const CommandSearch: React.FC = () => {
     );
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  // Update the dropdown height when the products change
+  useEffect(() => {
+    if (isOpen && contentRef.current) {
+      setDropdownHeight(contentRef.current.scrollHeight);
+    } else {
+      setDropdownHeight(0);
+    }
+  }, [isOpen, products]);
+
   return (
     <div className="relative text-gray-600">
-      <input
-        type="search"
-        name="search"
-        placeholder="Search"
-        defaultValue={searchTerm}
-        onChange={handleChange}
-        className="bg-gray-100 h-10 px-5 pr-10 rounded-full text-sm focus:outline-none"
-      />
-      <button type="submit" className="absolute right-0 top-0 mt-3 mr-4">
-        <svg
-          className="h-4 w-4 fill-current"
-          xmlns="http://www.w3.org/2000/svg"
-          xmlnsXlink="http://www.w3.org/1999/xlink"
-          version="1.1"
-          id="Capa_1"
-          x="0px"
-          y="0px"
-          viewBox="0 0 56.966 56.966"
-          xmlSpace="preserve"
-          width="512px"
-          height="512px"
-        >
-          <path d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z" />
-        </svg>
-      </button>
+      <div>
+        <input
+          type="search"
+          name="search"
+          placeholder="Search"
+          defaultValue={searchTerm}
+          onChange={handleChange}
+          className="bg-gray-100 h-10 w-[120px] md:w-64 px-5 pr-10 rounded-full text-sm focus:outline-none"
+          autoComplete="off"
+          autoCorrect="off"
+          spellCheck="false"
+          onClick={() => searchTerm && setIsOpen(true)}
+        />
+        <button type="submit" className="absolute right-0 top-0 mr-4">
+          {isLoading ? <LoadingSpinner className='mt-5' /> : <Search size={15} className='mt-3' />}
+        </button>
+      </div>
 
-      {isOpen && (
-        <div className="absolute left-0 right-0 mt-1 bg-white border-gray-300 rounded-md shadow-lg z-10 w-[300px] border border-muted">
-          {isLoading ? (
-            <span className="p-4">
-              <LoadingSpinner />
-            </span>
-          ) : isError ? (
+      <div
+        ref={dropdownRef}
+        className={`
+          absolute z-10 border bg-background rounded-md 
+          shadow-lg mt-1 transition-all duration-300 ease-in-out 
+          w-[80vw] sm:w-[90vw] md:w-[500px] 
+          transform left-[10%] -translate-x-[10%] md:left-[20%] md:-translate-x-[20%]  lg:left-1/2 lg:-translate-x-1/2 
+          ${isOpen ? 'opacity-100' : 'opacity-0'}
+          `}
+        style={{
+          height: `${dropdownHeight}px`,
+          overflow: 'hidden',
+        }}
+      >
+        <ul ref={contentRef}>
+          {isError ? (
             <div className="p-4 text-red-500">Error loading products.</div>
           ) : products?.length === 0 ? (
-            <div className="p-4 text-gray-500">No found.</div>
+            <div className="p-4 text-gray-500">No results found.</div>
           ) : (
-            <ul>
-              {products?.map((item, index) => (
-                <li key={index} className="p-2 hover:bg-gray-100 flex justify-between">
-                  <div className="flex gap-2">
-                    <div className="1/3">
-                      <CustomImage src={item.image[0]} alt={item.name} className='h-10 w-10' />
-                    </div>
-                    <div className='2/3'>
-                      <h2>{highlightText(item.name, searchTerm)}</h2> {/* Highlight product name */}
-                      <h4 className="text-[10px] line-clamp-2">{item.description}</h4>
-                    </div>
+            products?.map((item, index) => (
+              <Link
+                key={index}
+                href={`/all-product/${item._id}/${item.name}`}
+                className="py-2 px-6 hover:bg-gray-100 flex justify-between"
+                onClick={() => setIsOpen(false)}
+              >
+                <div className="flex gap-2">
+                  <div className="1/3">
+                    <CustomImage src={item.image[0]} alt={item.name} className="h-24 w-24" />
                   </div>
-                  <span className="text-gray-800">
-                    ${highlightText(item.price.toString(), searchTerm)} {/* Highlight price */}
-                  </span>
-                </li>
-              ))}
-            </ul>
+                  <div className="2/3">
+                    <h2 className="text-[16px] font-bold">{highlightText(item.name, searchTerm)}</h2>
+                    <h4 className="text-[12px] line-clamp-3">{highlightText(item.description, searchTerm)}</h4>
+                  </div>
+                </div>
+                <span className="text-gray-800">
+                  ${highlightText(item.price.toString(), searchTerm)}
+                </span>
+              </Link>
+            ))
           )}
-        </div>
-      )}
+        </ul>
+      </div>
     </div>
   );
 };

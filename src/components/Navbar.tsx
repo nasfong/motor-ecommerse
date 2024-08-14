@@ -49,16 +49,16 @@ const Navbar = ({ locale }: { locale: string }) => {
         <div className='flex items-center gap-3'>
           <div className='flex items-center gap-1'>
             <MapPin className="h-3 w-3" fill="currentColor" strokeWidth={0} />
-            <p>Komai Road, Tropeng Ses Village, Kok Chok Commune, Krong Siem Reap</p>
+            <p>{Constant.address}</p>
           </div>
           <div className='flex items-center gap-1'>
             <Phone className="h-3 w-3" fill="currentColor" strokeWidth={0} />
-            <p>855 93 315 841</p>
+            <p>{Constant.phone.value}</p>
           </div>
         </div>
         <div className='flex items-center gap-3'>
           <p>Contact Us</p>
-          {Constant.contacts.filter(({ name }) => name !== 'Phone Number').map(({ icon: Icon }, index) => (
+          {[Constant.facebook, Constant.telegram].map(({ icon: Icon }, index) => (
             <Icon key={index} className="h-3 w-3" fill="currentColor" strokeWidth={0} />
           ))}
         </div>

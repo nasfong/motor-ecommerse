@@ -17,30 +17,32 @@ export const location = {
 export const imageUrl = `${process.env.NEXT_PUBLIC_API_URL}/image/`
 export const default_image = '/images/default-image.jpg'
 
-const contacts = [
-  {
-    icon: Phone,
-    name: 'Phone Number',
-    value: '012 456 789',
-    color: '#90bb21',
-  },
-  {
-    icon: Facebook02Icon,
-    name: 'Facebook',
-    value: 'Motor Shop',
-    color: '#227bf3',
-  },
-  {
-    icon: TelegramIcon,
-    name: 'Telegram',
-    value: 'Motor Shop',
-    color: '#31aae9',
-  }
-]
+const address = "Komai Road, Tropeng Ses Village, Kok Chok Commune, Krong Siem Reap"
+const phone = {
+  icon: Phone,
+  name: 'Phone Number',
+  value: '093 580 030',
+  color: '#90bb21',
+}
+const facebook = {
+  icon: Facebook02Icon,
+  name: 'Facebook',
+  value: 'Jinro Shop',
+  color: '#227bf3',
+}
+const telegram = {
+  icon: TelegramIcon,
+  name: 'Telegram',
+  value: 'Reak The King',
+  color: '#31aae9',
+}
 
 export const Constant = {
   stocks,
   location,
   default_image,
-  contacts
+  address,
+  phone,
+  facebook,
+  telegram,
 }

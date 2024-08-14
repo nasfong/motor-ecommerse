@@ -5,10 +5,11 @@ import { Constant } from '@/lib/constant'
 
 const Contact = () => {
   const t = useTranslations('contact')
+  const contacts = [Constant.phone, Constant.facebook, Constant.telegram]
 
   return (
     <article className='flex flex-col gap-3'>
-      {Constant.contacts.map(({ name, value, icon: Icon, color }, index) => (
+      {contacts.map(({ name, value, icon: Icon, color }, index) => (
         <div
           key={index}
           style={{ backgroundColor: color }}  // Use inline style for dynamic background color
