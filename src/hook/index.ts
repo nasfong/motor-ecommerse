@@ -16,6 +16,22 @@ export async function getProductById(id: string): Promise<Product> {
   return res.data
 }
 
+async function getSearch(queryParams: { query: string }): Promise<Product[]> {
+  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/search`, {
+    params: queryParams,
+  });
+  return res.data;
+}
+
+export const useSearch = (query: string) => {
+  return useQuery<Product[]>({
+    queryKey: ['search', query],
+    queryFn: () => getSearch({ query }),
+    enabled: query.length > 0,
+  });
+};
+
+
 export async function getType(): Promise<Type[]> {
   const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/type`)
   return res.data

@@ -1,12 +1,15 @@
-import { dehydrate, FetchQueryOptions, HydrationBoundary, QueryClient } from "@tanstack/react-query";
+import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import ProductDetail from "@/components/modules/ProductDetail";
 import { getProductById } from "@/hook";
-import { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
-export const metadata: Metadata = {
-  title: "Product Detail Page",
-  description: "product detail motor cycle list.",
-};
+export async function generateMetadata({ params: { locale, name } }: { params: { locale: string; name: string } }) {
+  const t = await getTranslations({ locale, namespace: '' });
+  return {
+    title: decodeURIComponent(name),
+    description: "product detail",
+  };
+}
 
 export default async function Page({ params }: { params: { id: string } }) {
   const queryClient = new QueryClient()
@@ -14,6 +17,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     queryKey: ['product', params.id],
     queryFn: () => getProductById(params.id),
   })
+
   return (
     <main>
       <HydrationBoundary state={dehydrate(queryClient)}>
