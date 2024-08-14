@@ -34,8 +34,8 @@ export default function Home({ searchParams }: HomeProps) {
 
   return (
     <section>
-      <Slider images={images} />
-      {typeData && <Tabs data={typeData} />}
+      {/* <Slider images={images} />
+      {typeData && <Tabs data={typeData} />} */}
       {productData && <ProductList data={productData} />}
       <article className='text-center mt-3'>
         <Link href='/all-product'>

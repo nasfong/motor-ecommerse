@@ -1,6 +1,7 @@
 'use client'
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 import { Constant } from '@/lib/constant'
+import { LoadingSpinner } from './custom/LoadingSpinner';
 
 const Map = ({ options }: { options?: google.maps.MapOptions }) => {
   const { isLoaded, loadError } = useJsApiLoader({
@@ -13,7 +14,7 @@ const Map = ({ options }: { options?: google.maps.MapOptions }) => {
   }
 
   if (!isLoaded) {
-    return <div>Loading...</div>;
+    return <LoadingSpinner />;
   }
 
   const handleMarkerClick = () => {

@@ -12,6 +12,7 @@ import { LanguageSelector } from './Language';
 import { ThemeToggle } from './ThemeToggle';
 import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
 import { Constant } from '@/lib/constant';
+import { CommandSearch } from './custom/CommandSearch';
 // import dynamic from 'next/dynamic';
 // const CartCount = dynamic(() => import('./CartCount'), { ssr: false })
 
@@ -44,7 +45,7 @@ const Navbar = ({ locale }: { locale: string }) => {
 
   return (
     <>
-      <div className='bg-primary text-white dark:text-black flex justify-between px-3 text-sm py-1'>
+      <div className='bg-primary text-white dark:text-black hidden md:flex justify-between px-3 text-sm py-1'>
         <div className='flex items-center gap-3'>
           <div className='flex items-center gap-1'>
             <MapPin className="h-3 w-3" fill="currentColor" strokeWidth={0} />
@@ -62,25 +63,28 @@ const Navbar = ({ locale }: { locale: string }) => {
           ))}
         </div>
       </div>
+
       <nav className="flex h-16 items-center gap-4 px-4 md:px-6 border-b">
-        <span className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
+        <ul className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
           <RightClickLogin isAuth={!!isAuth} onLogout={onLogout} />
           {navbar.map((item, index) => {
             const active = item.path === pathname
             return (
-              <Link
-                key={index}
-                href={item.path}
-                className={cn(
-                  `text-muted-foreground transition-colors hover:text-foreground whitespace-nowrap`,
-                  { 'text-foreground': active }
-                )}
-              >
-                {item.name}
-              </Link>
+              <li key={index}>
+                <Link
+                  href={item.path}
+                  className={cn(
+                    `text-muted-foreground transition-colors hover:text-foreground whitespace-nowrap`,
+                    { 'text-foreground': active }
+                  )}
+                  prefetch
+                >
+                  {item.name}
+                </Link>
+              </li>
             )
           })}
-        </span>
+        </ul>
         <Sheet>
           <SheetTrigger asChild>
             <Button
@@ -127,6 +131,8 @@ const Navbar = ({ locale }: { locale: string }) => {
             </nav>
           </SheetContent>
         </Sheet>
+
+        <CommandSearch />
         <div className='flex gap-3 ml-auto'>
           <ThemeToggle />
           <LanguageSelector locale={locale} />

@@ -11,15 +11,14 @@ type CustomImageProps = {
 }
 
 export const CustomImage = ({ src, className, alt }: CustomImageProps) => {
-  const [isLoading, setIsLoading] = useState(false)
 
-  const loader = ({ width, quality, src, thumbnail }: { width: number, quality?: number, src: string, thumbnail?: boolean }) => {
-    const props = [`w${width}`]
-    if (quality) props.push(`q=${quality}`)
-    if (thumbnail) props.push(`thumbnail=${thumbnail}`)
-    const queryStr = props.join('&')
-    return `${imageUrl}${src}?${queryStr}`
-  }
+  // const loader = ({ width, quality, src, thumbnail }: { width: number, quality?: number, src: string, thumbnail?: boolean }) => {
+  //   const props = [`w${width}`]
+  //   if (quality) props.push(`q=${quality}`)
+  //   if (thumbnail) props.push(`thumbnail=${thumbnail}`)
+  //   const queryStr = props.join('&')
+  //   return `${imageUrl}${src}?${queryStr}`
+  // }
 
   return (
     <div className={cn('relative w-full h-full', className)}>
@@ -28,8 +27,8 @@ export const CustomImage = ({ src, className, alt }: CustomImageProps) => {
         fill
         priority
         alt={alt + '-Thumbnail'}
-        src={src}
-        loader={({ ...rest }) => loader({ ...rest, thumbnail: true })}
+        src={imageUrl + src + '?thumbnail=true'}
+        // loader={({ ...rest }) => loader({ ...rest, thumbnail: true })}
         className='object-cover h-full w-full'
       />
       <Image
@@ -37,14 +36,12 @@ export const CustomImage = ({ src, className, alt }: CustomImageProps) => {
         priority
         fill
         alt={alt}
-        src={src}
-        loader={loader}
+        src={imageUrl + src}
+        // loader={loader}
         className={`
           object-cover h-full w-full
           transition-opacity duration-150 ease-in-out
-          ${isLoading ? 'opacity-100' : 'opacity-0'}
           `}
-        onLoad={() => setIsLoading(true)}
       />
     </div>
   )
