@@ -64,7 +64,7 @@ const ProductImageGallery = ({ images, alt }: { images: string[]; alt: string })
         {images.map((image, index) => (
           <SwiperSlide key={index}>
             <AspectRatio ratio={1 / 1}>
-              <CustomImage src={image} alt={`${alt} - ${index}`} />
+              <CustomImage src={image} alt={`${alt} - ${index}`} height={75} width={75} />
             </AspectRatio>
           </SwiperSlide>
         ))}

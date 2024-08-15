@@ -23,12 +23,11 @@ const AllProductCard = ({ parent, child, handleEdit, handleDelete, isPendingDele
           {parent}
         </h2>
       </article>
-      <article className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4" >
+      <article className="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-2" >
         {child.map((item, index) => (
           <div className='relative' key={index}>
             <ProductCard
               item={item}
-              className='h-[200px]'
               // pageRef={slides.length >= 5 && slides.length === index + 1 ? pageRef : null}
               delay={child.length <= 5 ? index / 4 : 0}
             />
