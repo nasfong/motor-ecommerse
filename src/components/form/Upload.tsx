@@ -137,7 +137,7 @@ const Upload: React.FC<UploadProps> = ({ form, name }) => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                 </svg>
               </button>
-              <CustomImage src={image} className="absolute inset-0 z-0 object-contain w-full h-full border-4 border-white preview" alt={'review' + index} />
+              <CustomImage src={image} height={500} width={500} className="absolute inset-0 z-0 object-contain border-4 border-white" alt={'review' + index} />
               <div className={`absolute inset-0 z-40 transition-colors duration-300 ${fileDropping === index && fileDragging !== index ? 'bg-blue-200 bg-opacity-80' : ''}`} />
             </div>
           ))}

@@ -103,7 +103,9 @@ export const CommandSearch: React.FC = () => {
               >
                 <div className="flex gap-2">
                   <div className="1/3">
-                    <CustomImage src={item.image[0]} alt={item.name} className="h-24 w-24" />
+                    <div className='h-20 w-20'>
+                      <CustomImage src={item.image[0]} alt={item.name} height={80} width={80} />
+                    </div>
                   </div>
                   <div className="2/3">
                     <h2 className="text-[16px] font-bold">{highlightText(item.name, searchTerm)}</h2>
