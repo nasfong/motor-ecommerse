@@ -172,8 +172,7 @@ const Upload: React.FC<UploadProps> = ({ form, name }) => {
                 </svg>
               )}
               {file.type.includes('image/') && (
-                <Image priority
-                  fill src={loadFile(file)} className="absolute inset-0 z-0 object-cover w-full h-full border-4 border-white preview" alt={`upload-image-${index}`} />
+                <Image fill src={loadFile(file)} className="absolute inset-0 z-0 object-cover w-full h-full border-4 border-white preview" alt={`upload-image-${index}`} />
               )}
               {file.type.includes('video/') && (
                 <video className="absolute inset-0 object-cover w-full h-full border-4 border-white pointer-events-none preview">

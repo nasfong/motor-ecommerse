@@ -25,7 +25,6 @@ export const CustomImage = ({ src, className, alt }: CustomImageProps) => {
       <Image
         sizes='10px'
         fill
-        priority
         alt={alt + '-Thumbnail'}
         src={imageUrl + src + '?thumbnail=true'}
         // loader={({ ...rest }) => loader({ ...rest, thumbnail: true })}
@@ -33,7 +32,6 @@ export const CustomImage = ({ src, className, alt }: CustomImageProps) => {
       />
       <Image
         sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 3840px'
-        priority
         fill
         alt={alt}
         src={imageUrl + src}
