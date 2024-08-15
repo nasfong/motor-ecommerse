@@ -111,7 +111,7 @@ const Upload: React.FC<UploadProps> = ({ form, name }) => {
             name={name}
             multiple={true}
             onChanges={addFiles}
-            className=""
+            className="absolute inset-0 z-50 h-full py-16 opacity-0  cursor-pointer"
           />
           <div className="flex flex-col items-center justify-center py-10 text-center">
             <svg className="w-6 h-6 mr-1 text-current-50" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
