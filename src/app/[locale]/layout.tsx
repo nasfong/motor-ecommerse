@@ -37,11 +37,11 @@ export default async function RootLayout({
     <html lang={locale} suppressHydrationWarning>
       <Head>
         {/* Title */}
-        <title>Shop Quality Motor Products | Kyhan Motor Shop</title>
+        <title>Kyhan Motor Shop | Premium Motorcycles and Accessories</title>
 
         {/* Meta tags */}
         <meta name="description" content="Explore our incredible range of motor products at Kyhan Motor Shop." />
-        <meta name="keywords" content="motor products, motorcycles, auto parts, Kyhan Motor Shop" />
+        <meta name="keywords" content="Motorcycles, motorbike accessories, premium bikes, motorcycle parts, Kyhan Motor, motor shop, best motorcycles" />
         <meta name="author" content="Kyhan Motor Shop Team" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
