@@ -98,7 +98,7 @@ export const CommandSearch: React.FC = () => {
               <Link
                 key={index}
                 href={`/all-product/${item._id}/${item.name}`}
-                className="py-2 px-6 hover:bg-gray-100 flex justify-between"
+                className="py-2 px-6 hover:bg-gray-100 flex justify-between text-gray-800 dark:text-gray-400"
                 onClick={() => setIsOpen(false)}
               >
                 <div className="flex gap-2">
@@ -107,12 +107,12 @@ export const CommandSearch: React.FC = () => {
                       <CustomImage src={item.image[0]} alt={item.name} height={80} width={80} />
                     </div>
                   </div>
-                  <div className="2/3">
-                    <h2 className="text-[16px] font-bold">{highlightText(item.name, searchTerm)}</h2>
+                  <div className="2/3 ">
+                    <h2 className="text-[16px] font-bold ">{highlightText(item.name, searchTerm)}</h2>
                     <h4 className="text-[12px] line-clamp-3">{highlightText(item.description, searchTerm)}</h4>
                   </div>
                 </div>
-                <span className="text-gray-800">
+                <span className="">
                   ${highlightText(item.price.toString(), searchTerm)}
                 </span>
               </Link>

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { Inter as FontSans } from "next/font/google";
-import "./globals.css";
+import { Inter as FontSans, Koh_Santepheap } from "next/font/google";
 import { cn } from "@/lib/utils";
 import NextTopLoader from 'nextjs-toploader'
 import Navbar from "@/components/Navbar";
@@ -9,9 +8,17 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import Provider from "@/lib/provider";
 import Head from "next/head";
+import "./globals.css";
 
 const fontSans = FontSans({
+  // subsets: ["khmer"],
+  // weight: "400",
   subsets: ["latin"],
+  variable: "--font-sans",
+})
+const fontKhmer = Koh_Santepheap({
+  subsets: ["khmer", "latin"],
+  weight: "400",
   variable: "--font-sans",
 })
 
@@ -52,13 +59,6 @@ export default async function RootLayout({
         <meta property="og:url" content="https://www.kyhanmotorshop.store/" />
         <meta property="og:type" content="website" />
 
-        {/* Twitter Card (for Twitter sharing) */}
-        {/* <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="My Awesome Page | Next.js 14" />
-        <meta name="twitter:description" content="This is an awesome description for my Next.js 14 page." />
-        <meta name="twitter:image" content="/path-to-your-image.jpg" />
-        <meta name="twitter:site" content="@yourTwitterHandle" /> */}
-
         {/* Favicon */}
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -72,7 +72,7 @@ export default async function RootLayout({
       <body
         className={cn(
           "min-h-screen  font-sans antialiased",
-          fontSans.variable
+          locale === 'en' ? fontSans.variable : fontKhmer.variable
         )}
       >
         <NextIntlClientProvider messages={messages}>
