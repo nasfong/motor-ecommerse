@@ -4,10 +4,21 @@ import { getProductById } from "@/hook";
 import { getTranslations } from "next-intl/server";
 
 export async function generateMetadata({ params: { locale, name } }: { params: { locale: string; name: string } }) {
-  const t = await getTranslations({ locale, namespace: '' });
+  const t = await getTranslations('metadata');
+
   return {
-    title: decodeURIComponent(name),
-    description: "product detail",
+    title: `${decodeURIComponent(name)} | ${t('Kyhan Motor')}`,
+    description: t('productDetail_description'),
+    keywords: t('productDetail_keywords'),
+    alternates: {
+      canonical: `https://www.kyhanmotorshop.store/${locale}/product/${encodeURIComponent(name)}`,
+    },
+    openGraph: {
+      title: `${decodeURIComponent(name)} | ${t('Kyhan Motor')}`,
+      description: t('productDetail_description'),
+      url: `https://www.kyhanmotorshop.store/${locale}/product/${encodeURIComponent(name)}`,
+      type: 'website',
+    },
   };
 }
 

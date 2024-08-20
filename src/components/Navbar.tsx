@@ -49,17 +49,23 @@ const Navbar = ({ locale }: { locale: string }) => {
         <div className='flex items-center gap-3'>
           <div className='flex items-center gap-1'>
             <MapPin className="h-3 w-3" fill="currentColor" strokeWidth={0} />
-            <p>{Constant.address}</p>
+            <a href={`https://www.google.com/maps?q=${Constant.location.lat},${Constant.location.lng}`} target="_blank">
+              {t('Address')}
+            </a>
           </div>
           <div className='flex items-center gap-1'>
             <Phone className="h-3 w-3" fill="currentColor" strokeWidth={0} />
-            <p>{Constant.phone.value}</p>
+            <a href={Constant.phone.url}>
+              {Constant.phone.value}
+            </a>
           </div>
         </div>
         <div className='flex items-center gap-3'>
-          <p>Contact Us</p>
-          {[Constant.facebook, Constant.telegram].map(({ icon: Icon }, index) => (
-            <Icon key={index} className="h-3 w-3" fill="currentColor" strokeWidth={0} />
+          <Link href='/contact'>Contact Us</Link>
+          {[Constant.facebook, Constant.telegram].map(({ icon: Icon, url }, index) => (
+            <a key={index} href={url} target="_blank">
+              <Icon className="h-3 w-3" fill="currentColor" strokeWidth={0} />
+            </a>
           ))}
         </div>
       </div>

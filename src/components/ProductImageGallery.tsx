@@ -41,7 +41,7 @@ const ProductImageGallery = ({ images, alt }: { images: string[]; alt: string })
             <SwiperSlide key={index} className='cursor-pointer'>
               <AspectRatio ratio={1 / 1}>
                 <PhotoView src={imageUrl + image}>
-                  <Image fill src={imageUrl + image} alt={`${alt} - ${index}`} />
+                  <Image fill src={imageUrl + image} alt={`${alt} - Kyhan Motor`} />
                 </PhotoView>
               </AspectRatio>
             </SwiperSlide>
@@ -64,7 +64,7 @@ const ProductImageGallery = ({ images, alt }: { images: string[]; alt: string })
         {images.map((image, index) => (
           <SwiperSlide key={index}>
             <AspectRatio ratio={1 / 1}>
-              <CustomImage src={image} alt={`${alt} - ${index}`} />
+              <CustomImage src={image} alt={`${alt} - ${index}`} height={75} width={75} />
             </AspectRatio>
           </SwiperSlide>
         ))}

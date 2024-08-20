@@ -4,10 +4,23 @@ import { getProduct } from "@/hook";
 import { getTranslations } from "next-intl/server";
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
-  const t = await getTranslations({ locale, namespace: '' });
+  const t = await getTranslations({ locale, namespace: 'metadata' });
   return {
-    title: t('All Product Page'),
-    description: t("All product motor cycle list"),
+    title: `${t('All Motorcycles and Accessories')} | ${t('Kyhan Motor')}`,
+    description: t('allProduct_description'),
+    keywords: t('allProduct_keywords'),
+    alternates: {
+      canonical: `https://www.kyhanmotorshop.store/${locale}/all-product`,
+      types: {
+        'application/opensearchdescription+xml': `${t('All Motorcycles and Accessories')} | ${t('Kyhan Motor')}`,
+      },
+    },
+    openGraph: {
+      title: `${t('All Motorcycles and Accessories')} | ${t('Kyhan Motor')}`,
+      description: t('allProduct_description'),
+      url: `https://www.kyhanmotorshop.store/${locale}/all-product`,
+      type: 'website',
+    },
   };
 }
 
@@ -25,3 +38,4 @@ export default async function Page() {
     </main>
   )
 }
+

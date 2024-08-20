@@ -10,25 +10,13 @@ const RelationProduct = ({ typeId, excludeProductId }: { typeId: string; exclude
   if (error) return 'Failed to load'
 
   return (
-    <ScrollProduct>
+    <article className='grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-2'>
       {isLoading ? (
-        <div className="overflow-hidden">
-          <div className='flex gap-3'>
-            {Array.from({ length: 3 }).map((_, index) => <Skeleton key={index} className='h-[200px] w-[300px] rounded-lg' />)}
-          </div>
-        </div>
-      ) :
-        relateData?.map((item, index) => (
-          <div className='relative' key={index}>
-            <ProductCard
-              item={item}
-              className='h-[200px] w-[300px]'
-              // pageRef={slides.length > 5 && slides.length === index + 1 ? pageRef : null}
-              delay={index / 4}
-            />
-          </div>
-        ))}
-    </ScrollProduct>
+        Array.from({ length: 3 }).map((_, index) => <Skeleton key={index} className='h-[200px] rounded-lg' />)
+      ) : relateData?.map((item, index) => (
+        <ProductCard item={item} delay={index / 4} key={index} />
+      ))}
+    </article>
   )
 }
 

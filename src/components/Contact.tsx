@@ -9,8 +9,10 @@ const Contact = () => {
 
   return (
     <article className='flex flex-col gap-3'>
-      {contacts.map(({ name, value, icon: Icon, color }, index) => (
-        <div
+      {contacts.map(({ name, value, icon: Icon, color, url }, index) => (
+        <a
+          href={url}
+          target="_blank"
           key={index}
           style={{ backgroundColor: color }}  // Use inline style for dynamic background color
           className={
@@ -19,12 +21,12 @@ const Contact = () => {
             p-3 text-white cursor-pointer`
           }
         >
-          <div>
+          <span>
             <h4>{t(name)}</h4>
             <h3 className='font-bold'>{value}</h3>
-          </div>
+          </span>
           <Icon fill="#ffffff" strokeWidth={0} />
-        </div>
+        </a>
       ))}
     </article >
   )

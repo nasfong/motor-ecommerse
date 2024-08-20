@@ -1,48 +1,32 @@
-'use client'
 import { imageUrl } from '@/lib/constant';
-import { cn } from '@/lib/utils';
+import getBase64 from '@/lib/get-base64';
 import Image from 'next/image'
-import { useState } from 'react';
 
 type CustomImageProps = {
   src: string
   alt: string
   className?: string
+  height?: number
+  width?: number
+  fill?: boolean
 }
 
-export const CustomImage = ({ src, className, alt }: CustomImageProps) => {
-
-  // const loader = ({ width, quality, src, thumbnail }: { width: number, quality?: number, src: string, thumbnail?: boolean }) => {
-  //   const props = [`w${width}`]
-  //   if (quality) props.push(`q=${quality}`)
-  //   if (thumbnail) props.push(`thumbnail=${thumbnail}`)
-  //   const queryStr = props.join('&')
-  //   return `${imageUrl}${src}?${queryStr}`
-  // }
-
+export const CustomImage = ({ src, className, alt, height, width, fill }: CustomImageProps) => {
+  // const { base64, img } = await getBase64(imageUrl + src)
   return (
-    <div className={cn('relative w-full h-full', className)}>
-      <Image
-        sizes='10px'
-        fill
-        priority
-        alt={alt + '-Thumbnail'}
-        src={imageUrl + src + '?thumbnail=true'}
-        // loader={({ ...rest }) => loader({ ...rest, thumbnail: true })}
-        className='object-cover h-full w-full'
-      />
-      <Image
-        sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 3840px'
-        priority
-        fill
-        alt={alt}
-        src={imageUrl + src}
-        // loader={loader}
-        className={`
-          object-cover h-full w-full
-          transition-opacity duration-150 ease-in-out
-          `}
-      />
-    </div>
+    // <div className='relative'>
+    <Image
+      // {...img}
+      src={imageUrl + src}
+      height={height}
+      width={width}
+      fill={fill}
+      alt={`${alt} - Kyhan Motor`}
+      // placeholder='blur'
+      // blurDataURL={base64}
+      className={className}
+      sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 3840px'
+    />
+    // </div>
   )
 }

@@ -24,7 +24,7 @@ export default function Slider({ images }: { images: StaticImageData[] }) {
             <div className="relative w-full h-full">
               <Image
                 src={src}
-                alt={`Slide ${index + 1}`}
+                alt={`Slide - Kyhan Motor`}
                 fill
                 priority
                 placeholder='blur'
