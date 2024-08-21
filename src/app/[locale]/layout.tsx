@@ -13,8 +13,6 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 import "./globals.css";
 
 const fontSans = FontSans({
-  // subsets: ["khmer"],
-  // weight: "400",
   subsets: ["latin"],
   variable: "--font-sans",
 })

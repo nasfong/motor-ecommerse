@@ -1,11 +1,11 @@
 import { getProduct } from '@/hook';
 import { QueryClient } from '@tanstack/react-query';
-import type { MetadataRoute } from 'next'
+import type { MetadataRoute } from 'next';
 
 const domain = 'https://www.kyhanmotorshop.store';
+const locales = ['en', 'kh'];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const locale = 'kh'
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
@@ -15,15 +15,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const products = await queryClient.getQueryData(['products']) as Product[];
 
-  const posts = products.map(({ _id, name }) => ({
-    url: `${domain}/${locale}/all-product/${_id}/${encodeURIComponent(name)}`,
-    lastModified: new Date().toISOString(),
-  }));
-
-  const routes = ["", "/all-product", "/contact"].map((route) => ({
+  const routes = locales.flatMap(locale => [
+    "/all-product",
+    "/contact"
+  ].map(route => ({
     url: `${domain}/${locale}${route}`,
     lastModified: new Date().toISOString(),
+  })));
+
+  const posts = locales.flatMap(locale =>
+    products.map(({ _id, name }) => ({
+      url: `${domain}/${locale}/all-product/${_id}/${encodeURIComponent(name)}`,
+      lastModified: new Date().toISOString(),
+    }))
+  );
+
+  const main = locales.map(locale => ({
+    url: domain,
+    lastModified: new Date().toISOString(),
   }));
 
-  return [...routes, ...posts];
+  return [...routes, ...posts, ...main];
 }
