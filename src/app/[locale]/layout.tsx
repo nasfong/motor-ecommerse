@@ -8,6 +8,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import Provider from "@/lib/provider";
 import Head from "next/head";
+import { Analytics } from '@vercel/analytics/react'
 import "./globals.css";
 
 const fontSans = FontSans({
@@ -21,12 +22,6 @@ const fontKhmer = Koh_Santepheap({
   weight: "400",
   variable: "--font-sans",
 })
-
-export const metadata: Metadata = {
-  title: "",
-  description: "",
-};
-
 
 export default async function RootLayout({
   children,
@@ -101,6 +96,7 @@ export default async function RootLayout({
             </Provider>
           </GlobalProvider>
         </NextIntlClientProvider>
+        <Analytics />
       </body>
     </html>
   );
