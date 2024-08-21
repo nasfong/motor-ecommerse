@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { Inter as FontSans } from "next/font/google";
-import "./globals.css";
+import { Inter as FontSans, Koh_Santepheap } from "next/font/google";
 import { cn } from "@/lib/utils";
 import NextTopLoader from 'nextjs-toploader'
 import Navbar from "@/components/Navbar";
@@ -10,9 +9,17 @@ import { getMessages } from "next-intl/server";
 import Provider from "@/lib/provider";
 import Head from "next/head";
 import { Analytics } from '@vercel/analytics/react'
+import "./globals.css";
 
 const fontSans = FontSans({
+  // subsets: ["khmer"],
+  // weight: "400",
   subsets: ["latin"],
+  variable: "--font-sans",
+})
+const fontKhmer = Koh_Santepheap({
+  subsets: ["khmer", "latin"],
+  weight: "400",
   variable: "--font-sans",
 })
 
@@ -32,11 +39,11 @@ export default async function RootLayout({
     <html lang={locale} suppressHydrationWarning>
       <Head>
         {/* Title */}
-        <title>Shop Quality Motor Products | Kyhan Motor Shop</title>
+        <title>Kyhan Motor Shop | Premium Motorcycles and Accessories</title>
 
         {/* Meta tags */}
         <meta name="description" content="Explore our incredible range of motor products at Kyhan Motor Shop." />
-        <meta name="keywords" content="motor products, motorcycles, auto parts, Kyhan Motor Shop" />
+        <meta name="keywords" content="Motorcycles, motorbike accessories, premium bikes, motorcycle parts, Kyhan Motor, motor shop, best motorcycles" />
         <meta name="author" content="Kyhan Motor Shop Team" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -46,13 +53,6 @@ export default async function RootLayout({
         <meta property="og:image" content="/favicon.ico" />
         <meta property="og:url" content="https://www.kyhanmotorshop.store/" />
         <meta property="og:type" content="website" />
-
-        {/* Twitter Card (for Twitter sharing) */}
-        {/* <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="My Awesome Page | Next.js 14" />
-        <meta name="twitter:description" content="This is an awesome description for my Next.js 14 page." />
-        <meta name="twitter:image" content="/path-to-your-image.jpg" />
-        <meta name="twitter:site" content="@yourTwitterHandle" /> */}
 
         {/* Favicon */}
         <link rel="icon" href="/favicon.ico" />
@@ -67,7 +67,7 @@ export default async function RootLayout({
       <body
         className={cn(
           "min-h-screen  font-sans antialiased",
-          fontSans.variable
+          locale === 'en' ? fontSans.variable : fontKhmer.variable
         )}
       >
         <NextIntlClientProvider messages={messages}>

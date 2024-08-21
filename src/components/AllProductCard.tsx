@@ -23,7 +23,7 @@ const AllProductCard = ({ parent, child, handleEdit, handleDelete, isPendingDele
           {parent}
         </h2>
       </article>
-      <article className="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-2" >
+      <article className="grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-9 gap-2" >
         {child.map((item, index) => (
           <div className='relative' key={index}>
             <ProductCard

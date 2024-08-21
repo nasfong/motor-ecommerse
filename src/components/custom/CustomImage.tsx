@@ -11,21 +11,22 @@ type CustomImageProps = {
   fill?: boolean
 }
 
-export const CustomImage = async ({ src, className, alt, height, width, fill }: CustomImageProps) => {
+export const CustomImage = ({ src, className, alt, height, width, fill }: CustomImageProps) => {
   // const { base64, img } = await getBase64(imageUrl + src)
   return (
-    <div className='relative'>
-      <Image
-        // {...img}
-        src={imageUrl + src}
-        height={height}
-        width={width}
-        // fill={fill}
-        alt={alt}
-        // placeholder='blur'
-        // blurDataURL={base64}
-        sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 3840px'
-      />
-    </div>
+    // <div className='relative'>
+    <Image
+      // {...img}
+      src={imageUrl + src}
+      height={height}
+      width={width}
+      fill={fill}
+      alt={`${alt} - Kyhan Motor`}
+      // placeholder='blur'
+      // blurDataURL={base64}
+      className={className}
+      sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 3840px'
+    />
+    // </div>
   )
 }

@@ -3,11 +3,21 @@ import Map from '@/components/Map'
 import { getTranslations } from 'next-intl/server';
 import React from 'react'
 
-export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
-  const t = await getTranslations({ locale, namespace: 'metadata' });
+export async function generateMetadata({ params: { locale } }: generateMetadataProps) {
+  const t = await getTranslations('metadata');
   return {
-    title: t('Contact Page'),
-    description: t('Contact Map address'),
+    title: `${t('Contact Kyhan Motor')} | ${t('Get in Touch with Us')}`,
+    description: t("contact_description"),
+    keywords: t("contact_keywords"),
+    alternates: {
+      canonical: `https://www.kyhanmotorshop.store/${locale}`,
+    },
+    openGraph: {
+      title: `${t('Contact Kyhan Motor')} | ${t('Get in Touch with Us')}`,
+      description: t("contact_description"),
+      url: `https://www.kyhanmotorshop.store/${locale}`,
+      type: 'website',
+    },
   };
 }
 

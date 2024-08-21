@@ -41,7 +41,7 @@ const ProductImageGallery = ({ images, alt }: { images: string[]; alt: string })
             <SwiperSlide key={index} className='cursor-pointer'>
               <AspectRatio ratio={1 / 1}>
                 <PhotoView src={imageUrl + image}>
-                  <Image fill src={imageUrl + image} alt={`${alt} - ${index}`} />
+                  <Image fill src={imageUrl + image} alt={`${alt} - Kyhan Motor`} />
                 </PhotoView>
               </AspectRatio>
             </SwiperSlide>

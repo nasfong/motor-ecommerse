@@ -1,4 +1,6 @@
-
+type generateMetadataProps = {
+  params: { locale: 'en' | 'kh' }
+}
 
 type Product = {
   _id: string

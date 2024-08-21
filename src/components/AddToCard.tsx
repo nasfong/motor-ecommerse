@@ -30,22 +30,24 @@ const AddToCard = ({ item }: { item: Product }) => {
             p-3 text-white cursor-pointer w-fit h-fit`
           }
         >
-          <div>
+          <a href={Constant.phone.url}>
             <h3 className='font-bold'>{value}</h3>
-          </div>
+          </a>
           <Icon fill="#ffffff" strokeWidth={0} />
         </div>
         <div className="">
           {/* <h4 className="mt-4 text-lg text-gray-500">Social Media</h4> */}
           <div className='flex gap-1'>
-            {social.map(({ icon: Icon, color }, index) => (
-              <div
+            {social.map(({ icon: Icon, color, url }, index) => (
+              <a
+                href={url}
+                target="_blank"
                 key={index}
                 style={{ backgroundColor: color }}  // Use inline style for dynamic background color
                 className="rounded-full hover:opacity-95 p-3 text-white cursor-pointer"
               >
                 <Icon fill="#ffffff" strokeWidth={0} />
-              </div>
+              </a>
             ))}
           </div>
         </div>
@@ -54,7 +56,10 @@ const AddToCard = ({ item }: { item: Product }) => {
         <Map options={{
           draggable: false, // Disable map dragging
           scrollwheel: false, // Disable zooming with scroll wheel
-          disableDefaultUI: true // Optional: Hide default UI controls
+          disableDefaultUI: true, // Optional: Hide default UI controls
+          zoomControl: false, // Disable zoom control
+          disableDoubleClickZoom: true, // Disable double-click zoom
+          clickableIcons: false, // Disable clickable POI icons
         }} />
       </section>
     </div>
