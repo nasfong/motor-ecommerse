@@ -22,6 +22,8 @@ const fontKhmer = Koh_Santepheap({
   variable: "--font-sans",
 })
 
+export const preferredRegion = 'hkg1'
+
 export default async function RootLayout({
   children,
   params: {
