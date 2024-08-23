@@ -10,8 +10,8 @@ export const stocks = (t: (s: string) => void) => {
 };
 
 export const location = {
-  lat: 13.3782812,
-  lng: 103.8599097
+  lat: 12.6309728,
+  lng: 104.5400165
 };
 
 export const imageUrl = `${process.env.NEXT_PUBLIC_API_URL}/image/`
@@ -20,23 +20,23 @@ export const default_image = '/images/default-image.jpg'
 const phone = {
   icon: Phone,
   name: 'Phone Number',
-  value: '093 580 030',
+  value: '066 300 016/096 255 5577',
   color: '#90bb21',
-  url: 'tel:+85593580030'
+  url: 'tel:+855962555577'
 }
 const facebook = {
   icon: Facebook02Icon,
   name: 'Facebook',
-  value: 'Jinro Shop',
+  value: 'ហាងម៉ូតូ គី ហាន',
   color: '#227bf3',
-  url: 'https://www.facebook.com/share/cZs4DfB9yPjGH9Tr/?mibextid=qi2Omg'
+  url: 'https://www.facebook.com/KyhanMotorShop'
 }
 const telegram = {
   icon: TelegramIcon,
   name: 'Telegram',
-  value: 'Reak The King',
+  value: 'Sopheaktra Ky',
   color: '#31aae9',
-  url: 'https://t.me/maomkhmercuisine'
+  url: 'https://t.me/sopheaktraky'
 }
 
 export const Constant = {
