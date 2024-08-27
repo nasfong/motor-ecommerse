@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter as FontSans, Koh_Santepheap } from "next/font/google";
 import { cn } from "@/lib/utils";
 import NextTopLoader from 'nextjs-toploader'
@@ -23,6 +23,13 @@ const fontKhmer = Koh_Santepheap({
 })
 
 export const preferredRegion = 'hkg1'
+export const viewport: Viewport = {
+  initialScale: 1,
+  width: 'device-width',
+  userScalable: false,
+  maximumScale: 1,
+  themeColor: "#ffffff",
+}
 
 export default async function RootLayout({
   children,
