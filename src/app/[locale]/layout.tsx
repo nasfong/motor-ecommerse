@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter as FontSans, Koh_Santepheap } from "next/font/google";
 import { cn } from "@/lib/utils";
 import NextTopLoader from 'nextjs-toploader'
@@ -22,6 +22,15 @@ const fontKhmer = Koh_Santepheap({
   variable: "--font-sans",
 })
 
+export const preferredRegion = 'hkg1'
+export const viewport: Viewport = {
+  initialScale: 1,
+  width: 'device-width',
+  userScalable: false,
+  maximumScale: 1,
+  themeColor: "#ffffff",
+}
+
 export default async function RootLayout({
   children,
   params: {
@@ -44,7 +53,7 @@ export default async function RootLayout({
         <meta name="description" content="Explore our incredible range of motor products at Kyhan Motor Shop." />
         <meta name="keywords" content="Motorcycles, motorbike accessories, premium bikes, motorcycle parts, Kyhan Motor, motor shop, best motorcycles,Kyhan Motor Shop" />
         <meta name="author" content="Kyhan Motor Shop Team" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         {/* Open Graph (for social media sharing) */}
         <meta property="og:title" content="Discover Top Motor Products | Kyhan Motor Shop" />
