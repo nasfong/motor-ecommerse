@@ -43,8 +43,6 @@ const Upload: React.FC<UploadProps> = ({ form, name }) => {
     setImages(updatedImages);
 
     form.setValue('image', updatedImages);
-    const currentRemovedImages = form.getValues('removeImages') || [];
-    form.setValue('removeImages', [...currentRemovedImages, ...removedImage]);
   }
 
   const handleDropImage = (e: DragEvent<HTMLDivElement>) => {

@@ -12,7 +12,7 @@ import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import "./globals.css";
 
-const font = Noto_Sans_Khmer({
+const fontKhmer = Noto_Sans_Khmer({
   subsets: ["khmer", "latin"],
   weight: ["400", "500", "600"],
   variable: "--font-sans",
@@ -71,7 +71,7 @@ export default async function RootLayout({
       <body
         className={cn(
           "min-h-screen  font-sans antialiased",
-          font.variable
+          fontKhmer.variable
         )}
       >
         <NextIntlClientProvider messages={messages}>
