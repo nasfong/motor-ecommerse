@@ -17,8 +17,6 @@ import { Ratings } from "./Rating"
 import { TextAreaForm } from "./form/TextAreaForm"
 import { useTranslations } from "next-intl"
 
-
-
 type Props = {
   open: boolean
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -41,7 +39,6 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
     isNews: z.boolean().default(false),
     isSold: z.number().default(1),
     recommend: z.boolean().default(false),
-    removeImages: z.array(z.string()).optional(),
     star: z.number(),
   })
 
@@ -56,7 +53,6 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
     isNews: true,
     isSold: 1,
     recommend: false,
-    removeImages: [],
     star: 5,
   }
   // hook form
@@ -89,7 +85,6 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
     formData.append('isSold', data.isSold.toString());
     formData.append('recommend', data.recommend.toString());
     formData.append('star', data.star.toString());
-    formData.append('removeImages', JSON.stringify(data.removeImages));
 
     mutateAsync(formData)
       .finally(() => {
@@ -110,7 +105,6 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
         isNews: formValue.isNews,
         star: formValue.star,
         recommend: formValue.recommend,
-        removeImages: []
       })
     }
   }, [formValue])
