@@ -13,6 +13,7 @@ type Product = {
   isSold: 1 | 2;
   recommend: boolean;
   star: number
+  indexImage: number
 }
 
 // type Products = {

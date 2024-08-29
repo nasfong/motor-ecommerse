@@ -17,7 +17,7 @@ export const InputFileForm = forwardRef<HTMLDivElement, any>(({ form, name, labe
               ref={ref}
               placeholder="Picture"
               type="file"
-              accept="image/*, application/pdf"
+              accept=".png, .jpg, .jpeg"
               onChange={onChanges ? onChanges : (event) => {
                 const files = Array.from(event.target.files || []);
                 const preData = Array.isArray(value) ? value : [];

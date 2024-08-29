@@ -32,6 +32,7 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
   const { mutateAsync, isPending } = useSubmitProduct(formValue?._id)
 
   const formSchema = z.object({
+    file: z.any().optional(),
     image: z.any().optional(),
     name: z.string().nonempty(t('required')),
     price: z.string().nonempty(t('required')),
@@ -42,10 +43,12 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
     recommend: z.boolean().default(false),
     removeImages: z.array(z.string()).optional(),
     star: z.number(),
+    indexImage: z.number(),
   })
 
   // default value
   const defaultValues = {
+    file: [],
     image: [],
     name: "",
     price: "",
@@ -56,6 +59,7 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
     recommend: false,
     removeImages: [],
     star: 0,
+    indexImage: 0,
   }
   // hook form
   const form = useForm<z.infer<typeof formSchema>>({
@@ -73,11 +77,13 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
   // handle submit
   const onSubmit = (data: z.infer<typeof formSchema>) => {
     const formData = new FormData();
-    if (data.image && data.image.length > 0) {
-      for (let i = 0; i < data.image.length; i++) {
-        formData.append(`image`, data.image[i]);
+    console.log(data.file)
+    if (data.file && data.file.length > 0) {
+      for (let i = 0; i < data.file.length; i++) {
+        formData.append(`file`, data.file[i]);
       }
     }
+    formData.append('image', JSON.stringify(data.image));
     formData.append('name', data.name);
     formData.append('price', data.price);
     formData.append('description', data.description || '');
@@ -86,6 +92,7 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
     formData.append('isSold', data.isSold.toString());
     formData.append('recommend', data.recommend.toString());
     formData.append('star', data.star.toString());
+    formData.append('indexImage', data.indexImage.toString());
     formData.append('removeImages', JSON.stringify(data.removeImages));
 
     mutateAsync(formData)
@@ -107,6 +114,7 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
         isNews: formValue.isNews,
         star: formValue.star,
         recommend: formValue.recommend,
+        indexImage: formValue.indexImage,
         removeImages: []
       })
     }
@@ -127,7 +135,7 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
           <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-2">
             <Upload
               form={form}
-              name="image"
+              name="file"
             />
             <div className="grid grid-cols-2 gap-3">
               <InputForm
