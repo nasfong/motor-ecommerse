@@ -13,7 +13,6 @@ const AddToCard = ({ item }: { item: Product }) => {
   //   dispatch({ type: 'ADD_CART', payload: data })
   // }
 
-  const { color, value, icon: Icon } = Constant.phone
   const social = [Constant.facebook, Constant.telegram]
   return (
     <div>
@@ -22,18 +21,23 @@ const AddToCard = ({ item }: { item: Product }) => {
         <Button className="w-full">{t('Contact')}</Button>  
        </Link> */}
       <div className="flex gap-3 mb-3">
-        <div
-          style={{ backgroundColor: color }}
-          className={
-            `flex gap-3 rounded-lg border 
+        <div className="">
+          {Constant.phone.map(({ color, value, icon: Icon, url }, index) => (
+            <div
+              key={index}
+              style={{ backgroundColor: color }}
+              className={
+                `flex gap-3 rounded-lg border 
             hover:opacity-95
-            p-3 text-white cursor-pointer w-fit h-fit`
-          }
-        >
-          <a href={Constant.phone.url}>
-            <h3 className='font-bold'>{value}</h3>
-          </a>
-          <Icon fill="#ffffff" strokeWidth={0} />
+            p-3 text-white cursor-pointer w-[165px] h-fit`
+              }
+            >
+              <a href={url}>
+                <h3 className='font-bold'>{value}</h3>
+              </a>
+              <Icon fill="#ffffff" strokeWidth={0} />
+            </div>
+          ))}
         </div>
         <div className="">
           {/* <h4 className="mt-4 text-lg text-gray-500">Social Media</h4> */}

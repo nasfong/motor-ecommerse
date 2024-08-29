@@ -57,7 +57,7 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
     isSold: 1,
     recommend: false,
     removeImages: [],
-    star: 0,
+    star: 5,
   }
   // hook form
   const form = useForm<z.infer<typeof formSchema>>({
@@ -75,7 +75,6 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
   // handle submit
   const onSubmit = (data: z.infer<typeof formSchema>) => {
     const formData = new FormData();
-    console.log(data.file)
     if (data.file && data.file.length > 0) {
       for (let i = 0; i < data.file.length; i++) {
         formData.append(`file`, data.file[i]);
