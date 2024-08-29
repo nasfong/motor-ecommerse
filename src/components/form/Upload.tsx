@@ -4,6 +4,8 @@ import { InputFileForm } from './InputFileForm';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { CustomImage } from '../custom/CustomImage';
+import { imageUrl } from '@/lib/constant';
+import { toast } from 'sonner';
 
 interface UploadProps {
   form: any;
@@ -13,9 +15,9 @@ interface UploadProps {
 const Upload: React.FC<UploadProps> = ({ form, name }) => {
   const t = useTranslations('all-product')
   const [files, setFiles] = useState<File[]>([]);
-  const [fileDragging, setFileDragging] = useState<number | null>(null);
-  const [fileDropping, setFileDropping] = useState<number | null>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [draggingIndex, setDraggingIndex] = useState<number | null>(null);
+  const [hoveringIndex, setHoveringIndex] = useState<number | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
   const [images, setImages] = useState<string[]>(form.getValues('image'))
 
   const humanFileSize = (size: number): string => {
@@ -40,33 +42,53 @@ const Upload: React.FC<UploadProps> = ({ form, name }) => {
 
     setImages(updatedImages);
 
+    form.setValue('image', updatedImages);
     const currentRemovedImages = form.getValues('removeImages') || [];
     form.setValue('removeImages', [...currentRemovedImages, ...removedImage]);
   }
 
-  const handleDrop = (e: DragEvent<HTMLDivElement>) => {
+  const handleDropImage = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-    if (fileDragging === null || fileDropping === null) return;
+    if (draggingIndex === null || hoveringIndex === null) return;
 
     const newFiles = [...files];
-    const removedFile = newFiles.splice(fileDragging, 1)[0];
-    newFiles.splice(fileDropping, 0, removedFile);
+    const [movedFile] = newFiles.splice(draggingIndex, 1);
+    newFiles.splice(hoveringIndex, 0, movedFile);
     setFiles(newFiles);
-
-    setFileDropping(null);
-    setFileDragging(null);
+    form.setValue(name, newFiles)
+    setDraggingIndex(null);
+    setHoveringIndex(null);
   };
 
-  const handleDragEnter = (e: DragEvent<HTMLDivElement>) => {
-    const targetElem = e.target as HTMLElement;
-    const index = targetElem.closest("[draggable]")?.getAttribute("data-index");
-    if (index) setFileDropping(parseInt(index, 10));
+  const handleDropPreview = (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    if (draggingIndex === null || hoveringIndex === null) return;
+
+    const updatedList = [...images];
+    const [movedImage] = updatedList.splice(draggingIndex, 1);
+    updatedList.splice(hoveringIndex, 0, movedImage);
+
+    setImages(updatedList);
+    form.setValue('image', updatedList);
+    setDraggingIndex(null);
+    setHoveringIndex(null);
+  };
+  const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
   };
 
-  const handleDragStart = (e: DragEvent<HTMLDivElement>) => {
-    const index = (e.target as HTMLElement).closest("[draggable]")?.getAttribute("data-index");
-    if (index) setFileDragging(parseInt(index, 10));
-    e.dataTransfer.effectAllowed = "move";
+  const handleDragStart = (index: number) => {
+    setDraggingIndex(index);
+  };
+
+  const handleDragEnter = (index: number) => {
+    setHoveringIndex(index);
+  };
+
+  const handleDragEnd = () => {
+    setDraggingIndex(null);
+    setHoveringIndex(null);
   };
 
   const loadFile = (file: File) => {
@@ -75,6 +97,13 @@ const Upload: React.FC<UploadProps> = ({ form, name }) => {
   };
 
   const addFiles = (e: ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    const validFiles = files.filter(file => ['image/png', 'image/jpeg'].includes(file.type));
+
+    if (validFiles.length === 0) {
+      toast.warning('Please select a valid image file (PNG, JPG, JPEG).');
+      return;
+    }
     if (e.target.files) {
       const newFiles = Array.from(e.target.files);
       setFiles(prevFiles => {
@@ -109,9 +138,19 @@ const Upload: React.FC<UploadProps> = ({ form, name }) => {
           {images?.map((image, index) => (
             <div
               key={index}
-              className={`relative flex flex-col items-center overflow-hidden text-center border rounded cursor-move select-none`}
+              className={`relative flex flex-col items-center overflow-hidden text-center bg-gray-100 border rounded cursor-move select-none transition-transform duration-300 ease-in-out transform ${isDragging ? 'scale-105' : 'scale-100'
+                }`}
               style={{ paddingTop: '100%' }}
-              data-index={index}
+              draggable
+              onDragStart={() => handleDragStart(index)}
+              onDragEnter={() => handleDragEnter(index)}
+              onDragEnd={() => {
+                handleDragEnd();
+                setIsDragging(false);
+              }}
+              onDragOver={handleDragOver}
+              onDrop={handleDropPreview}
+              onDrag={e => setIsDragging(true)}
             >
               <button
                 className="absolute top-0 right-0 z-50 p-1 bg-white rounded-bl focus:outline-none"
@@ -122,20 +161,27 @@ const Upload: React.FC<UploadProps> = ({ form, name }) => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                 </svg>
               </button>
-              <CustomImage src={image} height={500} width={500} className="absolute inset-0 z-0 object-contain border-4 border-transparent" alt={'review' + index} />
-              <div className={`absolute inset-0 z-40 transition-colors duration-300 ${fileDropping === index && fileDragging !== index ? 'bg-blue-200 bg-opacity-80' : ''}`} />
+              <Image
+                sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 3840px'
+                src={imageUrl + image} height={500} width={500} className="absolute inset-0 z-0 object-contain border-4 border-transparent" alt={'review' + index} />
             </div>
           ))}
-          {files?.map((file, index) => (
+          {files.map((file, index) => (
             <div
               key={index}
-              className={`relative flex flex-col items-center overflow-hidden text-center bg-gray-100 border rounded cursor-move select-none`}
+              className={`relative flex flex-col items-center overflow-hidden text-center bg-gray-100 border rounded cursor-move select-none transition-transform duration-300 ease-in-out transform ${isDragging ? 'scale-105' : 'scale-100'
+                }`}
               style={{ paddingTop: '100%' }}
               draggable
-              onDragStart={handleDragStart}
-              onDragEnd={() => setFileDragging(null)}
-              data-index={index}
-              onDragEnter={handleDragEnter}
+              onDragStart={() => handleDragStart(index)}
+              onDragEnter={() => handleDragEnter(index)}
+              onDragEnd={() => {
+                handleDragEnd();
+                setIsDragging(false);
+              }}
+              onDragOver={handleDragOver}
+              onDrop={handleDropImage}
+              onDrag={e => setIsDragging(true)}
             >
               <button
                 className="absolute top-0 right-0 z-50 p-1 bg-white rounded-bl focus:outline-none"
@@ -146,29 +192,13 @@ const Upload: React.FC<UploadProps> = ({ form, name }) => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                 </svg>
               </button>
-              {file.type.includes('audio/') && (
-                <svg className="absolute w-12 h-12 text-gray-400 transform top-1/2 -translate-y-2/3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
-                </svg>
-              )}
-              {file.type.includes('application/') || file.type === '' && (
-                <svg className="absolute w-12 h-12 text-gray-400 transform top-1/2 -translate-y-2/3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                </svg>
-              )}
-              {file.type.includes('image/') && (
-                <Image fill src={loadFile(file)} className="absolute inset-0 z-0 object-cover w-full h-full border-4 border-white preview" alt={`upload-image-${index}`} />
-              )}
-              {file.type.includes('video/') && (
-                <video className="absolute inset-0 object-cover w-full h-full border-4 border-white pointer-events-none preview">
-                  <source src={loadFile(file)} type="video/mp4" />
-                </video>
-              )}
-              <div className="absolute bottom-0 left-0 right-0 flex flex-col p-2 text-xs bg-white bg-opacity-50">
-                <span className="w-full font-bold text-gray-900 truncate">{file.name}</span>
-                <span className="text-xs text-gray-900">{humanFileSize(file.size)}</span>
-              </div>
-              <div className={`absolute inset-0 z-40 transition-colors duration-300 ${fileDropping === index && fileDragging !== index ? 'bg-blue-200 bg-opacity-80' : ''}`} />
+              <Image
+                src={loadFile(file)}
+                alt={`upload-image-${index}`}
+                height={500} width={500}
+                className="absolute inset-0 z-0 object-cover w-full h-full border-4 border-white preview"
+              />
+              <p className="absolute bottom-0 w-full p-2 text-xs text-white bg-gray-800 bg-opacity-70">{humanFileSize(file.size)}</p>
             </div>
           ))}
         </div>
