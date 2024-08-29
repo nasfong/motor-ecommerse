@@ -19,7 +19,7 @@ export default function ProductDetail({ id }: { id: string }) {
   return data ? (
     <>
       <Container>
-        <section className='flex flex-col md:flex-row md:gap-8 rounded-lg border border-neutral-200 bg-white p-8  dark:border-neutral-800 dark:bg-black'>
+        <section className='flex flex-col md:flex-row md:gap-8 rounded-lg border border-neutral-200 bg-white p-4 md:p-8  dark:border-neutral-800 dark:bg-black shadow'>
           <article className="h-full w-full md:w-1/2">
             <ProductImageGallery images={data.image} alt={data.name} />
           </article>

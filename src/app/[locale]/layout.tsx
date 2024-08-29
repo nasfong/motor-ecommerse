@@ -1,5 +1,5 @@
-import type { Metadata, Viewport } from "next";
-import { Inter as FontSans, Koh_Santepheap } from "next/font/google";
+import type { Viewport } from "next";
+import { Inter as FontSans, Noto_Sans_Khmer } from "next/font/google";
 import { cn } from "@/lib/utils";
 import NextTopLoader from 'nextjs-toploader'
 import Navbar from "@/components/Navbar";
@@ -12,13 +12,9 @@ import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import "./globals.css";
 
-const fontSans = FontSans({
-  subsets: ["latin"],
-  variable: "--font-sans",
-})
-const fontKhmer = Koh_Santepheap({
+const font = Noto_Sans_Khmer({
   subsets: ["khmer", "latin"],
-  weight: "400",
+  weight: ["400", "500", "600"],
   variable: "--font-sans",
 })
 
@@ -75,7 +71,7 @@ export default async function RootLayout({
       <body
         className={cn(
           "min-h-screen  font-sans antialiased",
-          locale === 'en' ? fontSans.variable : fontKhmer.variable
+          font.variable
         )}
       >
         <NextIntlClientProvider messages={messages}>

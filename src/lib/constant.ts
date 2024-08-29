@@ -17,13 +17,22 @@ export const location = {
 export const imageUrl = `${process.env.NEXT_PUBLIC_API_URL}/image/`
 export const default_image = '/images/default-image.jpg'
 
-const phone = {
-  icon: Phone,
-  name: 'Phone Number',
-  value: '066 300 016/096 255 5577',
-  color: '#90bb21',
-  url: 'tel:+855962555577'
-}
+const phone = [
+  {
+    icon: Phone,
+    name: 'Phone Number',
+    value: '096 255 5577',
+    color: '#90bb21',
+    url: 'tel:+855962555577'
+  },
+  {
+    icon: Phone,
+    name: 'Phone Number',
+    value: '066 300 016',
+    color: '#90bb21',
+    url: 'tel:+85566300016'
+  }
+]
 const facebook = {
   icon: Facebook02Icon,
   name: 'Facebook',

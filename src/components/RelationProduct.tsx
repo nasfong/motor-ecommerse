@@ -10,7 +10,7 @@ const RelationProduct = ({ typeId, excludeProductId }: { typeId: string; exclude
   if (error) return 'Failed to load'
 
   return (
-    <article className='grid grid-cols-2 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-2'>
+    <article className='grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-2'>
       {isLoading ? (
         Array.from({ length: 3 }).map((_, index) => <Skeleton key={index} className='h-[200px] rounded-lg' />)
       ) : relateData?.map((item, index) => (
