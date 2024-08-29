@@ -28,7 +28,7 @@ const ProductImageGallery = ({ images, alt }: { images: string[]; alt: string })
 
   return (
     <div className='w-full'>
-      <PhotoProvider>
+      <PhotoProvider loop={false}>
         <Swiper
           style={swiperStyle}
           spaceBetween={10}

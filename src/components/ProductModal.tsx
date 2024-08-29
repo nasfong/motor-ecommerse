@@ -43,7 +43,6 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
     recommend: z.boolean().default(false),
     removeImages: z.array(z.string()).optional(),
     star: z.number(),
-    indexImage: z.number(),
   })
 
   // default value
@@ -59,7 +58,6 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
     recommend: false,
     removeImages: [],
     star: 0,
-    indexImage: 0,
   }
   // hook form
   const form = useForm<z.infer<typeof formSchema>>({
@@ -92,7 +90,6 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
     formData.append('isSold', data.isSold.toString());
     formData.append('recommend', data.recommend.toString());
     formData.append('star', data.star.toString());
-    formData.append('indexImage', data.indexImage.toString());
     formData.append('removeImages', JSON.stringify(data.removeImages));
 
     mutateAsync(formData)
@@ -114,7 +111,6 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
         isNews: formValue.isNews,
         star: formValue.star,
         recommend: formValue.recommend,
-        indexImage: formValue.indexImage,
         removeImages: []
       })
     }
