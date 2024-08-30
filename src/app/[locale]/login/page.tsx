@@ -1,16 +1,18 @@
 'use client'
 import { Button } from "@/components/ui/button"
-import boy_svg from "@/assets/svg/boy.svg"
+// import boy_svg from "@/assets/svg/boy.svg"
 import { Form } from "@/components/ui/form"
 import { z } from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { InputForm } from "@/components/form/InputForm"
 import { useMutationLogin } from "@/hook"
-import Image from "next/image"
+// import Image from "next/image"
 import { useRouter } from "@/navigation"
 import * as NProgress from "nprogress"
 import { useTranslations } from "next-intl"
+import { toast } from "sonner"
+import { useGlobalContext } from "@/lib/context"
 
 const formSchema = z.object({
   username: z.string().min(1, { message: 'username is required!' }),
@@ -22,6 +24,7 @@ const formSchema = z.object({
 const LoginPage = () => {
   const t = useTranslations('login')
   const router = useRouter();
+  const { dispatch, state: { token: isAuth } } = useGlobalContext()
 
   const { mutate, isPending } = useMutationLogin()
 
@@ -42,10 +45,16 @@ const LoginPage = () => {
     });
   }
 
+  const onLogout = () => {
+    dispatch({ type: 'LOGOUT' })
+    toast.success('Logout!')
+  }
+
   return (
     <div className="lg:grid lg:grid-cols-1">
       <div className="flex items-center justify-center py-12">
         <div className="mx-auto grid w-[350px] gap-6">
+          {!!isAuth && <Button onClick={onLogout} variant="outline">Logout</Button>}
           <div className="grid gap-2 text-center">
             <h1 className="text-3xl font-bold">{t('Logins')}</h1>
             <p className="text-balance text-muted-foreground">
