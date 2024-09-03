@@ -1,6 +1,6 @@
 "use client"
 import { MapPin, Menu, Package2, Phone } from 'lucide-react'
-import { Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "./ui/sheet";
+import { Sheet, SheetClose, SheetContent, SheetTitle, SheetTrigger } from "./ui/sheet";
 import { Button } from './ui/button';
 import { cn } from '@/lib/utils';
 import { useGlobalContext } from '@/lib/context';
@@ -65,7 +65,7 @@ const Navbar = ({ locale }: { locale: string }) => {
         </div>
         <div className='flex items-center gap-3'>
           <Link href='/contact'>{t("Contact Us")}</Link>
-          {[Constant.facebook, Constant.telegram].map(({ icon: Icon, url }, index) => (
+          {[Constant.facebook, Constant.telegram, Constant.tiktok].map(({ icon: Icon, url }, index) => (
             <a key={index} href={url} target="_blank">
               <Icon className="h-3 w-3" fill="currentColor" strokeWidth={0} />
             </a>

@@ -13,7 +13,7 @@ const AddToCard = ({ item }: { item: Product }) => {
   //   dispatch({ type: 'ADD_CART', payload: data })
   // }
 
-  const social = [Constant.facebook, Constant.telegram]
+  const social = [Constant.facebook, Constant.telegram, Constant.tiktok]
   return (
     <div>
       {/* <Button className="w-full" onClick={() => onAddCard(item)}>{t('Add to cart')}</Button> */}

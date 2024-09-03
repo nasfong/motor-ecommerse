@@ -26,7 +26,7 @@ const Contact = () => {
           <Icon fill="#ffffff" strokeWidth={0} />
         </a>
       ))}
-      {[Constant.facebook, Constant.telegram].map(({ name, value, icon: Icon, color, url }, index) => (
+      {[Constant.facebook, Constant.telegram, Constant.tiktok].map(({ name, value, icon: Icon, color, url }, index) => (
         <a
           href={url}
           target="_blank"

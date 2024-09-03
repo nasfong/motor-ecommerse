@@ -1,3 +1,4 @@
+import { TiktokIcon } from "@/assets/svg/icon";
 import { Facebook02Icon, TelegramIcon } from "hugeicons-react";
 import { Phone } from "lucide-react";
 
@@ -10,8 +11,8 @@ export const stocks = (t: (s: string) => void) => {
 };
 
 export const location = {
-  lat: 12.6309728,
-  lng: 104.5400165
+  lat: 12.717218,
+  lng: 104.887384
 };
 
 export const imageUrl = `${process.env.NEXT_PUBLIC_API_URL}/image/`
@@ -33,6 +34,7 @@ const phone = [
     url: 'tel:+85566300016'
   }
 ]
+
 const facebook = {
   icon: Facebook02Icon,
   name: 'Facebook',
@@ -47,6 +49,13 @@ const telegram = {
   color: '#31aae9',
   url: 'https://t.me/sopheaktraky'
 }
+const tiktok = {
+  icon: TiktokIcon,
+  name: 'TikTok',
+  value: 'Sopheaktra Ky',
+  color: '#080808',
+  url: 'https://t.me/sopheaktraky'
+}
 
 export const Constant = {
   stocks,
@@ -55,4 +64,5 @@ export const Constant = {
   phone,
   facebook,
   telegram,
+  tiktok,
 }

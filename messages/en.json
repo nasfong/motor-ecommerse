@@ -25,7 +25,7 @@
     "Home": "Home",
     "All Products": "All Products",
     "Contact": "Contact",
-    "Address": "Komai Road, Tropeng Ses Village, Kok Chok Commune, Krong Siem Reap",
+    "Address": "Street 6, Stueng Saen, Kompong Thom",
     "Contact Us": "Contact Us"
   },
   "all-product": {
@@ -77,7 +77,8 @@
   "contact": {
     "Phone Number": "Phone Number",
     "Facebook": "Facebook",
-    "Telegram": "Telegram"
+    "Telegram": "Telegram",
+    "TikTok": "TikTok"
   },
   "login": {
     "Enter your username below to login to your account": "Enter your username below to login to your account",
