@@ -50,7 +50,7 @@ export default function ProductDetail({ id }: { id: string }) {
       </Container>
       <section className="py-8">
         <h3 className="mb-4 text-2xl font-bold">{t('Related Products')}</h3>
-        <RelationProduct typeId={data.type._id} excludeProductId={data._id} />
+        <RelationProduct typeId={data.type.id} excludeProductId={data.id} />
       </section>
     </>
   ) : null

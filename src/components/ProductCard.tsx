@@ -15,7 +15,7 @@ const ProductCard = ({ item, pageRef, delay }: Props) => {
   const t = useTranslations('product')
   return (
     <div className='h-full rounded-lg border overflow-hidden dark:bg-black relative border-black dark:border-white transform hover:-translate-y-1 transition-transform duration-100 shadow'>
-      <Link ref={pageRef} href={`/all-product/${item._id}/${item.name}`} prefetch>
+      <Link ref={pageRef} href={`/all-product/${item.id}/${item.name}`} prefetch>
         <CustomImage src={item.image[0]} alt={item.name} width={500} height={500} />
         <div className='w-[80%] border-t border-gray-300 dark:border-gray-600 mx-auto'></div>
         <div className='flex flex-col justify-between h-[80px] px-2 pb-2'>

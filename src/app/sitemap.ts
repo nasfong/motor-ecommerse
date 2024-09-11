@@ -24,8 +24,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   })));
 
   const posts = locales.flatMap(locale =>
-    products.map(({ _id, name }) => ({
-      url: `${domain}/${locale}/all-product/${_id}/${encodeURIComponent(name)}`,
+    products.map(({ id, name }) => ({
+      url: `${domain}/${locale}/all-product/${id}/${encodeURIComponent(name)}`,
       lastModified: new Date().toISOString(),
     }))
   );

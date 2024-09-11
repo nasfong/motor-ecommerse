@@ -38,7 +38,7 @@ const Upload: React.FC<UploadProps> = ({ form, name }) => {
   const removePreviewImage = (index: number) => {
     const updatedImages = [...images];
 
-    const removedImage = updatedImages.splice(index, 1);
+    updatedImages.splice(index, 1);
 
     setImages(updatedImages);
 

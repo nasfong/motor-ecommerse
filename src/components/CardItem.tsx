@@ -37,7 +37,7 @@ const CartItem = ({
     >
       <div className="flex flex-row space-x-4 py-4">
         <div className="w-16 h-16 bg-violet relative cursor-pointer">
-          <Link href={`/all-product/${item._id}`}>
+          <Link href={`/all-product/${item.id}`}>
             <Image
               onClick={onCloseSidebar}
               className="w-full h-full object-cover rounded-lg"
@@ -49,7 +49,7 @@ const CartItem = ({
           </Link>
           <div className='absolute -top-2 -right-2'>
             <Button
-              onClick={() => onRemoveCart(item._id)}
+              onClick={() => onRemoveCart(item.id)}
               size="icon"
               variant="outline"
               className='bg-neutral-500 rounded-full  w-4 h-4'
@@ -59,7 +59,7 @@ const CartItem = ({
           </div>
         </div>
         <div className="flex-1 flex flex-col text-base">
-          <Link href={`/all-product/${item._id}`}>
+          <Link href={`/all-product/${item.id}`}>
             <span
               className="font-medium cursor-pointer pb-1 line-clamp-2 tracking-tight"
               onClick={onCloseSidebar}
@@ -74,8 +74,8 @@ const CartItem = ({
           <div className=''>
             <Quantity
               quantity={item.quantity}
-              onMinusCard={() => onDeCreaseCard(item._id)}
-              onPlusCard={() => onInCreaseCard(item._id)}
+              onMinusCard={() => onDeCreaseCard(item.id)}
+              onPlusCard={() => onInCreaseCard(item.id)}
             />
           </div>
         </div>

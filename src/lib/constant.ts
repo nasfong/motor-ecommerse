@@ -5,8 +5,8 @@ import { Phone } from "lucide-react";
 // Create a function to get the translated data based on the locale
 export const stocks = (t: (s: string) => void) => {
   return [
-    { _id: 1, name: t("In Stock") },
-    { _id: 2, name: t("Out Stock") },
+    { id: 1, name: t("In Stock") },
+    { id: 2, name: t("Out Stock") },
   ];
 };
 

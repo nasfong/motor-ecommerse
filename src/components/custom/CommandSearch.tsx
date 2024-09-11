@@ -97,7 +97,7 @@ export const CommandSearch: React.FC = () => {
             products?.map((item, index) => (
               <Link
                 key={index}
-                href={`/all-product/${item._id}/${item.name}`}
+                href={`/all-product/${item.id}/${item.name}`}
                 className="py-2 px-6 hover:bg-gray-100 flex justify-between text-gray-800 dark:text-gray-400"
                 onClick={() => setIsOpen(false)}
               >

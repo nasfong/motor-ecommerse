@@ -27,7 +27,7 @@ type Props = {
 const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
   const t = useTranslations('all-product')
   const { data: typeData, isLoading: typeLoading } = useQueryType()
-  const { mutateAsync, isPending } = useSubmitProduct(formValue?._id)
+  const { mutateAsync, isPending } = useSubmitProduct(formValue?.id)
 
   const formSchema = z.object({
     file: z.any().optional(),
@@ -100,7 +100,7 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
         name: formValue.name,
         description: formValue.description,
         price: formValue.price,
-        type: formValue.type._id,
+        type: formValue.type.id,
         isSold: formValue.isSold,
         isNews: formValue.isNews,
         star: formValue.star,
@@ -115,7 +115,7 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
       <DialogTrigger asChild></DialogTrigger>
       <DialogContent className="min-w-[60%]">
         <DialogHeader>
-          <DialogTitle>{!formValue?._id ? t('Create Product') : t('Edit Product')}</DialogTitle>
+          <DialogTitle>{!formValue?.id ? t('Create Product') : t('Edit Product')}</DialogTitle>
           <DialogDescription>
             {t('product information form')}
           </DialogDescription>
@@ -178,7 +178,7 @@ const ProductModal = ({ open, setOpen, formValue, setFormValue }: Props) => {
               label={t('Recommend')}
             />
             <DialogFooter className="mt-3">
-              <Button type="submit" loading={isPending}>{formValue?._id ? t('Update') : t('Create')}</Button>
+              <Button type="submit" loading={isPending}>{formValue?.id ? t('Update') : t('Create')}</Button>
             </DialogFooter>
           </form>
         </Form>
