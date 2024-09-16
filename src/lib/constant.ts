@@ -47,7 +47,7 @@ const telegram = {
   name: "Telegram",
   value: "Sopheaktra Ky",
   color: "#31aae9",
-  url: "https://t.me/sopheaktraky",
+  url: "https://t.me/ky_hanmotoshop",
 };
 const tiktok = {
   icon: TiktokIcon,
