@@ -1,12 +1,12 @@
-const { fontFamily } = require("tailwindcss/defaultTheme")
+const { fontFamily } = require("tailwindcss/defaultTheme");
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
   ],
   prefix: "",
   theme: {
@@ -14,7 +14,7 @@ module.exports = {
       center: true,
       padding: "2rem",
       screens: {
-        'xs': '320px',
+        xs: "320px",
         "2xl": "1400px",
       },
     },
@@ -23,8 +23,8 @@ module.exports = {
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },
       screens: {
-        'xs': '378px',
-        '2xl': '1400px',
+        xs: "378px",
+        "2xl": "1400px",
       },
       colors: {
         border: "hsl(var(--border))",
@@ -44,7 +44,7 @@ module.exports = {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
         },
-        'light-destructive': {
+        "light-destructive": {
           DEFAULT: "hsl(#FFCDD2)",
           foreground: "hsl(#FFCDD2)",
         },
@@ -87,4 +87,4 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-}
+};

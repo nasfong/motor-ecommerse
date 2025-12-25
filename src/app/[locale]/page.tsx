@@ -38,7 +38,7 @@ export default async function HomePage({ searchParams, params: { locale } }: Hom
   return (
     <main className="flex flex-col gap-5">
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <Home searchParams={{ ...searchParams, ...params }} />
+        {/* <Home searchParams={{ ...searchParams, ...params }} /> */}
       </HydrationBoundary>
     </main>
   );

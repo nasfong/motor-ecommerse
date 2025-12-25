@@ -89,9 +89,6 @@ const LoginPage = () => {
               </div>
             </form>
           </Form>
-          <div className="mt-4 text-center text-sm">
-            Don&apos;t have an account?{" "}
-          </div>
         </div>
       </div>
       {/* <div className="hidden bg-muted lg:block">

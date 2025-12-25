@@ -1,6 +1,5 @@
 import {
   createLocalizedPathnamesNavigation,
-  Pathnames,
 } from "next-intl/navigation";
 import { locales } from "./i18n";
 

@@ -9,9 +9,10 @@ type CustomImageProps = {
   height?: number
   width?: number
   fill?: boolean
+  loading?: 'eager' | 'lazy'
 }
 
-export const CustomImage = ({ src, className, alt, height, width, fill }: CustomImageProps) => {
+export const CustomImage = ({ src, className, alt, height, width, fill, loading }: CustomImageProps) => {
   // const { base64, img } = await getBase64(imageUrl + src)
   return (
     // <div className='relative'>
@@ -26,6 +27,8 @@ export const CustomImage = ({ src, className, alt, height, width, fill }: Custom
       // blurDataURL={base64}
       className={className}
       sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 3840px'
+      decoding="sync"
+      loading={loading}
     />
     // </div>
   )
