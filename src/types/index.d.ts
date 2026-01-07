@@ -3,7 +3,7 @@ type generateMetadataProps = {
 }
 
 type Product = {
-  _id: string
+  id: string
   image: string[]
   name: string
   price: string
@@ -24,7 +24,7 @@ type Product = {
 type Products = Product[]
 
 type Type = {
-  _id: string
+  id: string
   name: string
 }
 

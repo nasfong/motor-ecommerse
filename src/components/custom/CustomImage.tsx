@@ -18,7 +18,7 @@ export const CustomImage = ({ src, className, alt, height, width, fill, loading 
     // <div className='relative'>
     <Image
       // {...img}
-      src={imageUrl + src}
+      src={src ? imageUrl + src : "/images/placeholder.svg"}
       height={height}
       width={width}
       fill={fill}

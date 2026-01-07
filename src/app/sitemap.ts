@@ -8,13 +8,7 @@ const locales = ['en', 'kh'];
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery({
-    queryKey: ['products'],
-    queryFn: () => getProduct(),
-  });
-
-  const products = await queryClient.getQueryData(['products']) as Product[];
-
+  // Static routes that don't depend on API
   const routes = locales.flatMap(locale => [
     "/all-product",
     "/contact"
@@ -23,17 +17,35 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: new Date().toISOString(),
   })));
 
-  const posts = locales.flatMap(locale =>
-    products.map(({ _id, name }) => ({
-      url: `${domain}/${locale}/all-product/${_id}/${encodeURIComponent(name)}`,
-      lastModified: new Date().toISOString(),
-    }))
-  );
-
   const main = locales.map(locale => ({
-    url: domain,
+    url: `${domain}/${locale}`,
     lastModified: new Date().toISOString(),
   }));
 
-  return [...routes, ...posts, ...main];
+  // Try to fetch products, but handle failures gracefully
+  let posts: MetadataRoute.Sitemap = [];
+  
+  try {
+    await queryClient.prefetchQuery({
+      queryKey: ['products'],
+      queryFn: () => getProduct(),
+    });
+
+    const products = await queryClient.getQueryData(['products']) as Product[] | undefined;
+
+    // Only create product URLs if we successfully fetched products
+    if (products && Array.isArray(products) && products.length > 0) {
+      posts = locales.flatMap(locale =>
+        products.map(({ id, name }) => ({
+          url: `${domain}/${locale}/all-product/${id}/${encodeURIComponent(name)}`,
+          lastModified: new Date().toISOString(),
+        }))
+      );
+    }
+  } catch (error) {
+    console.warn('Failed to fetch products for sitemap:', error);
+    // Continue without product URLs - they can be added later or via ISR
+  }
+
+  return [...main, ...routes, ...posts];
 }

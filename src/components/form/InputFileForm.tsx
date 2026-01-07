@@ -14,7 +14,7 @@ export const InputFileForm = forwardRef<HTMLDivElement, any>(({ form, name, labe
             <Input
               {...fieldProps}
               {...props}
-              ref={ref}
+              // ref={ref}
               placeholder="Picture"
               type="file"
               accept=".png, .jpg, .jpeg"

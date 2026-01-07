@@ -50,7 +50,7 @@ const AllProductCard = ({ parent, child, handleEdit, handleDelete, isPendingDele
                 <TooltipProvider delayDuration={0}>
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <DeleteButton handleConfirm={() => handleDelete(item._id)} loading={isPendingDelete} />
+                      <DeleteButton handleConfirm={() => handleDelete(item.id)} loading={isPendingDelete} />
                     </TooltipTrigger>
                     <TooltipContent>
                       {t('Delete')}

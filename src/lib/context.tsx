@@ -39,11 +39,11 @@ const reducer = (state: MyContextState, action: Action): MyContextState => {
   const expires = new Date(Date.now() + 3 * 24 * 60 * 1000) // 3 days expired
   switch (action.type) {
     case 'ADD_CART':
-      const existingCartItem = state.carts.find(item => item._id === action.payload._id);
+      const existingCartItem = state.carts.find(item => item.id === action.payload.id);
       let updatedCarts;
       if (existingCartItem) {
         updatedCarts = state.carts.map(item =>
-          item._id === action.payload._id ? { ...item, quantity: item.quantity + 1 } : item
+          item.id === action.payload.id ? { ...item, quantity: item.quantity + 1 } : item
         );
       } else {
         updatedCarts = [...state.carts, { ...action.payload, quantity: 1 }];
@@ -51,18 +51,18 @@ const reducer = (state: MyContextState, action: Action): MyContextState => {
       Cookies.set('carts', JSON.stringify(updatedCarts), { expires });
       return { ...state, sidebar: true, carts: updatedCarts };
     case 'REMOVE_CART':
-      const filteredCarts = state.carts.filter(item => item._id !== action.payload);
+      const filteredCarts = state.carts.filter(item => item.id !== action.payload);
       Cookies.set('carts', JSON.stringify(filteredCarts), { expires });
       return { ...state, carts: filteredCarts };
     case 'INCREASE_QUANTITY':
       const increasedCart = state.carts.map(item =>
-        item._id === action.payload ? { ...item, quantity: item.quantity + 1 } : item
+        item.id === action.payload ? { ...item, quantity: item.quantity + 1 } : item
       );
       Cookies.set('carts', JSON.stringify(increasedCart), { expires });
       return { ...state, carts: increasedCart };
     case 'DECREASE_QUANTITY':
       const decreasedCart = state.carts.map(item =>
-        item._id === action.payload ? { ...item, quantity: item.quantity - 1 } : item
+        item.id === action.payload ? { ...item, quantity: item.quantity - 1 } : item
       ).filter(item => item.quantity > 0); // Remove item if quantity is 0
       Cookies.set('carts', JSON.stringify(decreasedCart), { expires });
       return { ...state, carts: decreasedCart };

@@ -37,9 +37,9 @@ const ProductCard = ({ item, delay, imageCount = 0 }: Props) => {
     <div className="h-full rounded-lg border overflow-hidden dark:bg-black relative border-black dark:border-white transform hover:-translate-y-1 transition-transform duration-100 shadow">
       <Link
         // ref={linkRef}
-        href={`/all-product/${item._id}/${item.name}`}
+        href={`/all-product/${item.id}/${item.name}`}
         prefetch={true}
-        onHover={() => prefetchProductData(item.type._id, item._id)}
+        onHover={() => prefetchProductData(item.type.id, item.id)}
       >
         <CustomImage
           loading={imageCount < 15 ? "eager" : "lazy"}
@@ -54,7 +54,7 @@ const ProductCard = ({ item, delay, imageCount = 0 }: Props) => {
           <div className="flex justify-between gap-3 text-sm">
             <span className="font-bold truncate">{item.type.name}</span>
             <span>
-              {item.price} {imageCount}
+              {item.price}
               <span className="text-gray-400">$</span>
             </span>
           </div>

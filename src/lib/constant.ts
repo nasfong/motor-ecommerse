@@ -5,8 +5,8 @@ import { Phone } from "lucide-react";
 // Create a function to get the translated data based on the locale
 export const stocks = (t: (s: string) => void) => {
   return [
-    { _id: 1, name: t("In Stock") },
-    { _id: 2, name: t("Out Stock") },
+    { id: 1, name: t("In Stock") },
+    { id: 2, name: t("Out Stock") },
   ];
 };
 
@@ -15,7 +15,7 @@ export const location = {
   lng: 104.887384,
 };
 
-export const imageUrl = `${process.env.NEXT_PUBLIC_API_URL}/image/`;
+export const imageUrl = `${process.env.NEXT_PUBLIC_CDN_URL}/motor-image/`;
 export const default_image = "/images/default-image.jpg";
 
 const phone = [

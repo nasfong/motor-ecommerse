@@ -1,0 +1,11 @@
+services:
+  motor-ecommerce:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: motor-ecommerce-app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env

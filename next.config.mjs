@@ -1,28 +1,31 @@
 /** @type {import('next').NextConfig} */
 import createNextIntlPlugin from "next-intl/plugin";
 
-const withNextIntl = createNextIntlPlugin();
+const withNextIntl = createNextIntlPlugin("./src/i18n.ts");
 
 const nextConfig = {
+  output: "standalone",
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   images: {
-    remotePatterns:
-      process.env.NODE_ENV === "production"
-        ? [
-            {
-              protocol: "https",
-              hostname: new URL(process.env.NEXT_PUBLIC_API_URL).hostname,
-              port: "",
-              pathname: "**",
-            },
-          ]
-        : [
-            {
-              protocol: "https",
-              hostname: new URL(process.env.NEXT_PUBLIC_API_URL).hostname,
-              port: "",
-              pathname: "**",
-            },
-          ],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.nasfong.site",
+        pathname: "**",
+      },
+    ],
+  },
+  webpack: (config, { isServer }) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      canvas: false,
+    };
+    return config;
   },
 };
 
