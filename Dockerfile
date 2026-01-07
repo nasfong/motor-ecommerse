@@ -21,14 +21,6 @@ COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
 
-# IMPORTANT: Add your build-time environment variables here
-ARG NEXT_PUBLIC_CDN_URL
-ENV NEXT_PUBLIC_CDN_URL=$NEXT_PUBLIC_CDN_URL
-
-# Add other NEXT_PUBLIC_ variables as needed
-# ARG NEXT_PUBLIC_API_URL
-# ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
-
 # Build the application
 RUN npm run build
 
@@ -48,6 +40,7 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/package.json ./package.json
 
 # Set correct permissions for standalone output
+
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 

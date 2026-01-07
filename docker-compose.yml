@@ -7,5 +7,10 @@ services:
     restart: unless-stopped
     ports:
       - "3000:3000"
-    env_file:
-      - .env
+    # env_file:
+    #   - .env
+    environment:
+      NEXT_PUBLIC_API_URL: https://motor-api.nasfong.site/api
+      NEXT_PUBLIC_CDN_URL: https://cdn.nasfong.site
+      NEXT_PUBLIC_MAP_API: AIzaSyBVR6OkfLXHW82kWhxyeqOFnuyWlNzHwLM
+

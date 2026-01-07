@@ -1,59 +1,59 @@
-# # Dependencies
+# Dependencies
 node_modules
-# # Next.js
+# Next.js
 .next
-# out
-# dist
-# build
+out
+dist
+build
 
-# # Testing
-# coverage
-# .nyc_output
+# Testing
+coverage
+.nyc_output
 
-# # Misc
-# .DS_Store
-# *.pem
+# Misc
+.DS_Store
+*.pem
 
-# # Debug
-# *.log
-# *.log.*
+# Debug
+*.log
+*.log.*
 
-# # Local env files
-# .env
-# .env.local
-# .env.development
-# .env.development.local
-# .env.test.local
-# .env.production.local
+# Local env files
+.env
+.env.local
+.env.development
+.env.development.local
+.env.test.local
+.env.production.local
 
-# # Vercel
-# .vercel
+# Vercel
+.vercel
 
-# # Typescript
-# *.tsbuildinfo
+# Typescript
+*.tsbuildinfo
 
-# # Git
-# .git
-# .gitignore
-# .github
+# Git
+.git
+.gitignore
+.github
 
-# # IDE
-# .vscode
-# .idea
-# *.swp
-# *.swo
-# *~
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
 
-# # Docker
-# Dockerfile
-# .dockerignore
-# docker-compose*.yml
+# Docker
+Dockerfile
+.dockerignore
+docker-compose*.yml
 
-# # Documentation
-# README.md
-# docs
+# Documentation
+README.md
+docs
 
-# # CI/CD
-# .gitlab-ci.yml
-# .travis.yml
-# azure-pipelines.yml
+# CI/CD
+.gitlab-ci.yml
+.travis.yml
+azure-pipelines.yml
