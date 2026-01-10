@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { ThemeProvider as NextThemesProvider } from "next-themes"
 import { ThemeProviderProps } from 'next-themes/dist/types'
 import { Toaster } from '@/components/ui/sonner'
+import { Constant } from './constant'
 
 export default function Provider({ children, ...props }: ThemeProviderProps) {
   const { state: { token } } = useGlobalContext()
@@ -18,7 +19,7 @@ export default function Provider({ children, ...props }: ThemeProviderProps) {
     },
   }))
 
-  axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_URL
+  axios.defaults.baseURL = Constant.NEXT_PUBLIC_API_URL
   axios.defaults.headers.post['Content-Type'] = 'application/json'
   axios.defaults.headers.post['Accept'] = 'application/json'
 

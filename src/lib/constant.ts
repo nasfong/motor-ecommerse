@@ -15,7 +15,7 @@ export const location = {
   lng: 104.887384,
 };
 
-export const imageUrl = `${process.env.NEXT_PUBLIC_CDN_URL}/motor-image/`;
+export const imageUrl = `https://cdn.nasfong.site/motor-image/`;
 export const default_image = "/images/default-image.jpg";
 
 const phone = [
@@ -57,6 +57,10 @@ const tiktok = {
   url: "https://www.tiktok.com/@kyhan8821999?_t=8pPs3J2f3SL&_r=1",
 };
 
+
+const NEXT_PUBLIC_API_URL = "https://motor-api.nasfong.site/api"
+const NEXT_PUBLIC_MAP_API = "AIzaSyBVR6OkfLXHW82kWhxyeqOFnuyWlNzHwLM"
+
 export const Constant = {
   stocks,
   location,
@@ -65,4 +69,6 @@ export const Constant = {
   facebook,
   telegram,
   tiktok,
+  NEXT_PUBLIC_API_URL,
+  NEXT_PUBLIC_MAP_API,
 };

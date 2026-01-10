@@ -6,7 +6,7 @@ import { LoadingSpinner } from './custom/LoadingSpinner';
 const Map = ({ options }: { options?: google.maps.MapOptions }) => {
   const { isLoaded, loadError } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: process.env.NEXT_PUBLIC_MAP_API!
+    googleMapsApiKey: Constant.NEXT_PUBLIC_MAP_API
   });
 
   if (loadError) {

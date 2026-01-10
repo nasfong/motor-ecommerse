@@ -2,22 +2,23 @@ import { useGlobalContext } from "@/lib/context";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import axios from "axios";
+import { Constant } from "@/lib/constant";
 
 export async function getProduct(queryParams?: QueryParams): Promise<Products> {
   const res = await
-    axios.get(`${process.env.NEXT_PUBLIC_API_URL}/product`, {
+    axios.get(`${Constant.NEXT_PUBLIC_API_URL}/product`, {
       params: queryParams
     })
   return res.data
 }
 
 export async function getProductById(id: string): Promise<Product> {
-  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/product/${id}`)
+  const res = await axios.get(`${Constant.NEXT_PUBLIC_API_URL}/product/${id}`)
   return res.data
 }
 
 async function getSearch(queryParams: { query: string }): Promise<Product[]> {
-  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/search`, {
+  const res = await axios.get(`${Constant.NEXT_PUBLIC_API_URL}/search`, {
     params: queryParams,
   });
   return res.data;
@@ -33,7 +34,7 @@ export const useSearch = (query: string) => {
 
 
 export async function getType(): Promise<Type[]> {
-  const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/type`)
+  const res = await axios.get(`${Constant.NEXT_PUBLIC_API_URL}/type`)
   return res.data
 }
 
