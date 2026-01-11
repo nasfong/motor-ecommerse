@@ -159,9 +159,13 @@ const Upload: React.FC<UploadProps> = ({ form, name }) => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                 </svg>
               </button>
-              <Image
-                sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 3840px'
-                src={imageUrl + image} height={500} width={500} className="absolute inset-0 z-0 object-contain border-4 border-transparent" alt={'review' + index} />
+              <img
+                src={imageUrl + image}
+                height={500}
+                width={500}
+                className="absolute inset-0 z-0 object-contain border-4 border-transparent"
+                alt={'review' + index}
+              />
             </div>
           ))}
           {files.map((file, index) => (
@@ -190,10 +194,11 @@ const Upload: React.FC<UploadProps> = ({ form, name }) => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                 </svg>
               </button>
-              <Image
+              <img
                 src={loadFile(file)}
                 alt={`upload-image-${index}`}
-                height={500} width={500}
+                height={500}
+                width={500}
                 className="absolute inset-0 z-0 object-cover w-full h-full border-4 border-white preview"
               />
               <p className="absolute bottom-0 w-full p-2 text-xs text-white bg-gray-800 bg-opacity-70">{humanFileSize(file.size)}</p>

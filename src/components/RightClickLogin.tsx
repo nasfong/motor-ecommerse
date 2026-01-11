@@ -25,7 +25,7 @@ export function RightClickLogin({
           className="flex items-center gap-2 text-lg font-semibold md:text-base"
         >
           {/* <Package2 className="h-6 w-6" /> */}
-          <Image height={50} width={50} src="/apple-touch-icon.png" alt="logo" />
+          <img height={50} width={50} src="/apple-touch-icon.png" alt="logo" />
           <span className="sr-only">Acme Inc</span>
         </Link>
       </ContextMenuTrigger>

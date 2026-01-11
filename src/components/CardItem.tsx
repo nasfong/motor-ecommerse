@@ -38,7 +38,7 @@ const CartItem = ({
       <div className="flex flex-row space-x-4 py-4">
         <div className="w-16 h-16 bg-violet relative cursor-pointer">
           <Link href={`/all-product/${item.id}`}>
-            <Image
+            <img
               onClick={onCloseSidebar}
               className="w-full h-full object-cover rounded-lg"
               width={64}

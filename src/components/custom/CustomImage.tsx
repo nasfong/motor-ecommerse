@@ -16,17 +16,12 @@ export const CustomImage = ({ src, className, alt, height, width, fill, loading 
   // const { base64, img } = await getBase64(imageUrl + src)
   return (
     // <div className='relative'>
-    <Image
-      // {...img}
+    <img
       src={src ? imageUrl + src : "/images/placeholder.svg"}
       height={height}
       width={width}
-      fill={fill}
       alt={`${alt} - Kyhan Motor`}
-      // placeholder='blur'
-      // blurDataURL={base64}
-      className={className}
-      sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 3840px'
+      className={fill ? `absolute inset-0 w-full h-full object-cover ${className}` : className}
       decoding="sync"
       loading={loading}
     />

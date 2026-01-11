@@ -91,14 +91,6 @@ const LoginPage = () => {
           </Form>
         </div>
       </div>
-      {/* <div className="hidden bg-muted lg:block">
-        <Image
-          src={boy_svg}
-          alt="Image"
-          className="h-full object-cover dark:brightness-[0.2] dark:grayscale"
-          property=""
-        />
-      </div> */}
     </div>
 
   )

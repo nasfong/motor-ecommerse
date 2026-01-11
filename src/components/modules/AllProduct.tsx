@@ -10,7 +10,7 @@ import ProductModal from "../ProductModal";
 import { useTranslations } from "next-intl";
 
 const groupList = (list: Product[]) => {
-  return list.reduce<{ [key: string]: typeof list }>((acc, item) => {
+  return list?.reduce<{ [key: string]: typeof list }>((acc, item) => {
     if (!acc[item.type?.name]) {
       acc[item.type?.name] = [];
     }
