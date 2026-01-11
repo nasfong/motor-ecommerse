@@ -74,7 +74,7 @@ const Navbar = ({ locale }: { locale: string }) => {
       </div>
 
       <nav className="flex h-16 items-center gap-4 px-4 md:px-6 border-b">
-        <ul className="flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6 text-lg font-medium">
+        <ul className="hidden md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6 text-lg font-medium">
           <RightClickLogin isAuth={!!isAuth} onLogout={onLogout} />
           {navbar.map((item, index) => {
             const active = item.path === pathname

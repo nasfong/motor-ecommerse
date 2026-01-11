@@ -25,6 +25,13 @@ export const DeleteButton = forwardRef<HTMLButtonElement, DeleteButtonProps>(({ 
 
   const onChangeModal = (isOpen: boolean) => setOpen(isOpen)
 
+  const onDelete = async () => {
+    await handleConfirm()
+    if (!loading) {
+      setOpen(false)
+    }
+  }
+
   return (
     <AlertDialog open={open} onOpenChange={onChangeModal}>
       <AlertDialogTrigger asChild>
@@ -41,7 +48,7 @@ export const DeleteButton = forwardRef<HTMLButtonElement, DeleteButtonProps>(({ 
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel onClick={() => setOpen(false)}>{t('Cancel')}</AlertDialogCancel>
-          <Button onClick={handleConfirm} loading={loading}>
+          <Button onClick={onDelete} loading={loading}>
             {t('Delete')}
             <Trash2 className="ml-2 h-4 w-4" />
           </Button>
